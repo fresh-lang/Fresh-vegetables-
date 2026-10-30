@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="theme-color" content="#16823b">
   <title>Fresh Veggie & Grocery | Gossaigaon</title>
   <style>
@@ -15,12 +15,12 @@
       --line: #d8e6dc;
       --white: #ffffff;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
-      padding-bottom: 80px;
+      padding-bottom: 90px;
     }
     header {
       background: var(--green);
@@ -40,15 +40,15 @@
       background: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.4);
       color: white;
-      padding: 6px 12px;
+      padding: 8px 12px;
       border-radius: 20px;
       font-size: 13px;
       cursor: pointer;
       font-weight: 600;
+      touch-action: manipulation;
     }
-    .main-wrap { max-width: 600px; margin: 0 auto; padding: 14px; display: flex; flex-direction: column; gap: 14px; }
+    .main-wrap { max-width: 600px; margin: 0 auto; padding: 14px; display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 1; }
     
-    /* Wallet Bar */
     .wallet-card {
       background: linear-gradient(135deg, #16823b, #0f5c2a);
       color: white;
@@ -60,7 +60,6 @@
     }
     .wallet-val { font-size: 22px; font-weight: 800; }
 
-    /* Delivery Rules Notice */
     .delivery-notice {
       background: #e8f5e9;
       border: 1px dashed var(--green);
@@ -71,7 +70,6 @@
       line-height: 1.5;
     }
     
-    /* Search & Filter */
     .search-box input, select {
       width: 100%;
       padding: 10px 14px;
@@ -82,18 +80,7 @@
       margin-bottom: 8px;
       outline: none;
     }
-
-    .section-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--green-dark);
-      margin: 10px 0 4px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
     
-    /* Product Grid */
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .product-card {
       background: white;
@@ -104,6 +91,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      position: relative;
     }
     .product-img { font-size: 40px; margin-bottom: 4px; }
     .product-name { font-weight: 700; font-size: 14px; }
@@ -113,14 +101,16 @@
       background: var(--green);
       color: white;
       border: none;
-      padding: 8px;
+      padding: 10px;
       border-radius: 8px;
       font-weight: 700;
       cursor: pointer;
       font-size: 13px;
+      touch-action: manipulation;
+      user-select: none;
     }
+    .btn-add:active { background: var(--green-dark); transform: scale(0.98); }
 
-    /* Panels */
     .panel {
       background: white;
       border: 1px solid var(--line);
@@ -141,25 +131,26 @@
     }
     .btn-block {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       border-radius: 8px;
       border: none;
       font-weight: 700;
       cursor: pointer;
       font-size: 14px;
+      touch-action: manipulation;
     }
     .btn-primary { background: var(--green); color: white; }
     .btn-whatsapp { background: #25D366; color: white; margin-top: 6px; }
 
-    /* Modals */
+    /* Modals - Clean Fixed Stacking */
     .modal-overlay {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      inset: 0;
       background: rgba(0,0,0,0.6);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      z-index: 99999;
       padding: 16px;
     }
     .modal-content {
@@ -170,19 +161,28 @@
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
+      position: relative;
     }
-    .modal-close { float: right; font-size: 20px; font-weight: 800; cursor: pointer; border: none; background: transparent; }
+    .modal-close {
+      float: right;
+      font-size: 22px;
+      font-weight: 800;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      padding: 4px;
+    }
   </style>
 </head>
 <body>
 
   <!-- Header -->
   <header>
-    <div class="brand">🥦 Fresh Veggie & Grocery</div>
+    <div class="brand">🥦 Fresh Veggie</div>
     <div class="header-actions">
-      <button class="btn-header" onclick="openModal('sellerModal')">🏪 Sell</button>
-      <button class="btn-header" id="authBtn" onclick="openModal('authModal')">👤 Login</button>
-      <button class="btn-header" onclick="openCartModal()">🛒 <span id="cartCount">0</span></button>
+      <button type="button" class="btn-header" onclick="openModal('sellerModal')">🏪 Sell</button>
+      <button type="button" class="btn-header" id="authBtn" onclick="openModal('authModal')">👤 Login</button>
+      <button type="button" class="btn-header" onclick="openCartModal()">🛒 <span id="cartCount">0</span></button>
     </div>
   </header>
 
@@ -190,7 +190,7 @@
     <!-- Wallet Bar -->
     <div class="wallet-card">
       <div>
-        <div style="font-size: 12px; opacity: 0.9;">Wallet Balance (Bonus & Rewards)</div>
+        <div style="font-size: 12px; opacity: 0.9;">Wallet Balance</div>
         <div class="wallet-val">₹<span id="walletBal">0</span></div>
       </div>
       <div style="text-align: right;">
@@ -202,8 +202,8 @@
     <div class="delivery-notice">
       <b>🚚 Order & Delivery Rules:</b><br>
       • Minimum order value: <b>₹100</b><br>
-      • Orders below ₹300: Delivery Charge <b>₹21</b><br>
-      • Orders of ₹300 and above: <b>FREE Delivery!</b>
+      • Below ₹300: Delivery Charge <b>₹21</b><br>
+      • ₹300 & Above: <b>FREE Delivery</b>
     </div>
 
     <!-- Search & Filter -->
@@ -216,140 +216,139 @@
       </select>
     </div>
 
-    <!-- Products Grid (Direct Pre-loaded Items) -->
+    <!-- Product Grid -->
     <div class="grid" id="productsGrid">
-      <!-- 1 -->
       <div class="product-card" data-name="potato alu" data-cat="Vegetables">
         <div class="product-img">🥔</div>
         <div class="product-name">Potato (Alu)</div>
         <div class="product-cat">Fresh Vegetables</div>
         <div class="product-price">₹27 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
-        <button class="btn-add" onclick="addToCart(1, 'Potato (Alu)', 27, 'kg')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(1, 'Potato (Alu)', 27, 'kg')">Add to Cart</button>
       </div>
-      <!-- 2 -->
+
       <div class="product-card" data-name="tomato bilahi" data-cat="Vegetables">
         <div class="product-img">🍅</div>
         <div class="product-name">Tomato (Bilahi)</div>
         <div class="product-cat">Fresh Vegetables</div>
         <div class="product-price">₹35 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
-        <button class="btn-add" onclick="addToCart(2, 'Tomato (Bilahi)', 35, 'kg')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(2, 'Tomato (Bilahi)', 35, 'kg')">Add to Cart</button>
       </div>
-      <!-- 3 -->
+
       <div class="product-card" data-name="onion piyaj" data-cat="Vegetables">
         <div class="product-img">🧅</div>
         <div class="product-name">Onion (Piyaj)</div>
         <div class="product-cat">Fresh Vegetables</div>
         <div class="product-price">₹53 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
-        <button class="btn-add" onclick="addToCart(3, 'Onion (Piyaj)', 53, 'kg')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(3, 'Onion (Piyaj)', 53, 'kg')">Add to Cart</button>
       </div>
-      <!-- 4 -->
+
       <div class="product-card" data-name="cucumber tiyoh" data-cat="Vegetables">
         <div class="product-img">🥒</div>
         <div class="product-name">Cucumber (Tiyoh)</div>
         <div class="product-cat">Fresh Vegetables</div>
         <div class="product-price">₹28 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
-        <button class="btn-add" onclick="addToCart(4, 'Cucumber (Tiyoh)', 28, 'kg')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(4, 'Cucumber (Tiyoh)', 28, 'kg')">Add to Cart</button>
       </div>
-      <!-- 5 -->
+
       <div class="product-card" data-name="cauliflower kobi" data-cat="Vegetables">
         <div class="product-img">🥦</div>
         <div class="product-name">Cauliflower (Kobi)</div>
         <div class="product-cat">Fresh Vegetables</div>
         <div class="product-price">₹35 <span style="font-size:12px; font-weight:normal;">/pc</span></div>
-        <button class="btn-add" onclick="addToCart(5, 'Cauliflower (Kobi)', 35, 'pc')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(5, 'Cauliflower (Kobi)', 35, 'pc')">Add to Cart</button>
       </div>
-      <!-- 6 -->
+
       <div class="product-card" data-name="cabbage bandhakobi" data-cat="Vegetables">
         <div class="product-img">🥬</div>
         <div class="product-name">Cabbage (Bandhakobi)</div>
         <div class="product-cat">Fresh Vegetables</div>
         <div class="product-price">₹30 <span style="font-size:12px; font-weight:normal;">/pc</span></div>
-        <button class="btn-add" onclick="addToCart(6, 'Cabbage (Bandhakobi)', 30, 'pc')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(6, 'Cabbage (Bandhakobi)', 30, 'pc')">Add to Cart</button>
       </div>
-      <!-- 7 -->
+
       <div class="product-card" data-name="chilli ginger" data-cat="Vegetables">
         <div class="product-img">🌶️</div>
         <div class="product-name">Green Chilli & Ginger</div>
         <div class="product-cat">Fresh Vegetables</div>
         <div class="product-price">₹30 <span style="font-size:12px; font-weight:normal;">/pack</span></div>
-        <button class="btn-add" onclick="addToCart(7, 'Green Chilli & Ginger', 30, 'pack')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(7, 'Green Chilli & Ginger', 30, 'pack')">Add to Cart</button>
       </div>
-      <!-- 8 -->
+
       <div class="product-card" data-name="miniket rice saul" data-cat="Groceries">
         <div class="product-img">🍚</div>
-        <div class="product-name">Miniket Premium Rice</div>
+        <div class="product-name">Miniket Rice</div>
         <div class="product-cat">Daily Groceries</div>
         <div class="product-price">₹52 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
-        <button class="btn-add" onclick="addToCart(8, 'Miniket Premium Rice', 52, 'kg')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(8, 'Miniket Rice', 52, 'kg')">Add to Cart</button>
       </div>
-      <!-- 9 -->
+
       <div class="product-card" data-name="mustard oil tel" data-cat="Groceries">
         <div class="product-img">🛢️</div>
-        <div class="product-name">Mustard Oil (Kachi Ghani)</div>
+        <div class="product-name">Mustard Oil</div>
         <div class="product-cat">Daily Groceries</div>
         <div class="product-price">₹145 <span style="font-size:12px; font-weight:normal;">/litre</span></div>
-        <button class="btn-add" onclick="addToCart(9, 'Mustard Oil (Kachi Ghani)', 145, 'litre')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(9, 'Mustard Oil', 145, 'litre')">Add to Cart</button>
       </div>
-      <!-- 10 -->
+
       <div class="product-card" data-name="masoor dal lentil" data-cat="Groceries">
         <div class="product-img">🥣</div>
-        <div class="product-name">Masoor Dal (Red)</div>
+        <div class="product-name">Masoor Dal</div>
         <div class="product-cat">Daily Groceries</div>
         <div class="product-price">₹95 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
-        <button class="btn-add" onclick="addToCart(10, 'Masoor Dal (Red)', 95, 'kg')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(10, 'Masoor Dal', 95, 'kg')">Add to Cart</button>
       </div>
-      <!-- 11 -->
+
       <div class="product-card" data-name="sugar chini" data-cat="Groceries">
         <div class="product-img">🧂</div>
-        <div class="product-name">Refined Pure Sugar</div>
+        <div class="product-name">Refined Sugar</div>
         <div class="product-cat">Daily Groceries</div>
         <div class="product-price">₹44 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
-        <button class="btn-add" onclick="addToCart(11, 'Refined Pure Sugar', 44, 'kg')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(11, 'Refined Sugar', 44, 'kg')">Add to Cart</button>
       </div>
-      <!-- 12 -->
-      <div class="product-card" data-name="tata salt nimokh" data-cat="Groceries">
+
+      <div class="product-card" data-name="tata salt" data-cat="Groceries">
         <div class="product-img">🧂</div>
-        <div class="product-name">Tata Salt (Iodized)</div>
+        <div class="product-name">Tata Salt</div>
         <div class="product-cat">Daily Groceries</div>
         <div class="product-price">₹28 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
-        <button class="btn-add" onclick="addToCart(12, 'Tata Salt (Iodized)', 28, 'kg')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(12, 'Tata Salt', 28, 'kg')">Add to Cart</button>
       </div>
-      <!-- 13 -->
+
       <div class="product-card" data-name="atta flour" data-cat="Groceries">
         <div class="product-img">🌾</div>
-        <div class="product-name">Chakki Fresh Atta</div>
+        <div class="product-name">Chakki Atta</div>
         <div class="product-cat">Daily Groceries</div>
         <div class="product-price">₹42 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
-        <button class="btn-add" onclick="addToCart(13, 'Chakki Fresh Atta', 42, 'kg')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(13, 'Chakki Atta', 42, 'kg')">Add to Cart</button>
       </div>
-      <!-- 14 -->
-      <div class="product-card" data-name="turmeric spices masala" data-cat="Groceries">
+
+      <div class="product-card" data-name="turmeric masala spices" data-cat="Groceries">
         <div class="product-img">📦</div>
-        <div class="product-name">Turmeric & Spices Pack</div>
+        <div class="product-name">Spices Pack</div>
         <div class="product-cat">Daily Groceries</div>
         <div class="product-price">₹45 <span style="font-size:12px; font-weight:normal;">/pack</span></div>
-        <button class="btn-add" onclick="addToCart(14, 'Turmeric & Spices Pack', 45, 'pack')">Add to Cart</button>
+        <button type="button" class="btn-add" onclick="addToCart(14, 'Spices Pack', 45, 'pack')">Add to Cart</button>
       </div>
     </div>
 
-    <!-- Referral Program Section (Placed at Bottom) -->
+    <!-- Referral Program -->
     <div class="panel">
       <h3>🎁 Refer & Earn Rewards</h3>
-      <p>Invite friends to Fresh Veggie! Earn <b>₹5</b> on their first successful order, plus <b>₹5 bonus</b> for every <b>₹1,000</b> in order value directly credited to your wallet!</p>
+      <p>Invite friends! Earn <b>₹5</b> on their first order, plus <b>₹5 bonus</b> for every <b>₹1,000</b> in order value!</p>
       <div style="display: flex; gap: 6px;">
         <input type="text" id="myRefCode" readonly style="font-weight: 700; text-align: center; margin-bottom: 0;">
-        <button class="btn-block btn-primary" style="width: 110px;" onclick="copyReferral()">Copy</button>
+        <button type="button" class="btn-block btn-primary" style="width: 110px;" onclick="copyReferral()">Copy</button>
       </div>
-      <button class="btn-block btn-whatsapp" onclick="shareOnWhatsApp()">📲 Share on WhatsApp</button>
+      <button type="button" class="btn-block btn-whatsapp" onclick="shareOnWhatsApp()">📲 Share on WhatsApp</button>
     </div>
   </div>
 
   <!-- MODAL: Login & OTP -->
-  <div class="modal-overlay" id="authModal">
+  <div class="modal-overlay" id="authModal" onclick="closeOnOutside(event, 'authModal')">
     <div class="modal-content">
-      <button class="modal-close" onclick="closeModal('authModal')">✕</button>
-      <h3 style="margin-bottom: 4px; color: var(--green);">📱 Mobile Login & Register</h3>
-      <p style="font-size: 13px; color: var(--muted); margin-bottom: 14px;">Register today and get an instant <b>₹20 welcome wallet bonus</b>!</p>
+      <button type="button" class="modal-close" onclick="closeModal('authModal')">✕</button>
+      <h3 style="margin-bottom: 4px; color: var(--green);">📱 Mobile Login</h3>
+      <p style="font-size: 13px; color: var(--muted); margin-bottom: 14px;">Register and get <b>₹20 welcome bonus</b>!</p>
       
       <div id="stepPhone">
         <label style="font-size: 12px; font-weight: 600;">Mobile Number</label>
@@ -358,24 +357,24 @@
         <label style="font-size: 12px; font-weight: 600;">Referral Code (Optional)</label>
         <input type="text" id="inputReferral" placeholder="Enter referral code">
         
-        <button class="btn-block btn-primary" onclick="sendOtp()">Send OTP</button>
+        <button type="button" class="btn-block btn-primary" onclick="sendOtp()">Send OTP</button>
       </div>
 
       <div id="stepOtp" style="display: none;">
         <label style="font-size: 12px; font-weight: 600;">Enter 4-Digit OTP</label>
         <input type="number" id="otpValue" placeholder="e.g. 1234">
-        <button class="btn-block btn-primary" onclick="verifyOtp()">Verify & Register</button>
+        <button type="button" class="btn-block btn-primary" onclick="verifyOtp()">Verify & Register</button>
         <p style="font-size: 11px; color: var(--muted); margin-top: 8px;">Demo OTP: <b>1234</b></p>
       </div>
     </div>
   </div>
 
   <!-- MODAL: Become a Seller -->
-  <div class="modal-overlay" id="sellerModal">
+  <div class="modal-overlay" id="sellerModal" onclick="closeOnOutside(event, 'sellerModal')">
     <div class="modal-content">
-      <button class="modal-close" onclick="closeModal('sellerModal')">✕</button>
+      <button type="button" class="modal-close" onclick="closeModal('sellerModal')">✕</button>
       <h3 style="margin-bottom: 4px; color: var(--green);">🏪 Become a Seller</h3>
-      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Sell produce or groceries. Submit PAN card details for verification.</p>
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Submit PAN card details for verification.</p>
 
       <form onsubmit="handleSellerSubmit(event)">
         <label style="font-size: 12px; font-weight: 600;">Full Name (As per PAN)</label>
@@ -396,14 +395,13 @@
   </div>
 
   <!-- MODAL: Cart & Checkout -->
-  <div class="modal-overlay" id="cartModal">
+  <div class="modal-overlay" id="cartModal" onclick="closeOnOutside(event, 'cartModal')">
     <div class="modal-content">
-      <button class="modal-close" onclick="closeModal('cartModal')">✕</button>
+      <button type="button" class="modal-close" onclick="closeModal('cartModal')">✕</button>
       <h3 style="margin-bottom: 10px; color: var(--green);">🛒 Delivery & Payment</h3>
       
       <div id="cartItemsList" style="font-size: 13px; margin-bottom: 10px;"></div>
       
-      <!-- Price Breakdown -->
       <div style="background: #f9fbf9; padding: 10px; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 12px; font-size: 13px;">
         <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
           <span>Items Subtotal:</span>
@@ -425,7 +423,7 @@
       <label style="font-size: 12px; font-weight: 600;">Mobile Number</label>
       <input type="tel" id="custPhone" placeholder="10-digit mobile number" maxlength="10">
 
-      <label style="font-size: 12px; font-weight: 600;">Select Village (Gossaigaon Block)</label>
+      <label style="font-size: 12px; font-weight: 600;">Select Village (Gossaigaon)</label>
       <select id="custVillage">
         <option value="">-- Choose Your Village --</option>
         <option value="Gossaigaon Town">Gossaigaon Town / Ward</option>
@@ -446,11 +444,11 @@
         <option value="Mornai Tea Estate">Mornai Tea Estate</option>
         <option value="Hathigarh">Hathigarh</option>
         <option value="Guabari">Guabari</option>
-        <option value="Other Gossaigaon Village">Other Nearby Village</option>
+        <option value="Other Village">Other Nearby Village</option>
       </select>
 
       <label style="font-size: 12px; font-weight: 600;">Full Address / Landmark</label>
       <input type="text" id="custAddress" placeholder="House no, road, school/temple landmark">
 
-      <!-- Payment Method -->
-      <label style="font-size: 12px; font-weight: 600; display: block; margin-to
+      <label style="font-size: 12px; font-weight: 600; display: block; margin-top: 8px; margin-bottom: 6px;">Payment Method</label>
+      <div style="display:
