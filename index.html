@@ -20,6 +20,7 @@
       --muted: #627568;
       --border: #e3ece6;
       --radius: 14px;
+      --danger: #dc2626;
       --shadow: 0 4px 20px -2px rgba(18, 112, 50, 0.08);
       --shadow-lg: 0 10px 30px -4px rgba(0, 0, 0, 0.12);
     }
@@ -77,7 +78,6 @@
       transition: all 0.2s;
     }
     .btn-header:active { transform: scale(0.96); background: rgba(255,255,255,0.25); }
-
     .main-wrap {
       max-width: 520px;
       margin: 0 auto;
@@ -86,9 +86,7 @@
       flex-direction: column;
       gap: 14px;
     }
-
-    /* Wallet Card Modern */
-    .wallet-card {
+        .wallet-card {
       background: linear-gradient(135deg, #127032 0%, #08401b 100%);
       color: white;
       padding: 18px;
@@ -126,8 +124,6 @@
       display: inline-block;
       transition: 0.2s;
     }
-    .btn-wallet-add:active { transform: scale(0.95); }
-
     .user-pill {
       font-size: 11px;
       background: rgba(255,255,255,0.15);
@@ -137,8 +133,6 @@
       font-weight: 600;
       border: 1px solid rgba(255,255,255,0.2);
     }
-
-    /* Notice Banner */
     .delivery-notice {
       background: #f0f8f3;
       border: 1px solid #c9e4d3;
@@ -151,16 +145,8 @@
       align-items: center;
       gap: 10px;
     }
-
-    /* Search Bar & Pills */
-    .search-box {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .search-input-wrap {
-      position: relative;
-    }
+    .search-box { display: flex; flex-direction: column; gap: 8px; }
+    .search-input-wrap { position: relative; }
     .search-input-wrap input {
       width: 100%;
       padding: 12px 14px 12px 38px;
@@ -170,25 +156,9 @@
       background: var(--surface);
       outline: none;
       box-shadow: var(--shadow);
-      transition: border-color 0.2s;
     }
-    .search-input-wrap input:focus { border-color: var(--primary); }
-    .search-icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .cat-bar {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 2px;
-      scrollbar-width: none;
-    }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 15px; }
+    .cat-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
     .cat-bar::-webkit-scrollbar { display: none; }
     .cat-pill {
       white-space: nowrap;
@@ -208,13 +178,7 @@
       border-color: var(--primary);
       box-shadow: 0 4px 12px rgba(18, 112, 50, 0.25);
     }
-
-    /* Products Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .product-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -225,10 +189,8 @@
       justify-content: space-between;
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: transform 0.2s;
+      position: relative;
     }
-    .product-card:active { transform: translateY(-2px); }
-
     .product-media-wrap {
       width: 100%;
       height: 125px;
@@ -256,20 +218,21 @@
       color: var(--primary-dark);
       text-transform: uppercase;
     }
-    .product-name {
-      font-size: 13px;
+    .stock-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(18, 112, 50, 0.9);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-size: 9px;
       font-weight: 700;
-      color: var(--text);
-      line-height: 1.3;
-      margin-bottom: 2px;
     }
+    .stock-badge.out { background: rgba(220, 38, 38, 0.9); }
+    .product-name { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 2px; }
     .product-unit { font-size: 11px; color: var(--muted); }
-    .product-price {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--primary);
-      margin: 6px 0;
-    }
+    .product-price { font-size: 16px; font-weight: 800; color: var(--primary); margin: 6px 0; }
     button.btn-add {
       background: var(--primary);
       color: white;
@@ -282,9 +245,7 @@
       width: 100%;
       transition: background 0.15s;
     }
-    button.btn-add:active { background: var(--primary-dark); }
-
-    /* Modals & Panels */
+    button.btn-add:disabled { background: #cbd5e1; cursor: not-allowed; }
     .panel {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -294,7 +255,6 @@
     }
     .panel h3 { font-size: 14px; margin-bottom: 4px; color: var(--primary-dark); }
     .panel p { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
-
     input[type="text"], input[type="tel"], input[type="password"], input[type="number"], select {
       width: 100%;
       padding: 10px 12px;
@@ -305,8 +265,6 @@
       outline: none;
       background: var(--surface);
     }
-    input:focus, select:focus { border-color: var(--primary); }
-
     .btn-block {
       width: 100%;
       padding: 12px;
@@ -315,13 +273,12 @@
       font-weight: 700;
       cursor: pointer;
       font-size: 13px;
-      transition: 0.15s;
     }
     .btn-primary { background: var(--primary); color: white; }
     .btn-primary:active { background: var(--primary-dark); }
+    .btn-danger { background: var(--danger); color: white; }
     .btn-gmail { background: #ea4335; color: white; margin-top: 6px; }
     .btn-guest { background: #4a5568; color: white; margin-top: 6px; }
-
     .popup-box {
       display: none;
       position: fixed;
@@ -419,9 +376,39 @@
     }
     .step-title { font-size: 10px; font-weight: 600; color: var(--muted); }
     .step-item.active .step-title { color: var(--primary-dark); font-weight: 700; }
+    .scratch-wrapper {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      margin: 12px auto;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      border: 3px solid #ffcc00;
+      user-select: none;
+    }
+    .scratch-reward {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 14px;
+    }
+    .scratch-canvas {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 2;
+      cursor: crosshair;
+      touch-action: none;
+    }
   </style>
-</head><body>
-  <!-- Header (5 Tap on Logo -> PIN 8822) -->
+</head>
+<body>
+  <!-- Header -->
   <header>
     <div class="brand-wrap" onclick="secretAdminClick()" title="Secret Admin Mode">
       <div class="brand-icon">
@@ -440,13 +427,12 @@
       </button>
     </div>
   </header>
-
-  <div class="main-wrap">
+    <div class="main-wrap">
     <!-- Wallet Card -->
     <div class="wallet-card">
       <div>
         <div class="wallet-lbl">Wallet Balance</div>
-        <div class="wallet-val">₹<span id="walletBal">0</span></div>
+        <div class="wallet-val">₹<span id="walletBal">0.00</span></div>
         <button class="btn-wallet-add" onclick="showPopup('walletPopup')">+ Add Cash</button>
       </div>
       <div style="text-align: right; z-index: 2;">
@@ -473,7 +459,7 @@
       </div>
     </div>
 
-    <!-- Products Grid (Real Image Previews) -->
+    <!-- Products Grid -->
     <div class="grid" id="productsGrid"></div>
 
     <!-- Referral Program -->
@@ -484,16 +470,48 @@
         <input type="text" id="myRefCode" readonly style="font-weight: 800; text-align: center; margin-bottom: 0;">
         <button class="btn-block btn-primary" style="width: 110px;" onclick="copyCode()">Copy Code</button>
       </div>
-    </div> 
-      <!-- POPUP: USER PROFILE -->
+    </div>
+  </div>
+
+  <!-- POPUP 1: WELCOME BONUS (Display up to ₹100, Real Credit ₹20) -->
+  <div class="popup-box" id="welcomeBonusPopup">
+    <div class="popup-inner" style="max-width: 320px; text-align: center; border: 2px solid #ffcc00; background: linear-gradient(180deg, #ffffff 0%, #fef9e7 100%);">
+      <div style="font-size: 46px; margin-bottom: 4px;">🎉</div>
+      <h3 style="color: #b45309; font-size: 20px; margin-bottom: 4px;">Welcome Bonus!</h3>
+      <div style="background: #fde68a; color: #92400e; font-size: 28px; font-weight: 800; padding: 12px; border-radius: 14px; margin: 10px 0; border: 1px dashed #d97706;">
+        UP TO ₹100
+      </div>
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 14px;">Instant Welcome Cash of <b>₹20.00</b> has been activated in your wallet balance!</p>
+      <button class="btn-block btn-primary" onclick="hidePopup('welcomeBonusPopup')">Start Shopping 🥦</button>
+    </div>
+  </div>
+
+  <!-- POPUP 2: POST-ORDER SCRATCH CARD (Pending until Delivery/Accept) -->
+  <div class="popup-box" id="scratchPopup">
+    <div class="popup-inner" style="max-width: 340px; text-align: center;">
+      <h3 style="color: var(--primary); font-size: 18px;">🎁 Order Reward Unlocked!</h3>
+      <p style="font-size: 12px; color: var(--muted);">Scratch below to reveal cashback up to ₹100</p>
+      
+      <div class="scratch-wrapper" id="scratchCardWrap">
+        <div class="scratch-reward">
+          <span style="font-size: 32px;">💰</span>
+          <h4 style="font-size: 14px; color: #92400e; margin-top: 4px;">Cashback Revealed!</h4>
+          <div style="font-size: 26px; font-weight: 800; color: #b45309; margin: 4px 0;">₹<span id="scratchAmountDisplay">0.50</span></div>
+          <small style="font-size: 10px; color: var(--muted);">Credits to wallet upon order confirmation</small>
+        </div>
+        <canvas id="scratchCanvas" class="scratch-canvas" width="240" height="240"></canvas>
+      </div>
+
+      <p id="scratchNotice" style="font-size: 11px; font-weight: 700; color: var(--primary); margin-bottom: 10px;">Scratch with your finger/mouse to reveal!</p>
+      <button class="btn-block btn-primary" id="btnScratchCollect" style="display: none;" onclick="collectScratchCash()">Lock Reward</button>
+    </div>
+  </div>
+    <!-- POPUP: USER PROFILE -->
   <div class="popup-box" id="profilePopup">
     <div class="popup-inner">
       <button class="popup-close" onclick="hidePopup('profilePopup')">✕</button>
-      
       <div style="text-align: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 10px;">
-        <div style="width: 50px; height: 50px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px auto; font-size: 20px; font-weight: 800;">
-          👤
-        </div>
+        <div style="width: 50px; height: 50px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px auto; font-size: 20px; font-weight: 800;">👤</div>
         <h3 id="profUserTitle" style="color: var(--primary-dark); font-size: 15px;">Account</h3>
         <span id="profUserBadge" class="user-pill" style="color: var(--primary); border-color: var(--border);">Active</span>
       </div>
@@ -515,10 +533,9 @@
           </div>
           <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px; text-align: center;">
             <div style="font-size: 11px; color: var(--muted);">Cash Earned</div>
-            <div style="font-size: 18px; font-weight: 800; color: var(--primary);">₹<span id="profTotalComm">0</span></div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--primary);">₹<span id="profTotalComm">0.00</span></div>
           </div>
         </div>
-
         <div style="font-size: 12px; font-weight: 700; color: var(--primary-dark); margin-bottom: 6px;">Commission Credits:</div>
         <div id="profCommHistoryWrap" style="font-size: 12px;"></div>
       </div>
@@ -558,13 +575,13 @@
       
       <div id="registerBox">
         <h3 style="margin-bottom: 4px; color: var(--primary);">Create Account</h3>
-        <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Sign up with phone and password (No OTP).</p>
+        <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Get Welcome Bonus up to ₹100 instantly!</p>
         
         <input type="tel" id="regPhone" placeholder="10-digit mobile number" maxlength="10">
         <input type="password" id="regPass" placeholder="Create password (min 6 characters)">
         <input type="text" id="refInput" placeholder="Referral code (Optional)">
 
-        <button class="btn-block btn-primary" onclick="handleRegister()">Sign Up</button>
+        <button class="btn-block btn-primary" onclick="handleRegister()">Register & Claim Bonus</button>
         <button class="btn-block btn-gmail" onclick="continueWithGmail()">Login with Gmail</button>
         <button class="btn-block btn-guest" onclick="continueAsGuest()">Instant Guest Access</button>
 
@@ -586,7 +603,7 @@
       </div>
     </div>
   </div>
-      <!-- POPUP: Checkout -->
+    <!-- POPUP: Checkout -->
   <div class="popup-box" id="cartPopup">
     <div class="popup-inner">
       <button class="popup-close" onclick="hidePopup('cartPopup')">✕</button>
@@ -650,7 +667,7 @@
       <div id="orderSuccessSection" style="display: none; text-align: center; padding: 12px 0;">
         <div style="width: 50px; height: 50px; background: #e8f5ed; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto; color: var(--primary); font-size: 24px;">✓</div>
         <h3 style="color: var(--primary); font-size: 18px;">Order Confirmed!</h3>
-        <p style="font-size: 12px; color: var(--muted); margin-bottom: 14px;">Your items are scheduled for prompt dispatch.</p>
+        <p style="font-size: 12px; color: var(--muted); margin-bottom: 14px;">Your order has been received by store manager.</p>
         
         <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 14px; text-align: left; font-size: 12px; line-height: 1.6;">
           <p><b>Order ID:</b> <span id="displayOrderId" style="color: var(--primary);"></span></p>
@@ -659,14 +676,14 @@
           <p><b>Total Amount:</b> ₹<span id="displayOrderAmount" style="font-weight: 800;"></span> (<span id="displayOrderPay"></span>)</p>
         </div>
 
-        <button type="button" class="btn-block btn-primary" onclick="resetAndCloseOrder()">Continue Shopping</button>
-        <button type="button" class="btn-block btn-guest" style="margin-top: 6px;" onclick="viewPlacedOrderTrack()">Track Order Status</button>
+        <button type="button" class="btn-block btn-primary" style="background:#d97706;" onclick="openScratchCardFromOrder()">🎁 Scratch & Win Cash (Upto ₹100)</button>
+        <button type="button" class="btn-block btn-guest" style="margin-top: 8px;" onclick="resetAndCloseOrder()">Continue Shopping</button>
       </div>
 
     </div>
   </div>
 
-  <!-- SECRET POPUP 1: PIN AUTH (PIN: 8822) -->
+  <!-- SECRET PIN AUTH (PIN: 8822) -->
   <div class="popup-box" id="adminSecretPopup">
     <div class="popup-inner" style="max-width: 320px; text-align: center;">
       <button class="popup-close" onclick="hidePopup('adminSecretPopup')">✕</button>
@@ -679,18 +696,18 @@
     </div>
   </div>
 
-  <!-- SECRET POPUP 2: CREATIVE ADMIN DASHBOARD -->
+  <!-- STORE MANAGER DASHBOARD: QUANTITY + ACCEPT/CANCEL ORDERS -->
   <div class="popup-box" id="adminDashboardPopup">
     <div class="popup-inner" style="max-width: 480px; max-height: 90vh;">
       <button class="popup-close" onclick="hidePopup('adminDashboardPopup')">✕</button>
       
       <div class="admin-nav">
         <button class="admin-tab active" id="tabAdmOrders" onclick="switchAdminTab('orders')">📦 Orders</button>
-        <button class="admin-tab" id="tabAdmAdd" onclick="switchAdminTab('add')">➕ Add Item</button>
-        <button class="admin-tab" id="tabAdmManage" onclick="switchAdminTab('manage')">📝 Catalog</button>
+        <button class="admin-tab" id="tabAdmAdd" onclick="switchAdminTab('add')">➕ Add Item & Qty</button>
+        <button class="admin-tab" id="tabAdmManage" onclick="switchAdminTab('manage')">📝 Catalog & Stock</button>
       </div>
 
-      <!-- Tab: Orders Feed -->
+      <!-- Tab: Orders Feed with Accept / Cancel -->
       <div id="admSectionOrders">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
           <span style="font-size: 12px; font-weight: 700; color: var(--muted);">Live Customer Orders</span>
@@ -711,9 +728,9 @@
         <div id="admOrderItemsWrap" style="font-size: 13px;"></div>
       </div>
 
-      <!-- Tab: Add Product With Real Image/Video -->
+      <!-- Tab: Add Product With Stock Quantity -->
       <div id="admSectionAdd" style="display: none;">
-        <h3 style="color: var(--primary-dark); font-size: 14px; margin-bottom: 10px;">Add New Inventory Item</h3>
+        <h3 style="color: var(--primary-dark); font-size: 14px; margin-bottom: 10px;">Add Inventory Item With Stock</h3>
         
         <input type="text" id="newProdName" placeholder="Product title (e.g. Fresh Cauliflower)">
         
@@ -727,25 +744,28 @@
           </select>
         </div>
 
+        <label style="font-size: 11px; font-weight: 700; color: var(--muted);">Available Stock Quantity (Number of kg/pc/litre)</label>
+        <input type="number" id="newProdStock" placeholder="Available Quantity (e.g. 50)" value="50" min="0">
+
         <select id="newProdCat">
           <option value="Vegetables">Fresh Vegetables</option>
           <option value="Groceries">Daily Groceries</option>
         </select>
 
-        <label style="font-size: 11px; font-weight: 700; color: var(--muted);">Image Source (Choose Upload OR Direct URL)</label>
+        <label style="font-size: 11px; font-weight: 700; color: var(--muted);">Image Source</label>
         <input type="file" id="newProdPhoto" accept="image/*">
         <input type="text" id="newProdPhotoUrl" placeholder="Or paste image web link (https://...)">
 
         <label style="font-size: 11px; font-weight: 700; color: var(--muted);">Optional Short Video Clip</label>
         <input type="file" id="newProdVideo" accept="video/mp4,video/webm">
 
-        <button class="btn-block btn-primary" style="margin-top: 6px;" onclick="saveNewProduct()">Save to Inventory</button>
+        <button class="btn-block btn-primary" style="margin-top: 6px;" onclick="saveNewProduct()">Save & Publish Stock</button>
       </div>
 
-      <!-- Tab: Catalog Management -->
+      <!-- Tab: Catalog Management & Stock Edit -->
       <div id="admSectionManage" style="display: none;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <h3 style="color: var(--primary-dark); font-size: 14px;">Store Catalog</h3>
+          <h3 style="color: var(--primary-dark); font-size: 14px;">Store Catalog & Quantities</h3>
           <button onclick="restoreDefaults()" style="font-size: 10px; color: var(--primary); background: transparent; border: none; cursor: pointer; text-decoration: underline;">Reset to Default</button>
         </div>
         <div id="admProductsListWrap" style="font-size: 13px;"></div>
@@ -753,56 +773,7 @@
 
     </div>
   </div>
-      <script>
-    var cartItems = [];
-    var UPI_ID = "8134834380@mbk";
-    var STORE_SECRET_PIN = "8822";
-    var adminTapCount = 0;
-    var adminTapTimer = null;
-    var currentCatFilter = "All";
-
-    // Standard Real-Image Catalog (Zero Emojis)
-    var defaultProducts = [
-      { id: 1, name: "Potato (Alu)", cat: "Vegetables", price: 27, unit: "kg", photo: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=400&q=80", video: "" },
-      { id: 2, name: "Tomato (Bilahi)", cat: "Vegetables", price: 35, unit: "kg", photo: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80", video: "" },
-      { id: 3, name: "Onion (Piyaj)", cat: "Vegetables", price: 53, unit: "kg", photo: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=400&q=80", video: "" },
-      { id: 4, name: "Cucumber (Tiyoh)", cat: "Vegetables", price: 28, unit: "kg", photo: "https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?auto=format&fit=crop&w=400&q=80", video: "" },
-      { id: 5, name: "Cauliflower (Kobi)", cat: "Vegetables", price: 35, unit: "pc", photo: "https://images.unsplash.com/photo-1568584711075-3d021a7c3ca3?auto=format&fit=crop&w=400&q=80", video: "" },
-      { id: 6, name: "Cabbage (Bandhakobi)", cat: "Vegetables", price: 30, unit: "pc", photo: "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?auto=format&fit=crop&w=400&q=80", video: "" },
-      { id: 7, name: "Miniket Super Rice", cat: "Groceries", price: 52, unit: "kg", photo: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80", video: "" },
-      { id: 8, name: "Pure Mustard Oil", cat: "Groceries", price: 145, unit: "litre", photo: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80", video: "" },
-      { id: 9, name: "Masoor Dal", cat: "Groceries", price: 95, unit: "kg", photo: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=400&q=80", video: "" },
-      { id: 10, name: "Refined Pure Sugar", cat: "Groceries", price: 44, unit: "kg", photo: "https://images.unsplash.com/photo-1622484212850-cab596d629f2?auto=format&fit=crop&w=400&q=80", video: "" },
-      { id: 11, name: "Tata Salt", cat: "Groceries", price: 28, unit: "kg", photo: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80", video: "" },
-      { id: 12, name: "Chakki Fresh Atta", cat: "Groceries", price: 42, unit: "kg", photo: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=400&q=80", video: "" }
-    ];
-
-    window.addEventListener("DOMContentLoaded", function() {
-      initProducts();
-      initApp();
-      renderStoreProducts();
-    });
-
-    function initProducts() {
-      var saved = localStorage.getItem('fv_store_products');
-      // Auto-migrate if old products still contain emojis
-      if (!saved || saved.indexOf("emoji") !== -1) {
-        localStorage.setItem('fv_store_products', JSON.stringify(defaultProducts));
-      }
-    }
-
-    function restoreDefaults() {
-      if (!confirm("Reset all products to default images & prices?")) return;
-      localStorage.setItem('fv_store_products', JSON.stringify(defaultProducts));
-      renderStoreProducts();
-      loadAdminProductsManage();
-    }
-
-    function getStoreProducts() {
-      return JSON.parse(localStorage.getItem('fv_store_products') || '[]');
-    }
-
-    function renderStoreProducts() {
+      function renderStoreProducts() {
       var grid = document.getElementById('productsGrid');
       var products = getStoreProducts();
       var q = (document.getElementById('searchInput').value || "").toLowerCase().trim();
@@ -813,6 +784,9 @@
         var matchesCat = (currentCatFilter === 'All') || (p.cat === currentCatFilter);
 
         if (!matchesQ || !matchesCat) return;
+
+        var currentStock = (p.stock !== undefined) ? parseInt(p.stock) : 50;
+        var isOutOfStock = currentStock <= 0;
 
         var mediaHtml = "";
         if (p.video) {
@@ -825,12 +799,17 @@
         html += '<div class="product-card">' +
                   '<div class="product-media-wrap">' +
                     '<span class="product-cat-tag">' + p.cat + '</span>' +
+                    '<span class="stock-badge ' + (isOutOfStock ? 'out' : '') + '">' +
+                      (isOutOfStock ? 'Sold Out' : currentStock + ' ' + p.unit + ' left') +
+                    '</span>' +
                     mediaHtml +
                   '</div>' +
                   '<div class="product-name">' + p.name + '</div>' +
                   '<div class="product-unit">Fresh stock /' + p.unit + '</div>' +
                   '<div class="product-price">₹' + p.price + '</div>' +
-                  '<button class="btn-add" onclick="addItem(' + p.id + ', \'' + p.name.replace(/'/g, "\\'") + '\', ' + p.price + ', \'' + p.unit + '\', this)">Add to Cart</button>' +
+                  '<button class="btn-add" ' + (isOutOfStock ? 'disabled' : '') + ' onclick="addItem(' + p.id + ', \'' + p.name.replace(/'/g, "\\'") + '\', ' + p.price + ', \'' + p.unit + '\', this)">' +
+                    (isOutOfStock ? 'Out of Stock' : 'Add to Cart') +
+                  '</button>' +
                 '</div>';
       });
 
@@ -844,14 +823,12 @@
       renderStoreProducts();
     }
 
-    function doSearch() {
-      renderStoreProducts();
-    }
+    function doSearch() { renderStoreProducts(); }
 
     function initApp() {
       var u = localStorage.getItem('fv_user');
       var userType = localStorage.getItem('fv_user_type') || 'guest';
-      var w = localStorage.getItem('fv_wallet') || 0;
+      var w = parseFloat(localStorage.getItem('fv_wallet') || 0);
       var r = localStorage.getItem('fv_ref');
 
       if (userType === 'phone') {
@@ -872,17 +849,14 @@
         var shortTitle = userType === 'phone' ? u.substring(0, 5) + ".." : (userType === 'gmail' ? "Gmail" : "Guest");
         document.getElementById('headerUserName').innerText = shortTitle;
         document.getElementById('userTag').innerText = userType === 'phone' ? "Verified" : "Guest";
-        if (userType === 'phone') {
-          document.getElementById('cPhone').value = u;
-        }
+        if (userType === 'phone') { document.getElementById('cPhone').value = u; }
       }
-      document.getElementById('walletBal').innerText = w;
+      document.getElementById('walletBal').innerText = w.toFixed(2);
     }
 
     function showPopup(id) { document.getElementById(id).style.display = "flex"; }
     function hidePopup(id) { document.getElementById(id).style.display = "none"; }
 
-    // --- SECRET ADMIN PANEL TRIGGER ---
     function secretAdminClick() {
       adminTapCount++;
       clearTimeout(adminTapTimer);
@@ -933,6 +907,7 @@
       var name = document.getElementById('newProdName').value.trim();
       var price = parseFloat(document.getElementById('newProdPrice').value);
       var unit = document.getElementById('newProdUnit').value;
+      var stock = parseInt(document.getElementById('newProdStock').value) || 0;
       var cat = document.getElementById('newProdCat').value;
       var photoUrl = document.getElementById('newProdPhotoUrl').value.trim();
       var photoFile = document.getElementById('newProdPhoto').files[0];
@@ -961,12 +936,13 @@
         cat: cat,
         price: price,
         unit: unit,
+        stock: stock,
         photo: finalPhoto || "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80",
         video: finalVideo
       });
 
       localStorage.setItem('fv_store_products', JSON.stringify(products));
-      alert("✓ Item saved to catalog.");
+      alert("✓ Item with stock " + stock + " " + unit + " saved.");
       document.getElementById('newProdName').value = "";
       document.getElementById('newProdPrice').value = "";
       renderStoreProducts();
@@ -980,12 +956,31 @@
 
       products.forEach(function(p) {
         html += '<div style="display:flex; justify-content:space-between; align-items:center; border:1px solid var(--border); border-radius:10px; padding:8px 12px; margin-bottom:8px; background:#fff;">' +
-                  '<div><b>' + p.name + '</b><br><small style="color:var(--muted);">' + p.cat + ' • ₹' + p.price + '/' + p.unit + '</small></div>' +
-                  '<button onclick="deleteProduct(' + p.id + ')" style="background:#fee2e2; color:#b91c1c; border:none; padding:5px 10px; border-radius:6px; font-weight:700; cursor:pointer;">Delete</button>' +
+                  '<div>' +
+                    '<b>' + p.name + '</b><br>' +
+                    '<small style="color:var(--muted);">' + p.cat + ' • ₹' + p.price + '/' + p.unit + ' • <b>Stock: ' + (p.stock || 0) + ' ' + p.unit + '</b></small>' +
+                  '</div>' +
+                  '<div style="display:flex; gap:6px;">' +
+                    '<button onclick="quickUpdateStock(' + p.id + ')" style="background:#e0f2fe; color:#0369a1; border:none; padding:5px 8px; border-radius:6px; font-weight:700; cursor:pointer;">+Stock</button>' +
+                    '<button onclick="deleteProduct(' + p.id + ')" style="background:#fee2e2; color:#b91c1c; border:none; padding:5px 8px; border-radius:6px; font-weight:700; cursor:pointer;">Delete</button>' +
+                  '</div>' +
                 '</div>';
       });
 
       wrap.innerHTML = html;
+    }
+
+    function quickUpdateStock(id) {
+      var products = getStoreProducts();
+      var p = products.find(function(it) { return it.id === id; });
+      if (!p) return;
+      var newQty = prompt("Update stock quantity for " + p.name + " (" + p.unit + "):", p.stock || 0);
+      if (newQty !== null && !isNaN(newQty) && newQty !== "") {
+        p.stock = parseInt(newQty);
+        localStorage.setItem('fv_store_products', JSON.stringify(products));
+        renderStoreProducts();
+        loadAdminProductsManage();
+      }
     }
 
     function deleteProduct(id) {
@@ -996,7 +991,7 @@
       loadAdminProductsManage();
     }
 
-    function loadAdminOrdersList() {
+        function loadAdminOrdersList() {
       var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
       var wrap = document.getElementById('admOrderItemsWrap');
       var totalSales = 0;
@@ -1011,37 +1006,95 @@
       var html = "";
       orders.slice().reverse().forEach(function(ord, revIdx) {
         var originalIdx = orders.length - 1 - revIdx;
-        totalSales += Number(ord.total) || 0;
-        var curStatus = ord.status || "Placed";
+        if (ord.status !== "Cancelled") totalSales += Number(ord.total) || 0;
+        var curStatus = ord.status || "Received";
+
+        var statusBadgeColor = "#0284c7";
+        if (curStatus === "Accepted") statusBadgeColor = "#16a34a";
+        if (curStatus === "Packed") statusBadgeColor = "#d97706";
+        if (curStatus === "Out for Delivery") statusBadgeColor = "#7c3aed";
+        if (curStatus === "Delivered") statusBadgeColor = "#127032";
+        if (curStatus === "Cancelled") statusBadgeColor = "#dc2626";
 
         html += '<div style="border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; background: #fafcfb;">' +
                   '<div style="display:flex; justify-content:space-between; font-weight:700;">' +
                     '<span style="color:var(--primary);">' + ord.orderId + '</span>' +
-                    '<small style="color:var(--muted);">' + new Date(ord.date).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) + '</small>' +
+                    '<span style="font-size:11px; padding:2px 8px; border-radius:10px; color:#fff; background:' + statusBadgeColor + ';">' + curStatus + '</span>' +
                   '</div>' +
-                  '<div style="font-size:12px; margin-top:2px;">' + ord.customer + ' (' + ord.phone + ')</div>' +
+                  '<div style="font-size:12px; margin-top:4px;">' + ord.customer + ' (' + ord.phone + ')</div>' +
                   '<div style="font-size:12px; color:var(--muted);">' + ord.village + ', ' + ord.address + '</div>' +
                   '<div style="background:#fff; border:1px solid #edf2ee; padding:6px 8px; border-radius:6px; margin:6px 0; font-size:11px;">' +
                     ord.items.map(function(i){ return i.name + ' × ' + i.qty + ' (₹' + (i.price*i.qty) + ')'; }).join('<br>') +
                   '</div>' +
                   '<div style="display:flex; justify-content:space-between; margin-bottom:8px;">' +
-                    '<span>Pay: ' + ord.payment + '</span><b>₹' + ord.total + '</b>' +
-                  '</div>' +
-                  '<div style="display:flex; gap:6px;">' +
+                    '<span>Payment: ' + ord.payment + '</span><b>₹' + ord.total + '</b>' +
+                  '</div>';
+
+        if (curStatus === "Received" || curStatus === "Placed") {
+          html += '<div style="display:flex; gap:6px;">' +
+                    '<button onclick="admAcceptOrder(' + originalIdx + ')" class="btn-block btn-primary" style="padding:7px; font-size:12px; flex:1;">✓ Accept Order</button>' +
+                    '<button onclick="admCancelOrder(' + originalIdx + ')" class="btn-block btn-danger" style="padding:7px; font-size:12px; flex:1;">✕ Cancel Order</button>' +
+                  '</div>';
+        } else if (curStatus !== "Cancelled") {
+          html += '<div style="display:flex; gap:6px;">' +
                     '<select id="admSel_' + originalIdx + '" style="margin-bottom:0; padding:6px; font-size:12px; flex:1;">' +
-                      '<option value="Placed" ' + (curStatus==='Placed'?'selected':'') + '>Placed</option>' +
+                      '<option value="Accepted" ' + (curStatus==='Accepted'?'selected':'') + '>Accepted</option>' +
                       '<option value="Packed" ' + (curStatus==='Packed'?'selected':'') + '>Packed</option>' +
                       '<option value="Out for Delivery" ' + (curStatus==='Out for Delivery'?'selected':'') + '>Out for Delivery</option>' +
                       '<option value="Delivered" ' + (curStatus==='Delivered'?'selected':'') + '>Delivered</option>' +
                     '</select>' +
-                    '<button onclick="admSaveStatus(' + originalIdx + ')" class="btn-primary" style="padding:6px 14px; border-radius:8px; border:none; cursor:pointer;">Update</button>' +
-                  '</div>' +
-                '</div>';
+                    '<button onclick="admSaveStatus(' + originalIdx + ')" class="btn-primary" style="padding:6px 12px; border-radius:8px; border:none; cursor:pointer;">Update</button>' +
+                    '<button onclick="admCancelOrder(' + originalIdx + ')" class="btn-danger" style="padding:6px 10px; border-radius:8px; border:none; cursor:pointer;">Cancel</button>' +
+                  '</div>';
+        } else {
+          html += '<div style="font-size:11px; color:#dc2626; font-weight:700;">Order Cancelled. Scratch Bonus voided.</div>';
+        }
+
+        html += '</div>';
       });
 
       wrap.innerHTML = html;
       document.getElementById('admTotOrders').innerText = orders.length;
       document.getElementById('admTotSales').innerText = totalSales;
+    }
+
+    function admAcceptOrder(idx) {
+      var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
+      var ord = orders[idx];
+      ord.status = "Accepted";
+
+      if (ord.pendingScratchBonus && !ord.scratchBonusCredited) {
+        var currentW = parseFloat(localStorage.getItem('fv_wallet') || 0);
+        var updated = currentW + parseFloat(ord.pendingScratchBonus);
+        localStorage.setItem('fv_wallet', updated.toFixed(2));
+        ord.scratchBonusCredited = true;
+        document.getElementById('walletBal').innerText = updated.toFixed(2);
+      }
+
+      localStorage.setItem('fv_orders', JSON.stringify(orders));
+      alert("Order #" + ord.orderId + " ACCEPTED! Scratch reward credited.");
+      loadAdminOrdersList();
+    }
+
+    function admCancelOrder(idx) {
+      if (!confirm("Are you sure you want to CANCEL this order? (Scratch Card bonus will be VOIDED and not credited)")) return;
+      var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
+      var ord = orders[idx];
+      ord.status = "Cancelled";
+      ord.pendingScratchBonus = 0;
+
+      if (ord.payment === "WALLET") {
+        var currentW = parseFloat(localStorage.getItem('fv_wallet') || 0);
+        var refunded = currentW + parseFloat(ord.total);
+        localStorage.setItem('fv_wallet', refunded.toFixed(2));
+        document.getElementById('walletBal').innerText = refunded.toFixed(2);
+        alert("Order #" + ord.orderId + " Cancelled. ₹" + ord.total + " refunded back to wallet.");
+      } else {
+        alert("Order #" + ord.orderId + " Cancelled. Scratch bonus voided.");
+      }
+
+      localStorage.setItem('fv_orders', JSON.stringify(orders));
+      loadAdminOrdersList();
     }
 
     function admSaveStatus(idx) {
@@ -1055,7 +1108,77 @@
       loadAdminOrdersList();
     }
 
-    // --- PROFILE & REWARDS ---
+    function openScratchCardFromOrder() {
+      hidePopup('cartPopup');
+      
+      var isOneRupee = Math.random() < 0.10;
+      activeScratchReward = isOneRupee ? 1.00 : 0.50;
+      scratchRevealed = false;
+
+      document.getElementById('scratchAmountDisplay').innerText = activeScratchReward.toFixed(2);
+      document.getElementById('btnScratchCollect').style.display = "none";
+      document.getElementById('scratchNotice').innerText = "Scratch with your finger/mouse to reveal!";
+
+      showPopup('scratchPopup');
+      setupScratchCanvas();
+    }
+
+    function setupScratchCanvas() {
+      var canvas = document.getElementById('scratchCanvas');
+      var ctx = canvas.getContext('2d');
+      var isDrawing = false;
+
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = '#b5b5b5';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#8c8c8c';
+      ctx.font = 'bold 15px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('★ SCRATCH & WIN ★', 120, 110);
+      ctx.font = '12px sans-serif';
+      ctx.fillText('UP TO ₹100 CASHBACK', 120, 135);
+
+      function scratch(e) {
+        if (!isDrawing || scratchRevealed) return;
+        var rect = canvas.getBoundingClientRect();
+        var x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+        var y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 20, 0, Math.PI * 2);
+        ctx.fill();
+
+        scratchRevealed = true;
+        document.getElementById('btnScratchCollect').style.display = "block";
+        document.getElementById('scratchNotice').innerText = "🎉 Revealed ₹" + activeScratchReward.toFixed(2) + "! Tap below to lock.";
+      }
+
+      canvas.onmousedown = function() { isDrawing = true; };
+      window.onmouseup = function() { isDrawing = false; };
+      canvas.onmousemove = scratch;
+
+      canvas.ontouchstart = function() { isDrawing = true; };
+      window.ontouchend = function() { isDrawing = false; };
+      canvas.ontouchmove = scratch;
+    }
+
+    function collectScratchCash() {
+      if (currentPlacedOrderId) {
+        var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
+        var ord = orders.find(function(o) { return o.orderId === currentPlacedOrderId; });
+        if (ord) {
+          ord.pendingScratchBonus = activeScratchReward;
+          ord.scratchBonusCredited = false;
+          localStorage.setItem('fv_orders', JSON.stringify(orders));
+        }
+      }
+
+      alert("🎉 ₹" + activeScratchReward.toFixed(2) + " Reward Locked!\nIt will be credited to your wallet once the store accepts your order.");
+      hidePopup('scratchPopup');
+    }
+
     function openUserProfile() {
       var u = localStorage.getItem('fv_user');
       if (!u) { showPopup('loginPopup'); return; }
@@ -1075,8 +1198,7 @@
       document.getElementById('tabProfOrders').classList.toggle('active', tab === 'orders');
       document.getElementById('tabProfRef').classList.toggle('active', tab === 'referral');
     }
-
-    function loadUserOrdersInProfile() {
+            function loadUserOrdersInProfile() {
       var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
       var curUser = localStorage.getItem('fv_user');
       var wrap = document.getElementById('profileOrdersList');
@@ -1092,9 +1214,10 @@
 
       var html = "";
       myOrders.slice().reverse().forEach(function(ord) {
-        var statusText = ord.status || "Placed";
+        var statusText = ord.status || "Received";
         var step = 1;
-        if (statusText === "Packed") step = 2;
+        if (statusText === "Accepted") step = 2;
+        if (statusText === "Packed") step = 3;
         if (statusText === "Out for Delivery") step = 3;
         if (statusText === "Delivered") step = 4;
 
@@ -1103,14 +1226,21 @@
                     '<span>' + ord.orderId + '</span><span style="color:var(--muted);">' + new Date(ord.date).toLocaleDateString() + '</span>' +
                   '</div>' +
                   '<div style="font-size:12px; color:var(--muted); margin:4px 0;">' + ord.items.map(function(i){ return i.name + ' (x' + i.qty + ')'; }).join(', ') + '</div>' +
-                  '<div style="font-size:12px;"><b>₹' + ord.total + '</b> (' + ord.payment + ')</div>' +
-                  '<div class="track-step-wrap">' +
-                    '<div class="step-item ' + (step >= 1 ? 'active' : '') + '"><div class="step-dot">1</div><div class="step-title">Placed</div></div>' +
-                    '<div class="step-item ' + (step >= 2 ? 'active' : '') + '"><div class="step-dot">2</div><div class="step-title">Packed</div></div>' +
-                    '<div class="step-item ' + (step >= 3 ? 'active' : '') + '"><div class="step-dot">3</div><div class="step-title">Out</div></div>' +
+                  '<div style="display:flex; justify-content:space-between; font-size:12px;">' +
+                    '<b>₹' + ord.total + ' (' + ord.payment + ')</b>' +
+                    '<b style="color:' + (statusText === 'Cancelled' ? '#dc2626' : 'var(--primary)') + ';">' + statusText + '</b>' +
+                  '</div>';
+
+        if (statusText !== "Cancelled") {
+          html += '<div class="track-step-wrap">' +
+                    '<div class="step-item ' + (step >= 1 ? 'active' : '') + '"><div class="step-dot">1</div><div class="step-title">Received</div></div>' +
+                    '<div class="step-item ' + (step >= 2 ? 'active' : '') + '"><div class="step-dot">2</div><div class="step-title">Accepted</div></div>' +
+                    '<div class="step-item ' + (step >= 3 ? 'active' : '') + '"><div class="step-dot">3</div><div class="step-title">Dispatch</div></div>' +
                     '<div class="step-item ' + (step >= 4 ? 'active' : '') + '"><div class="step-dot">4</div><div class="step-title">Delivered</div></div>' +
-                  '</div>' +
-                '</div>';
+                  '</div>';
+        }
+
+        html += '</div>';
       });
 
       wrap.innerHTML = html;
@@ -1125,7 +1255,7 @@
       var referredSet = new Set(myComm.map(function(item) { return item.referredUser; }));
 
       document.getElementById('profTotalReferred').innerText = referredSet.size;
-      document.getElementById('profTotalComm').innerText = totalEarned;
+      document.getElementById('profTotalComm').innerText = totalEarned.toFixed(2);
 
       var wrap = document.getElementById('profCommHistoryWrap');
       if (myComm.length === 0) {
@@ -1157,9 +1287,19 @@
       openUserProfile();
     }
 
-    // --- CART ACTIONS ---
     function addItem(id, name, price, unit, btn) {
+      var products = getStoreProducts();
+      var p = products.find(function(it) { return it.id === id; });
+      var stock = p ? (p.stock || 0) : 50;
+
       var existing = cartItems.find(function(it) { return it.id === id; });
+      var requestedQty = existing ? (existing.qty + 1) : 1;
+
+      if (requestedQty > stock) {
+        alert("Sorry! Only " + stock + " " + unit + " available in stock.");
+        return;
+      }
+
       if (existing) { existing.qty += 1; }
       else { cartItems.push({ id: id, name: name, price: price, unit: unit, qty: 1 }); }
 
@@ -1176,6 +1316,17 @@
     function changeQty(id, delta) {
       var item = cartItems.find(function(it) { return it.id === id; });
       if (!item) return;
+
+      if (delta > 0) {
+        var products = getStoreProducts();
+        var p = products.find(function(it) { return it.id === id; });
+        var stock = p ? (p.stock || 0) : 50;
+        if (item.qty + 1 > stock) {
+          alert("Maximum available stock reached (" + stock + " " + item.unit + ").");
+          return;
+        }
+      }
+
       item.qty += delta;
       if (item.qty <= 0) { cartItems = cartItems.filter(function(it) { return it.id !== id; }); }
       updateCartBadge();
@@ -1251,11 +1402,23 @@
       if (payType === 'WALLET') {
         var wBal = parseFloat(localStorage.getItem('fv_wallet') || 0);
         if (wBal < totals.total) { alert("Insufficient wallet balance."); return; }
-        localStorage.setItem('fv_wallet', wBal - totals.total);
-        document.getElementById('walletBal').innerText = wBal - totals.total;
+        localStorage.setItem('fv_wallet', (wBal - totals.total).toFixed(2));
+        document.getElementById('walletBal').innerText = (wBal - totals.total).toFixed(2);
       }
 
+      var products = getStoreProducts();
+      cartItems.forEach(function(cartIt) {
+        var p = products.find(function(item) { return item.id === cartIt.id; });
+        if (p && p.stock !== undefined) {
+          p.stock = Math.max(0, p.stock - cartIt.qty);
+        }
+      });
+      localStorage.setItem('fv_store_products', JSON.stringify(products));
+      renderStoreProducts();
+
       var orderId = "FV-" + Math.floor(10000 + Math.random() * 90000);
+      currentPlacedOrderId = orderId;
+
       var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
       orders.push({
         orderId: orderId,
@@ -1266,12 +1429,13 @@
         items: cartItems.slice(),
         total: totals.total,
         payment: payType,
-        status: "Placed",
+        status: "Received",
+        pendingScratchBonus: 0,
+        scratchBonusCredited: false,
         date: new Date().toISOString()
       });
       localStorage.setItem('fv_orders', JSON.stringify(orders));
 
-      // Referrals trigger
       var u = localStorage.getItem('fv_user');
       if (u) {
         var accounts = JSON.parse(localStorage.getItem('fv_accounts') || '{}');
@@ -1287,9 +1451,9 @@
               if (bonusEarned > 0) {
                 commHistory.push({ referrer: referrerPhone, referredUser: u, bonus: bonusEarned, reason: "Order Bonus", date: new Date().toISOString() });
                 localStorage.setItem('fv_referral_history', JSON.stringify(commHistory));
-                var curW = parseInt(localStorage.getItem('fv_wallet') || 0);
-                localStorage.setItem('fv_wallet', curW + bonusEarned);
-                document.getElementById('walletBal').innerText = curW + bonusEarned;
+                var curW = parseFloat(localStorage.getItem('fv_wallet') || 0);
+                localStorage.setItem('fv_wallet', (curW + bonusEarned).toFixed(2));
+                document.getElementById('walletBal').innerText = (curW + bonusEarned).toFixed(2);
               }
             }
           }
@@ -1333,8 +1497,9 @@
       var amt = parseFloat(document.getElementById('topupAmt').value);
       if (!amt || amt < 10) { alert("Enter valid amount (min ₹10)."); return; }
       var cur = parseFloat(localStorage.getItem('fv_wallet') || 0);
-      localStorage.setItem('fv_wallet', cur + amt);
-      document.getElementById('walletBal').innerText = cur + amt;
+      var updated = cur + amt;
+      localStorage.setItem('fv_wallet', updated.toFixed(2));
+      document.getElementById('walletBal').innerText = updated.toFixed(2);
       alert("✓ ₹" + amt + " credited to wallet.");
       hidePopup('walletPopup');
     }
@@ -1353,13 +1518,21 @@
       if (pass.length < 6) { alert("Password min 6 chars."); return; }
 
       var accs = JSON.parse(localStorage.getItem('fv_accounts') || '{}');
-      if (accs[p]) { alert("Account already exists."); return; }
+      if (accs[p]) { alert("Account already exists with this phone!"); return; }
 
       accs[p] = { pass: pass, referredBy: ref || null, orderCount: 0 };
       localStorage.setItem('fv_accounts', JSON.stringify(accs));
       localStorage.setItem('fv_user', p);
       localStorage.setItem('fv_user_type', 'phone');
-      window.location.reload();
+
+      var currentW = parseFloat(localStorage.getItem('fv_wallet') || 0);
+      var updatedW = currentW + 20.00;
+      localStorage.setItem('fv_wallet', updatedW.toFixed(2));
+      document.getElementById('walletBal').innerText = updatedW.toFixed(2);
+
+      hidePopup('loginPopup');
+      showPopup('welcomeBonusPopup');
+      initApp();
     }
 
     function handleLogin() {
@@ -1399,6 +1572,5 @@
     }
   </script>
 </body>
-</html>
-                                                                                                             </div>
-                                                                                                             
+      </html>
+        
