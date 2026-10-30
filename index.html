@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#16823b">
+<title>Fresh Veggie | Fresh vegetables at your doorstep</title>
+<style>
+:root{--green:#16823b;--dark:#105c2a;--bg:#f4f8f4;--text:#1d2b20;--muted:#68766b;--line:#e1e9e1}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+header{background:var(--green);color:white;padding:16px max(16px,calc((100% - 1100px)/2));position:sticky;top:0;z-index:3;box-shadow:0 2px 10px #0002}
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:23px;font-weight:800}.tag{font-size:12px;opacity:.9}
+button{border:0;border-radius:10px;padding:11px 15px;font-weight:700;cursor:pointer}.primary{background:var(--green);color:white}.light{background:white;color:var(--green)}.outline{background:white;border:1px solid var(--line);color:var(--text)}
+main{max-width:1100px;margin:auto;padding:18px 16px 50px}.hero{background:linear-gradient(120deg,#e0f3e3,#f7fff7);border:1px solid #cfe6d2;border-radius:18px;padding:24px;margin:8px 0 18px}
+.hero h1{margin:0 0 8px;font-size:clamp(25px,5vw,38px);color:var(--dark)}.hero p{margin:0;color:#45624b}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.toolbar input{flex:1;min-width:190px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #ccd9ce;border-radius:10px;background:white;font:inherit;color:var(--text)}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0 12px}.sectionhead h2{font-size:21px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:13px}.product{background:white;border:1px solid var(--line);border-radius:15px;padding:12px;box-shadow:0 2px 8px #173c1b08}
+.emoji{height:94px;border-radius:11px;background:#f1f7ef;display:grid;place-items:center;font-size:54px}.product h3{font-size:16px;margin:10px 0 3px}.sub{font-size:12px;color:var(--muted)}.price{font-weight:800;color:var(--dark);margin:8px 0}.product .add{width:100%}
+.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:18px}.hidden{display:none!important}.cartrow{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.qty{display:flex;align-items:center;gap:8px}.qty button{padding:5px 10px}
+form{display:grid;gap:11px}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.method{border:1px solid var(--line);padding:12px;border-radius:12px;display:flex;gap:9px;align-items:flex-start}.method input{width:auto;margin-top:4px}
+.notice{background:#fff8e5;border:1px solid #f1dfac;padding:12px;border-radius:10px;font-size:13px;color:#6c5417}.success{background:#e8f6eb;border:1px solid #c7e7ce;padding:12px;border-radius:10px}
+footer{text-align:center;color:var(--muted);padding:28px 12px;font-size:12px}
+@media(max-width:520px){.two{grid-template-columns:1fr}.hero{padding:18px}.brand{font-size:20px}}
+</style>
+</head>
+<body>
+<header><div class="head"><div><div class="brand">🥦 Fresh Veggie</div><div class="tag">Fresh vegetables at your doorstep · Guwahati</div></div><button class="light" onclick="document.querySelector('#cartPanel').scrollIntoView({behavior:'smooth'})">🛒 Cart <span id="cartCount">0</span></button></div></header>
+<main>
+<section class="hero"><h1>Fresh vegetables, delivered fresh.</h1><p>Choose your vegetables, place your order and pay by UPI or Cash on Delivery.</p></section>
+<div class="toolbar"><input id="search" placeholder="Search vegetables..." oninput="renderProducts()"><select id="category" onchange="renderProducts()"><option value="">All categories</option><option>Daily Vegetables</option><option>Greens</option><option>Seasonal</option></select></div>
+<div class="sectionhead"><h2>Today's vegetables</h2><span class="sub">Prices are per kg unless stated</span></div>
+<div id="products" class="grid"></div>
+<section id="cartPanel" class="panel"><div class="sectionhead"><h2>Your cart</h2><button class="outline" onclick="clearCart()">Clear</button></div><div id="cartItems" class="sub">Your cart is empty.</div><div class="cartrow"><b>Subtotal</b><b id="subtotal">₹0</b></div><div class="cartrow"><span>Delivery charge</span><span id="delivery">₹0</span></div><div class="cartrow"><b>Total</b><b id="total">₹0</b></div></section>
+
+<section class="panel" id="referralPanel">
+  <h2>🎁 Refer & Earn</h2>
+  <p class="sub">Invite a new customer. Earn ₹5 on their first successful order, plus ₹10 for each completed ₹1,000 of eligible order value.</p>
+  <div class="success"><b>Referral wallet</b><div style="font-size:28px;font-weight:800;color:#105c2a" id="walletBalance">₹0.00</div><small>Demo preview — live wallet requires verified customer login.</small></div>
+  <div style="margin-top:12px"><label class="sub">Your referral code</label><div style="display:flex;gap:8px;margin-top:5px"><input id="referralCode" value="Sign in to receive your code" readonly><button class="outline" type="button" onclick="copyReferralCode()">Copy</button></div></div>
+  <p class="sub">Wallet rewards are credited only after the referred order is delivered, payment is verified, and admin approval is complete. Cancelled/refunded orders earn no reward.</p>
+</section>
+
+<section class="panel"><h2>Delivery & payment</h2>
+<form id="checkout">
+<div class="two"><input name="name" placeholder="Customer name" required maxlength="70"><input name="phone" placeholder="10-digit mobile number" required inputmode="numeric" pattern="[6-9][0-9]{9}"></div>
+<input name="referralCode" placeholder="Referral code (optional)" maxlength="24" autocapitalize="characters">\n<textarea name="address" placeholder="Full delivery address in Guwahati" required maxlength="300"></textarea>
+<div class="two"><input name="area" placeholder="Locality / area" required maxlength="80"><input name="pincode" placeholder="PIN code" inputmode="numeric" pattern="[0-9]{6}" required></div>
+<label class="method"><input type="radio" name="payment" value="UPI" checked><span><b>UPI QR Payment</b><br><span class="sub">Scan the QR with your UPI app. Admin verifies payment before confirming.</span></span></label>
+<label class="method"><input type="radio" name="payment" value="COD"><span><b>Cash on Delivery</b><br><span class="sub">Pay cash when your vegetables arrive.</span></span></label>
+<div class="notice">UPI payment is not automatically verified in this starter version. Do not treat a screenshot as proof. Your order stays PAYMENT_PENDING until the business checks its bank/UPI transaction record.</div>
+<button class="primary" type="submit">Place order</button>
+</form><div id="orderResult" class="hidden"></div></section>
+</main>
+<footer>Fresh Veggie · Guwahati, Assam · Prices and availability may change daily.</footer>
+<script>
+/* Configure Firebase in firebase-config.js before enabling live orders. */
+const PRODUCTS = [
+{id:"potato",name:"Potato",category:"Daily Vegetables",price:27,unit:"kg",emoji:"🥔"},
+{id:"tomato",name:"Tomato",category:"Daily Vegetables",price:35,unit:"kg",emoji:"🍅"},
+{id:"onion",name:"Onion",category:"Daily Vegetables",price:53,unit:"kg",emoji:"🧅"},
+{id:"cucumber",name:"Cucumber",category:"Daily Vegetables",price:28,unit:"kg",emoji:"🥒"},
+{id:"carrot",name:"Carrot",category:"Daily Vegetables",price:35,unit:"kg",emoji:"🥕"},
+{id:"cauliflower",name:"Cauliflower",category:"Seasonal",price:35,unit:"piece",emoji:"🥦"},
+{id:"cabbage",name:"Cabbage",category:"Seasonal",price:30,unit:"piece",emoji:"🥬"},
+{id:"spinach",name:"Spinach",category:"Greens",price:15,unit:"bunch",emoji:"🌿"},
+{id:"chilli",name:"Green chilli",category:"Greens",price:55,unit:"kg",emoji:"🌶️"},
+{id:"eggplant",name:"Brinjal",category:"Daily Vegetables",price:38,unit:"kg",emoji:"🍆"},
+{id:"okra",name:"Okra",category:"Daily Vegetables",price:35,unit:"kg",emoji:"🥒"},
+{id:"ginger",name:"Ginger",category:"Daily Vegetables",price:135,unit:"kg",emoji:"🫚"}
+];
+const UPI_ID = "8134834380@mbk";
+const BUSINESS_NAME = "Fresh Veggie";
+const DELIVERY_CHARGE = 20;
+let cart = {};
+const money = n => "₹"+Number(n).toFixed(2).replace(/\.00$/,"");
+function copyReferralCode(){
+ const v=document.querySelector("#referralCode").value;
+ if(!v || v==="Sign in to receive your code"){alert("Sign in first to get your personal referral code.");return;}
+ navigator.clipboard?.writeText(v).then(()=>alert("Referral code copied")).catch(()=>alert("Copy not available on this device."));
+}
+function renderProducts(){
+ const q=document.querySelector("#search").value.toLowerCase(),cat=document.querySelector("#category").value;
+ document.querySelector("#products").innerHTML=PRODUCTS.filter(p=>(!cat||p.category===cat)&&p.name.toLowerCase().includes(q)).map(p=>`<article class="product"><div class="emoji">${p.emoji}</div><h3>${p.name}</h3><div class="sub">${p.category}</div><div class="price">${money(p.price)} / ${p.unit}</div><button class="primary add" onclick="add('${p.id}')">Add to cart</button></article>`).join("");
+}
+function add(id){cart[id]=(cart[id]||0)+1;renderCart()}
+function change(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];renderCart()}
+function clearCart(){cart={};renderCart()}
+function totals(){let sub=Object.entries(cart).reduce((s,[id,q])=>s+PRODUCTS.find(p=>p.id===id).price*q,0);return {sub,delivery:sub?DELIVERY_CHARGE:0,total:sub+(sub?DELIVERY_CHARGE:0)}}
+function renderCart(){
+ let entries=Object.entries(cart),t=totals();
+ document.querySelector("#cartCount").textContent=entries.reduce((s,[,q])=>s+q,0);
+ document.querySelector("#cartItems").innerHTML=entries.length?entries.map(([id,q])=>{let p=PRODUCTS.find(x=>x.id===id);return `<div class="cartrow"><span><b>${p.name}</b><br><span class="sub">${money(p.price)} × ${q}</span></span><span class="qty"><button class="outline" type="button" onclick="change('${id}',-1)">−</button>${q}<button class="outline" type="button" onclick="change('${id}',1)">+</button></span></div>`}).join(""):"Your cart is empty.";
+ document.querySelector("#subtotal").textContent=money(t.sub);document.querySelector("#delivery").textContent=money(t.delivery);document.querySelector("#total").textContent=money(t.total);
+}
+document.querySelector("#checkout").addEventListener("submit",async e=>{
+ e.preventDefault();const entries=Object.entries(cart),t=totals();if(!entries.length){alert("Please add vegetables to your cart.");return;}
+ const fd=new FormData(e.target),data=Object.fromEntries(fd.entries());
+ if(!/^[6-9][0-9]{9}$/.test(data.phone)){alert("Enter a valid 10-digit Indian mobile number.");return;}
+ const order={customer:{name:data.name,phone:data.phone,address:data.address,area:data.area,pincode:data.pincode},items:entries.map(([id,q])=>{let p=PRODUCTS.find(x=>x.id===id);return {productId:id,name:p.name,unit:p.unit,quantity:q,unitPrice:p.price,lineTotal:p.price*q}}),subtotal:t.sub,deliveryCharge:t.delivery,total:t.total,paymentMethod:data.payment,referralCode:(data.referralCode||"").trim().toUpperCase(),paymentStatus:data.payment==="COD"?"COD_PENDING":"PAYMENT_PENDING",orderStatus:"RECEIVED",createdAt:new Date().toISOString()};
+ /* Live submission must go through the Cloud Function endpoint. Never write orders directly from the browser. */
+ const endpoint=window.FRESH_VEGGIE_ORDER_ENDPOINT;
+ if(!endpoint){alert("Website preview only: backend is not connected yet. No order or payment has been submitted.");return;}
+ try{
+  const r=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(order)});
+  const result=await r.json();if(!r.ok)throw new Error(result.error||"Order failed");
+  const box=document.querySelector("#orderResult");box.className="success";box.innerHTML=`<b>Order received: ${result.orderId}</b><p>Total: ${money(order.total)}</p>`;
+  if(data.payment==="UPI"){
+    const params=new URLSearchParams({pa:UPI_ID,pn:BUSINESS_NAME,am:order.total.toFixed(2),cu:"INR",tn:"Fresh Veggie "+result.orderId});
+    const uri="upi://pay?"+params.toString();
+    box.innerHTML+=`<p>Scan this QR in your UPI app. Pay exactly ${money(order.total)}. Order remains pending until payment is verified.</p><div id="qr"></div><p><a href="${uri}">Open UPI app</a></p><p class="sub">UPI ID: ${UPI_ID}</p>`;
+    if(window.QRCode)new QRCode(document.querySelector("#qr"),{text:uri,width:210,height:210});
+  }else{box.innerHTML+="<p>Please keep the cash ready for delivery.</p>";}
+  clearCart();box.scrollIntoView({behavior:"smooth"});
+ }catch(err){alert("Could not place order: "+err.message);}
+});
+renderProducts();renderCart();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+<script src="firebase-config.js"></script>
+</body></html>
