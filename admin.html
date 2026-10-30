@@ -3,359 +3,379 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Dashboard | Fresh Veggie & Grocery</title>
+  <meta name="theme-color" content="#0f5c2a">
+  <title>Fresh Veggie | Store Admin Dashboard</title>
   <style>
     :root {
       --green: #16823b;
       --green-dark: #0f5c2a;
       --bg: #f0f4f1;
-      --card: #ffffff;
+      --card-bg: #ffffff;
       --text: #1d2b20;
-      --border: #d2ded5;
-      --red: #d32f2f;
+      --muted: #60766b;
+      --line: #d8e6dc;
+      --danger: #d9534f;
+      --warning: #f0ad4e;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: system-ui, -apple-system, Roboto, sans-serif;
+      font-family: system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
-      padding: 16px;
-      max-width: 900px;
-      margin: 0 auto;
+      padding-bottom: 50px;
     }
     header {
-      background: var(--green);
+      background: var(--green-dark);
       color: white;
-      padding: 16px;
-      border-radius: 12px;
+      padding: 14px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    .btn-logout {
+    .brand { font-size: 17px; font-weight: 800; }
+    .header-btn {
       background: rgba(255,255,255,0.2);
-      border: 1px solid white;
+      border: 1px solid rgba(255,255,255,0.4);
       color: white;
-      padding: 6px 12px;
+      padding: 5px 12px;
       border-radius: 6px;
+      font-size: 12px;
       cursor: pointer;
     }
-    .login-box {
-      max-width: 360px;
-      margin: 80px auto;
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .stat-card {
       background: white;
-      padding: 24px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      padding: 12px;
+      border: 1px solid var(--line);
       text-align: center;
     }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0 14px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      outline: none;
-      font-size: 14px;
-    }
-    button.btn-primary {
-      width: 100%;
-      background: var(--green);
-      color: white;
-      padding: 10px;
-      border: none;
-      border-radius: 6px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .tabs {
+    .stat-num { font-size: 20px; font-weight: 800; color: var(--green-dark); margin-top: 4px; }
+    .stat-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .nav-tabs {
       display: flex;
       gap: 8px;
-      margin-bottom: 16px;
-      overflow-x: auto;
-    }
-    .tab-btn {
-      padding: 10px 16px;
-      background: white;
-      border: 1px solid var(--border);
+      background: #e2ece5;
+      padding: 4px;
       border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      white-space: nowrap;
     }
-    .tab-btn.active {
-      background: var(--green);
-      color: white;
-      border-color: var(--green);
-    }
-    .panel {
-      background: white;
-      padding: 18px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      display: none;
-    }
-    .panel.active { display: block; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
+    .nav-tab {
+      flex: 1;
+      text-align: center;
+      padding: 8px;
+      border-radius: 6px;
       font-size: 13px;
-    }
-    table th, table td {
-      border: 1px solid var(--border);
-      padding: 10px;
-      text-align: left;
-    }
-    table th { background: #eaf1ec; }
-    .badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-size: 11px;
-      font-weight: bold;
-    }
-    .badge-pending { background: #fff3cd; color: #856404; }
-    .badge-approved { background: #d4edda; color: #155724; }
-    .btn-del {
-      background: var(--red);
-      color: white;
-      border: none;
-      padding: 4px 8px;
-      border-radius: 4px;
+      font-weight: 700;
       cursor: pointer;
+      color: var(--muted);
+      border: none;
+      background: transparent;
+    }
+    .nav-tab.active {
+      background: white;
+      color: var(--green-dark);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .order-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .order-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed var(--line);
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+    .order-id { font-weight: 800; color: var(--green-dark); font-size: 14px; }
+    .order-date { font-size: 11px; color: var(--muted); }
+    .badge {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+    .badge-placed { background: #fff3cd; color: #856404; }
+    .badge-packed { background: #cce5ff; color: #004085; }
+    .badge-delivery { background: #d4edda; color: #155724; }
+    .badge-delivered { background: #28a745; color: #fff; }
+
+    .order-items {
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+      background: #f9fbf9;
+      padding: 8px 10px;
+      border-radius: 6px;
+    }
+    .order-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-top: 10px;
+    }
+    select.status-select {
+      flex: 1;
+      padding: 7px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-size: 13px;
+      background: white;
+    }
+    .btn-action {
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-update { background: var(--green); color: white; }
+    .btn-del { background: #fbeae8; color: var(--danger); border: 1px solid #f5c6cb; }
+
+    /* Auth Overlay */
+    #adminAuthScreen {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 16px;
+    }
+    .auth-box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 320px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .auth-box input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin: 12px 0;
+      letter-spacing: 4px;
     }
   </style>
 </head>
 <body>
 
-  <!-- 1. LOGIN SCREEN -->
-  <div id="loginScreen" class="login-box">
-    <h2 style="color: var(--green-dark); margin-bottom: 8px;">🔐 Admin Access</h2>
-    <p style="font-size: 13px; color: #666; margin-bottom: 16px;">Fresh Veggie & Grocery Manager</p>
-    <label style="font-size: 12px; font-weight: bold; display: block; text-align: left;">Enter Admin PIN</label>
-    <input type="password" id="adminPin" placeholder="Enter PIN code">
-    <button class="btn-primary" onclick="verifyPin()">Login Dashboard</button>
+  <!-- ADMIN PASSCODE SCREEN -->
+  <div id="adminAuthScreen">
+    <div class="auth-box">
+      <div style="font-size: 36px; margin-bottom: 8px;">🔐</div>
+      <h3 style="color: var(--green-dark);">Admin Access</h3>
+      <p style="font-size: 12px; color: var(--muted); margin-top: 4px;">Enter PIN to manage Fresh Veggie Store</p>
+      <input type="password" id="adminPin" placeholder="••••" maxlength="6">
+      <button class="btn-action btn-update" style="width: 100%; padding: 10px;" onclick="verifyPin()">Unlock Dashboard</button>
+      <p style="font-size: 10px; color: var(--muted); margin-top: 10px;">Default PIN: 1234</p>
+    </div>
   </div>
 
-  <!-- 2. DASHBOARD (Protected) -->
-  <div id="adminDashboard" style="display: none;">
-    <header>
-      <div>
-        <h2>🥦 Fresh Veggie Admin</h2>
-        <span style="font-size: 12px;">Delivery Area: Gossaigaon</span>
-      </div>
-      <button class="btn-logout" onclick="logout()">Logout</button>
-    </header>
-
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('tabProducts', this)">📦 Manage Products</button>
-      <button class="tab-btn" onclick="switchTab('tabSellers', this)">🏪 Sellers (PAN)</button>
-      <button class="tab-btn" onclick="switchTab('tabSettings', this)">⚙️ Admin Settings</button>
+  <!-- DASHBOARD HEADER -->
+  <header>
+    <div class="brand">🥦 Fresh Veggie Admin</div>
+    <div>
+      <a href="index.html" class="header-btn" style="text-decoration:none;">Go to Shop</a>
+      <button class="header-btn" onclick="logoutAdmin()">Lock</button>
     </div>
+  </header>
 
-    <!-- TAB 1: PRODUCT MANAGEMENT -->
-    <div id="tabProducts" class="panel active">
-      <h3>Add New Item (Vegetable or Grocery)</h3>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-        <div>
-          <label style="font-size: 12px;">Item Name</label>
-          <input type="text" id="pName" placeholder="e.g. Cauliflower / Miniket Rice">
-        </div>
-        <div>
-          <label style="font-size: 12px;">Category</label>
-          <select id="pCat">
-            <option value="Vegetables">Vegetables</option>
-            <option value="Groceries">Groceries</option>
-          </select>
-        </div>
-        <div>
-          <label style="font-size: 12px;">Price (₹)</label>
-          <input type="number" id="pPrice" placeholder="e.g. 35">
-        </div>
-        <div>
-          <label style="font-size: 12px;">Unit</label>
-          <select id="pUnit">
-            <option value="kg">per kg</option>
-            <option value="litre">per litre</option>
-            <option value="pc">per piece</option>
-            <option value="bunch">per bunch</option>
-            <option value="pack">per pack</option>
-          </select>
-        </div>
+  <div class="container" id="adminDashboard" style="display:none;">
+    
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-lbl">Orders</div>
+        <div class="stat-num" id="statOrders">0</div>
       </div>
-      <button class="btn-primary" onclick="addNewProduct()">+ Add to Store</button>
-
-      <h3 style="margin-top: 24px;">Current Store Items</h3>
-      <div style="overflow-x: auto;">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Unit</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="productTableBody"></tbody>
-        </table>
+      <div class="stat-card">
+        <div class="stat-lbl">Total Sales</div>
+        <div class="stat-num">₹<span id="statSales">0</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-lbl">Pending</div>
+        <div class="stat-num" id="statPending">0</div>
       </div>
     </div>
 
-    <!-- TAB 2: SELLER REGISTRATIONS -->
-    <div id="tabSellers" class="panel">
-      <h3>Become a Seller Applications (PAN Verified)</h3>
-      <p style="font-size: 12px; color: #666; margin-top: 4px;">Applications received directly via website registration.</p>
-      <div style="overflow-x: auto;">
-        <table>
-          <thead>
-            <tr>
-              <th>Seller Name</th>
-              <th>PAN Number</th>
-              <th>Shop/Farm</th>
-              <th>Mobile</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="sellerTableBody">
-            <tr>
-              <td>Raju Das</td>
-              <td><b>ABCDE1234F</b></td>
-              <td>Gossaigaon Green Agro</td>
-              <td>8134834380</td>
-              <td><span class="badge badge-approved">Approved</span></td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- TABS -->
+    <div class="nav-tabs">
+      <button class="nav-tab active" id="tabOrdersBtn" onclick="switchTab('orders')">📦 Orders</button>
+      <button class="nav-tab" id="tabSellersBtn" onclick="switchTab('sellers')">🏪 Sellers (PAN)</button>
+    </div>
+
+    <!-- ORDERS VIEW -->
+    <div id="viewOrders">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span style="font-size: 13px; font-weight: 700; color: var(--muted);">Customer Order Feed</span>
+        <button onclick="renderOrders()" class="header-btn" style="background:var(--green); border:none;">🔄 Refresh</button>
+      </div>
+      <div id="adminOrdersList"></div>
+    </div>
+
+    <!-- SELLERS VIEW -->
+    <div id="viewSellers" style="display: none;">
+      <div style="font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 8px;">Registered Seller Requests</div>
+      <div id="adminSellersList">
+        <p style="text-align: center; color: var(--muted); padding: 16px;">No seller verification requests submitted yet.</p>
       </div>
     </div>
 
-    <!-- TAB 3: SETTINGS & PASSWORD CHANGE -->
-    <div id="tabSettings" class="panel">
-      <h3>Change Admin Password</h3>
-      <div style="max-width: 320px; margin-top: 10px;">
-        <label style="font-size: 12px;">Current PIN</label>
-        <input type="password" id="curPin">
-        <label style="font-size: 12px;">New PIN</label>
-        <input type="password" id="newPin">
-        <button class="btn-primary" onclick="changePin()">Update PIN</button>
-      </div>
-
-      <h3 style="margin-top: 24px;">Payment UPI Receiver</h3>
-      <p style="font-size: 13px; margin-top: 6px;">Active UPI: <b>8134834380@mbk</b></p>
-      <p style="font-size: 13px; margin-top: 4px;">WhatsApp Orders: <b>+91 8134834380</b></p>
-    </div>
   </div>
 
   <script>
-    // Default PIN: 8134
-    if (!localStorage.getItem('fv_admin_pin')) {
-      localStorage.setItem('fv_admin_pin', '8134');
-    }
+    var ADMIN_PASSCODE = "1234";
 
-    // Default Products
-    let defaultProducts = [
-      { name: "Potato", cat: "Vegetables", price: 27, unit: "kg" },
-      { name: "Tomato", cat: "Vegetables", price: 35, unit: "kg" },
-      { name: "Onion", cat: "Vegetables", price: 53, unit: "kg" },
-      { name: "Miniket Premium Rice", cat: "Groceries", price: 52, unit: "kg" },
-      { name: "Mustard Oil", cat: "Groceries", price: 145, unit: "litre" },
-      { name: "Masoor Dal", cat: "Groceries", price: 95, unit: "kg" }
-    ];
-
-    let items = JSON.parse(localStorage.getItem('fv_admin_items')) || defaultProducts;
-
-    // PIN Authentication
     function verifyPin() {
-      const pin = document.getElementById('adminPin').value;
-      const actual = localStorage.getItem('fv_admin_pin');
-      if (pin === actual) {
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('adminDashboard').style.display = 'block';
-        renderProductsTable();
+      var pin = document.getElementById('adminPin').value;
+      if (pin === ADMIN_PASSCODE) {
+        document.getElementById('adminAuthScreen').style.display = "none";
+        document.getElementById('adminDashboard').style.display = "flex";
+        renderOrders();
       } else {
-        alert("Galat Password! Default PIN hai: 8134");
+        alert("Incorrect PIN. Please try again.");
       }
     }
 
-    function logout() {
+    function logoutAdmin() {
       document.getElementById('adminPin').value = "";
-      document.getElementById('loginScreen').style.display = 'block';
-      document.getElementById('adminDashboard').style.display = 'none';
+      document.getElementById('adminAuthScreen').style.display = "flex";
+      document.getElementById('adminDashboard').style.display = "none";
     }
 
-    // Tabs
-    function switchTab(tabId, btn) {
-      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      btn.classList.add('active');
+    function switchTab(tab) {
+      if (tab === 'orders') {
+        document.getElementById('viewOrders').style.display = "block";
+        document.getElementById('viewSellers').style.display = "none";
+        document.getElementById('tabOrdersBtn').classList.add('active');
+        document.getElementById('tabSellersBtn').classList.remove('active');
+      } else {
+        document.getElementById('viewOrders').style.display = "none";
+        document.getElementById('viewSellers').style.display = "block";
+        document.getElementById('tabSellersBtn').classList.add('active');
+        document.getElementById('tabOrdersBtn').classList.remove('active');
+      }
     }
 
-    // Products Management
-    function renderProductsTable() {
-      const tbody = document.getElementById('productTableBody');
-      tbody.innerHTML = items.map((item, index) => `
-        <tr>
-          <td><b>${item.name}</b></td>
-          <td>${item.cat}</td>
-          <td>₹${item.price}</td>
-          <td>${item.unit}</td>
-          <td><button class="btn-del" onclick="deleteProduct(${index})">Delete</button></td>
-        </tr>
-      `).join('');
-    }
+    function renderOrders() {
+      var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
+      var container = document.getElementById('adminOrdersList');
+      var totalSales = 0;
+      var pendingCount = 0;
 
-    function addNewProduct() {
-      const name = document.getElementById('pName').value.trim();
-      const cat = document.getElementById('pCat').value;
-      const price = document.getElementById('pPrice').value;
-      const unit = document.getElementById('pUnit').value;
-
-      if (!name || !price) {
-        alert("Item ka naam aur price dono enter karein!");
+      if (orders.length === 0) {
+        container.innerHTML = "<p style='text-align: center; color: var(--muted); padding: 24px;'>No orders received yet.</p>";
+        document.getElementById('statOrders').innerText = "0";
+        document.getElementById('statSales').innerText = "0";
+        document.getElementById('statPending').innerText = "0";
         return;
       }
 
-      items.push({ name, cat, price: Number(price), unit });
-      localStorage.setItem('fv_admin_items', JSON.stringify(items));
-      renderProductsTable();
+      var html = "";
+      orders.slice().reverse().forEach(function(ord, revIdx) {
+        var originalIdx = orders.length - 1 - revIdx;
+        totalSales += Number(ord.total) || 0;
+        
+        var currentStatus = ord.status || "Placed";
+        if (currentStatus !== "Delivered") pendingCount++;
 
-      document.getElementById('pName').value = "";
-      document.getElementById('pPrice').value = "";
-      alert("Product add ho gaya!");
+        var badgeClass = "badge-placed";
+        if (currentStatus === "Packed") badgeClass = "badge-packed";
+        if (currentStatus === "Out for Delivery") badgeClass = "badge-delivery";
+        if (currentStatus === "Delivered") badgeClass = "badge-delivered";
+
+        html += '<div class="order-card">' +
+                  '<div class="order-head">' +
+                    '<div>' +
+                      '<div class="order-id">' + ord.orderId + '</div>' +
+                      '<div class="order-date">' + new Date(ord.date).toLocaleString([], {dateStyle:'short', timeStyle:'short'}) + '</div>' +
+                    '</div>' +
+                    '<span class="badge ' + badgeClass + '">' + currentStatus + '</span>' +
+                  '</div>' +
+                  
+                  '<div style="font-size:13px; margin-bottom: 6px;">' +
+                    '<b>' + ord.customer + '</b> (' + ord.phone + ')<br>' +
+                    '<span style="color:var(--muted);">' + ord.village + ', ' + ord.address + '</span>' +
+                  '</div>' +
+
+                  '<div class="order-items">' +
+                    ord.items.map(function(it) {
+                      return it.name + ' × ' + it.qty + ' (₹' + (it.price * it.qty) + ')';
+                    }).join('<br>') +
+                  '</div>' +
+
+                  '<div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px;">' +
+                    '<span>Payment: <b>' + ord.payment + '</b></span>' +
+                    '<span style="font-weight:800; color:var(--green-dark);">Total: ₹' + ord.total + '</span>' +
+                  '</div>' +
+
+                  '<div class="order-actions">' +
+                    '<select class="status-select" id="status_' + originalIdx + '">' +
+                      '<option value="Placed" ' + (currentStatus === 'Placed' ? 'selected' : '') + '>Placed</option>' +
+                      '<option value="Packed" ' + (currentStatus === 'Packed' ? 'selected' : '') + '>Packed</option>' +
+                      '<option value="Out for Delivery" ' + (currentStatus === 'Out for Delivery' ? 'selected' : '') + '>Out for Delivery</option>' +
+                      '<option value="Delivered" ' + (currentStatus === 'Delivered' ? 'selected' : '') + '>Delivered</option>' +
+                    '</select>' +
+                    '<button class="btn-action btn-update" onclick="updateOrderStatus(' + originalIdx + ')">Save Status</button>' +
+                    '<button class="btn-action btn-del" onclick="deleteOrder(' + originalIdx + ')">✕</button>' +
+                  '</div>' +
+                '</div>';
+      });
+
+      container.innerHTML = html;
+      document.getElementById('statOrders').innerText = orders.length;
+      document.getElementById('statSales').innerText = totalSales;
+      document.getElementById('statPending').innerText = pendingCount;
     }
 
-    function deleteProduct(index) {
-      if (confirm("Kya aap is product ko delete karna chahte hain?")) {
-        items.splice(index, 1);
-        localStorage.setItem('fv_admin_items', JSON.stringify(items));
-        renderProductsTable();
-      }
+    function updateOrderStatus(idx) {
+      var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
+      var selectElem = document.getElementById('status_' + idx);
+      if (!selectElem) return;
+
+      orders[idx].status = selectElem.value;
+      localStorage.setItem('fv_orders', JSON.stringify(orders));
+      alert("Order #" + orders[idx].orderId + " status updated to: " + selectElem.value);
+      renderOrders();
     }
 
-    // Settings PIN Change
-    function changePin() {
-      const cur = document.getElementById('curPin').value;
-      const nxt = document.getElementById('newPin').value;
-      const actual = localStorage.getItem('fv_admin_pin');
-
-      if (cur !== actual) {
-        alert("Current PIN galat hai!");
-        return;
-      }
-      if (nxt.length < 4) {
-        alert("Naya PIN kam se kam 4 digit ka hona chahiye!");
-        return;
-      }
-
-      localStorage.setItem('fv_admin_pin', nxt);
-      alert("Password successfully update ho gaya! Naya PIN: " + nxt);
-      document.getElementById('curPin').value = "";
-      document.getElementById('newPin').value = "";
+    function deleteOrder(idx) {
+      if (!confirm("Are you sure you want to remove this order record?")) return;
+      var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
+      orders.splice(idx, 1);
+      localStorage.setItem('fv_orders', JSON.stringify(orders));
+      renderOrders();
     }
   </script>
 </body>
