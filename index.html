@@ -490,4 +490,221 @@
       for (var i = 0; i < cards.length; i++) {
         var cCat = cards[i].getAttribute('data-cat');
         var cName = cards[i].getAttribute('data-name');
-        v
+        var matchCat = (category === "All" || cCat === category);
+        var matchQuery = cName.indexOf(query) !== -1;
+
+        cards[i].style.display = (matchCat && matchQuery) ? "flex" : "none";
+      }
+    }
+
+    // Add Item to Cart
+    function addItem(id, name, price, unit, btn) {
+      var found = false;
+      for (var i = 0; i < cartItems.length; i++) {
+        if (cartItems[i].id === id) {
+          cartItems[i].qty += 1;
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        cartItems.push({ id: id, name: name, price: price, unit: unit, qty: 1 });
+      }
+
+      refreshCart();
+
+      // Button feedback
+      if (btn) {
+        var old = btn.innerText;
+        btn.innerText = "✓ Added!";
+        btn.style.background = "#0f5c2a";
+        setTimeout(function() {
+          btn.innerText = old;
+          btn.style.background = "#16823b";
+        }, 600);
+      }
+    }
+
+    // Refresh Cart
+    function refreshCart() {
+      var count = 0;
+      var sub = 0;
+
+      for (var i = 0; i < cartItems.length; i++) {
+        count += cartItems[i].qty;
+        sub += (cartItems[i].qty * cartItems[i].price);
+      }
+
+      var fee = (sub > 0 && sub < 300) ? 21 : 0;
+      var total = sub + fee;
+
+      document.getElementById('cartCount').innerText = count;
+      document.getElementById('subTotalVal').innerText = sub;
+      document.getElementById('feeVal').innerText = (fee === 0 ? "FREE" : "₹" + fee);
+      document.getElementById('finalTotalVal').innerText = total;
+
+      var list = document.getElementById('cartItemList');
+      if (cartItems.length === 0) {
+        list.innerHTML = "<p>Cart is empty.</p>";
+      } else {
+        var html = "";
+        for (var j = 0; j < cartItems.length; j++) {
+          html += "<div style='display:flex; justify-content:space-between; margin-bottom:5px;'>" +
+                  "<span>" + cartItems[j].name + " x " + cartItems[j].qty + "</span>" +
+                  "<b>₹" + (cartItems[j].price * cartItems[j].qty) + "</b></div>";
+        }
+        list.innerHTML = html;
+      }
+
+      updatePayView();
+    }
+
+    function showCartPopup() {
+      refreshCart();
+      showPopup('cartPopup');
+    }
+
+    // UPI QR Toggle
+    function updatePayView() {
+      var radio = document.querySelector('input[name="payType"]:checked');
+      var payVal = radio ? radio.value : "COD";
+      var qr = document.getElementById('qrBox');
+
+      var sub = 0;
+      for (var i = 0; i < cartItems.length; i++) {
+        sub += (cartItems[i].qty * cartItems[i].price);
+      }
+      var fee = (sub > 0 && sub < 300) ? 21 : 0;
+      var grand = sub + fee;
+
+      if (payVal === "UPI") {
+        qr.style.display = "block";
+        document.getElementById('qrTotal').innerText = grand;
+        var upiStr = "upi://pay?pa=" + UPI_ID + "&pn=Fresh%20Veggie&am=" + grand + "&cu=INR";
+        document.getElementById('qrImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=" + encodeURIComponent(upiStr);
+      } else {
+        qr.style.display = "none";
+      }
+    }
+
+    // OTP
+    function sendOtpCode() {
+      var num = document.getElementById('userPhone').value.trim();
+      if (num.length < 10) {
+        alert("Enter 10-digit mobile number");
+        return;
+      }
+      alert("OTP sent to " + num + ". Demo OTP is 1234");
+      document.getElementById('step1').style.display = "none";
+      document.getElementById('step2').style.display = "block";
+    }
+
+    function verifyOtpCode() {
+      var code = document.getElementById('otpBox').value.trim();
+      if (code === "1234") {
+        var num = document.getElementById('userPhone').value.trim();
+        localStorage.setItem('fv_user', num);
+
+        var w = parseInt(localStorage.getItem('fv_wallet') || 0);
+        if (!localStorage.getItem('fv_claimed')) {
+          w += 20;
+          localStorage.setItem('fv_wallet', w);
+          localStorage.setItem('fv_claimed', 'true');
+        }
+
+        hidePopup('loginPopup');
+        window.location.reload();
+      } else {
+        alert("Invalid OTP! Use 1234");
+      }
+    }
+
+    // Seller Submit
+    function submitSeller(e) {
+      e.preventDefault();
+      var pan = document.getElementById('sPan').value.toUpperCase();
+      var name = document.getElementById('sName').value;
+      var shop = document.getElementById('sShop').value;
+      var mob = document.getElementById('sMobile').value;
+
+      var txt = "🏪 *New Seller Application - Fresh Veggie*\n\n" +
+                "👤 Name: " + name + "\n" +
+                "📄 PAN: " + pan + "\n" +
+                "🏬 Shop: " + shop + "\n" +
+                "📞 Mobile: " + mob;
+
+      window.open("https://wa.me/" + ADMIN_NO + "?text=" + encodeURIComponent(txt), "_blank");
+      hidePopup('sellerPopup');
+    }
+
+    function copyCode() {
+      var c = document.getElementById('myRefCode').value;
+      navigator.clipboard.writeText(c);
+      alert("Referral code copied: " + c);
+    }
+
+    function shareWa() {
+      var c = document.getElementById('myRefCode').value;
+      var u = window.location.href.split('?')[0];
+      var txt = "Order fresh veggies & groceries in Gossaigaon!\nUse code: " + c + " for ₹20 wallet bonus.\nLink: " + u + "?ref=" + c;
+      window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank");
+    }
+
+    // Send WhatsApp Order
+    function sendOrderWhatsApp() {
+      var sub = 0;
+      for (var i = 0; i < cartItems.length; i++) {
+        sub += (cartItems[i].qty * cartItems[i].price);
+      }
+
+      if (cartItems.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      if (sub < 100) {
+        alert("Minimum order value is ₹100. Add more items!");
+        return;
+      }
+
+      var name = document.getElementById('cName').value.trim();
+      var phone = document.getElementById('cPhone').value.trim();
+      var village = document.getElementById('cVillage').value;
+      var address = document.getElementById('cAddress').value.trim();
+
+      if (!name) { alert("Enter your name"); return; }
+      if (phone.length < 10) { alert("Enter 10-digit mobile number"); return; }
+      if (!village) { alert("Select your village"); return; }
+      if (!address) { alert("Enter address / landmark"); return; }
+
+      var fee = sub < 300 ? 21 : 0;
+      var total = sub + fee;
+
+      var radio = document.querySelector('input[name="payType"]:checked');
+      var payText = (radio && radio.value === "UPI") ? "📱 UPI QR (Paid via 8134834380@mbk)" : "💵 Cash on Delivery (COD)";
+
+      var refCode = localStorage.getItem('fv_ref') || "None";
+      var rewardNote = (total >= 1000) ? "\n🎁 *Order Offer:* ₹5 bonus applicable!" : "";
+
+      var msg = "🛒 *New Order - Fresh Veggie (Gossaigaon)*\n\n" +
+                "👤 *Name:* " + name + "\n" +
+                "📞 *Mobile:* " + phone + "\n" +
+                "🏡 *Village:* " + village + "\n" +
+                "📍 *Address:* " + address + "\n" +
+                "💳 *Payment:* " + payText + "\n" +
+                "🏷️ *Referral:* " + refCode + "\n\n" +
+                "📦 *Items:*\n";
+
+      for (var k = 0; k < cartItems.length; k++) {
+        msg += "• " + cartItems[k].name + " (" + cartItems[k].qty + " " + cartItems[k].unit + ") - ₹" + (cartItems[k].qty * cartItems[k].price) + "\n";
+      }
+
+      msg += "\n💵 *Subtotal:* ₹" + sub + "\n" +
+             "🚚 *Delivery:* " + (fee === 0 ? "FREE" : "₹" + fee) + "\n" +
+             "💰 *Total Payable:* ₹" + total + rewardNote;
+
+      window.open("https://wa.me/" + ADMIN_NO + "?text=" + encodeURIComponent(msg), "_blank");
+      hidePopup('cartPopup');
+    }
+  </script>
+</body>
+</html>
