@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#16823b">
-  <title>Fresh Veggie & Grocery | Delivered in Gossaigaon</title>
+  <title>Fresh Veggie & Grocery | Gossaigaon</title>
   <style>
     :root {
       --green: #16823b;
@@ -20,7 +20,7 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
-      padding-bottom: 70px;
+      padding-bottom: 80px;
     }
     header {
       background: var(--green);
@@ -34,7 +34,7 @@
       align-items: center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    .brand { font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+    .brand { font-size: 19px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
     .header-actions { display: flex; gap: 8px; }
     .btn-header {
       background: rgba(255, 255, 255, 0.2);
@@ -48,17 +48,6 @@
     }
     .main-wrap { max-width: 600px; margin: 0 auto; padding: 14px; display: flex; flex-direction: column; gap: 14px; }
     
-    /* Hero Banner */
-    .hero {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      border-left: 5px solid var(--green);
-    }
-    .hero h1 { font-size: 18px; color: var(--green-dark); margin-bottom: 4px; }
-    .hero p { font-size: 13px; color: var(--muted); }
-    
     /* Wallet Bar */
     .wallet-card {
       background: linear-gradient(135deg, #16823b, #0f5c2a);
@@ -70,6 +59,17 @@
       align-items: center;
     }
     .wallet-val { font-size: 22px; font-weight: 800; }
+
+    /* Delivery Info Notice */
+    .delivery-notice {
+      background: #e8f5e9;
+      border: 1px dashed var(--green);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--green-dark);
+      line-height: 1.5;
+    }
     
     /* Search & Filter */
     .search-box input, select {
@@ -141,7 +141,7 @@
     .btn-primary { background: var(--green); color: white; }
     .btn-whatsapp { background: #25D366; color: white; margin-top: 6px; }
 
-    /* Modal / Popups */
+    /* Modals */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -188,26 +188,17 @@
       </div>
     </div>
 
-    <!-- Hero Intro -->
-    <div class="hero">
-      <h1>Farm Fresh Produce & Daily Groceries</h1>
-      <p>Direct doorstep delivery in Gossaigaon area. Order easily via WhatsApp with COD or UPI QR payment.</p>
-    </div>
-
-    <!-- Referral Banner -->
-    <div class="panel">
-      <h3>🎁 Refer & Earn Rewards</h3>
-      <p>Invite friends: Earn <b>₹5</b> on their first successful order, plus <b>₹5 bonus</b> for every <b>₹1,000</b> in order value directly credited to your wallet!</p>
-      <div style="display: flex; gap: 6px;">
-        <input type="text" id="myRefCode" readonly style="font-weight: 700; text-align: center; margin-bottom: 0;">
-        <button class="btn-block btn-primary" style="width: 110px;" onclick="copyReferral()">Copy</button>
-      </div>
-      <button class="btn-block btn-whatsapp" onclick="shareOnWhatsApp()">📲 Share on WhatsApp</button>
+    <!-- Delivery Rules Notice -->
+    <div class="delivery-notice">
+      <b>🚚 Order & Delivery Rules:</b><br>
+      • Minimum order value: <b>₹100</b><br>
+      • Orders below ₹300: Delivery Charge <b>₹21</b><br>
+      • Orders of ₹300 and above: <b>FREE Delivery!</b>
     </div>
 
     <!-- Search & Filter -->
     <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search vegetables, dal, rice, spices..." oninput="filterItems()">
+      <input type="text" id="searchInput" placeholder="Search vegetables, dal, rice, oil..." oninput="filterItems()">
       <select id="catSelect" onchange="filterItems()">
         <option value="All">All Categories</option>
         <option value="Vegetables">Fresh Vegetables</option>
@@ -215,16 +206,27 @@
       </select>
     </div>
 
-    <!-- Products Grid -->
+    <!-- Products Grid (Sabzi & Grocery List) -->
     <div class="grid" id="productsGrid"></div>
+
+    <!-- Referral Program Section (Shifted to Bottom) -->
+    <div class="panel">
+      <h3>🎁 Refer & Earn Rewards</h3>
+      <p>Invite friends to Fresh Veggie! Earn <b>₹5</b> on their first successful order, plus <b>₹5 bonus</b> for every <b>₹1,000</b> in order value directly credited to your wallet!</p>
+      <div style="display: flex; gap: 6px;">
+        <input type="text" id="myRefCode" readonly style="font-weight: 700; text-align: center; margin-bottom: 0;">
+        <button class="btn-block btn-primary" style="width: 110px;" onclick="copyReferral()">Copy</button>
+      </div>
+      <button class="btn-block btn-whatsapp" onclick="shareOnWhatsApp()">📲 Share on WhatsApp</button>
+    </div>
   </div>
 
-  <!-- MODAL: Login & OTP Register -->
+  <!-- MODAL: Login & OTP -->
   <div class="modal-overlay" id="authModal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal('authModal')">✕</button>
       <h3 style="margin-bottom: 4px; color: var(--green);">📱 Mobile Login & Register</h3>
-      <p style="font-size: 13px; color: var(--muted); margin-bottom: 14px;">Register today and get an instant <b>₹20 welcome wallet cash</b>!</p>
+      <p style="font-size: 13px; color: var(--muted); margin-bottom: 14px;">Register today and get an instant <b>₹20 welcome wallet bonus</b>!</p>
       
       <div id="stepPhone">
         <label style="font-size: 12px; font-weight: 600;">Mobile Number</label>
@@ -245,12 +247,12 @@
     </div>
   </div>
 
-  <!-- MODAL: Become a Seller (PAN Verification) -->
+  <!-- MODAL: Become a Seller -->
   <div class="modal-overlay" id="sellerModal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal('sellerModal')">✕</button>
       <h3 style="margin-bottom: 4px; color: var(--green);">🏪 Become a Seller</h3>
-      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Sell your vegetables or groceries through Fresh Veggie. Submit your PAN card details for verification.</p>
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Sell produce or groceries. Submit PAN card details for verification.</p>
 
       <form onsubmit="handleSellerSubmit(event)">
         <label style="font-size: 12px; font-weight: 600;">Full Name (As per PAN)</label>
@@ -260,7 +262,7 @@
         <input type="text" id="sellerPan" required placeholder="ABCDE1234F" maxlength="10" style="text-transform: uppercase;">
 
         <label style="font-size: 12px; font-weight: 600;">Shop / Farm Name</label>
-        <input type="text" id="sellerShop" required placeholder="Farm or Store name">
+        <input type="text" id="sellerShop" required placeholder="Store or Farm name">
 
         <label style="font-size: 12px; font-weight: 600;">WhatsApp Mobile Number</label>
         <input type="tel" id="sellerPhone" required placeholder="10-digit mobile number" maxlength="10">
@@ -270,15 +272,28 @@
     </div>
   </div>
 
-  <!-- MODAL: Cart & Gossaigaon Checkout -->
+  <!-- MODAL: Cart & Checkout -->
   <div class="modal-overlay" id="cartModal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal('cartModal')">✕</button>
       <h3 style="margin-bottom: 10px; color: var(--green);">🛒 Delivery & Payment</h3>
       
-      <div id="cartItemsList" style="font-size: 13px; margin-bottom: 12px;"></div>
-      <div style="font-weight: 800; font-size: 16px; margin-bottom: 14px; color: var(--green-dark);">
-        Total Amount: ₹<span id="cartTotal">0</span>
+      <div id="cartItemsList" style="font-size: 13px; margin-bottom: 10px;"></div>
+      
+      <!-- Price Breakdown -->
+      <div style="background: #f9fbf9; padding: 10px; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 12px; font-size: 13px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
+          <span>Items Subtotal:</span>
+          <span>₹<span id="itemsSubtotal">0</span></span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
+          <span>Delivery Charge:</span>
+          <span id="deliveryChargeText">₹0</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-weight: 800; font-size: 15px; color: var(--green-dark); border-top: 1px dashed var(--line); padding-top: 4px;">
+          <span>Final Total:</span>
+          <span>₹<span id="cartTotal">0</span></span>
+        </div>
       </div>
 
       <label style="font-size: 12px; font-weight: 600;">Full Name</label>
@@ -287,7 +302,7 @@
       <label style="font-size: 12px; font-weight: 600;">Mobile Number</label>
       <input type="tel" id="custPhone" placeholder="10-digit mobile number" maxlength="10">
 
-      <label style="font-size: 12px; font-weight: 600;">Select Village (Gossaigaon Area)</label>
+      <label style="font-size: 12px; font-weight: 600;">Select Village (Gossaigaon Block)</label>
       <select id="custVillage">
         <option value="">-- Choose Your Village --</option>
         <option value="Gossaigaon Town">Gossaigaon Town / Ward</option>
@@ -312,14 +327,14 @@
       </select>
 
       <label style="font-size: 12px; font-weight: 600;">Full Address / Landmark</label>
-      <input type="text" id="custAddress" placeholder="House no, road, nearby school/temple">
+      <input type="text" id="custAddress" placeholder="House no, road, school/temple landmark">
 
-      <!-- Payment Method Selection -->
-      <label style="font-size: 12px; font-weight: 600; display: block; margin-top: 10px; margin-bottom: 6px;">Payment Method</label>
+      <!-- Payment Methods -->
+      <label style="font-size: 12px; font-weight: 600; display: block; margin-top: 8px; margin-bottom: 6px;">Payment Method</label>
       <div style="display: flex; gap: 12px; margin-bottom: 12px;">
         <label style="display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer;">
           <input type="radio" name="payMethod" value="COD" checked onchange="togglePaymentView()">
-          💵 Cash on Delivery (COD)
+          💵 Cash on Delivery
         </label>
         <label style="display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer;">
           <input type="radio" name="payMethod" value="UPI" onchange="togglePaymentView()">
@@ -327,7 +342,7 @@
         </label>
       </div>
 
-      <!-- UPI QR Code Box -->
+      <!-- Live QR Code -->
       <div id="upiQrSection" style="display: none; text-align: center; background: #f9fbf9; padding: 12px; border-radius: 10px; border: 1px dashed var(--green); margin-bottom: 12px;">
         <p style="font-size: 12px; font-weight: 600; color: var(--green-dark); margin-bottom: 6px;">Scan & Pay via GPay / PhonePe / Paytm / BHIM</p>
         <img id="upiQrImg" src="" alt="UPI QR Code" style="width: 170px; height: 170px; border-radius: 8px; margin: 0 auto; display: block;">
@@ -339,21 +354,25 @@
   </div>
 
   <script>
+    // Product List: Fresh Vegetables & Daily Groceries
     const PRODUCTS = [
-      // Fresh Vegetables
-      { id: 1, name: "Potato", cat: "Vegetables", price: 27, unit: "kg", img: "🥔" },
-      { id: 2, name: "Tomato", cat: "Vegetables", price: 35, unit: "kg", img: "🍅" },
-      { id: 3, name: "Onion", cat: "Vegetables", price: 53, unit: "kg", img: "🧅" },
-      { id: 4, name: "Cucumber", cat: "Vegetables", price: 28, unit: "kg", img: "🥒" },
-      { id: 5, name: "Cauliflower", cat: "Vegetables", price: 35, unit: "pc", img: "🥦" },
-      { id: 6, name: "Green Chilli & Ginger", cat: "Vegetables", price: 30, unit: "pack", img: "🌶️" },
+      // Vegetables
+      { id: 1, name: "Potato (Alu)", cat: "Vegetables", price: 27, unit: "kg", img: "🥔" },
+      { id: 2, name: "Tomato (Bilahi)", cat: "Vegetables", price: 35, unit: "kg", img: "🍅" },
+      { id: 3, name: "Onion (Piyaj)", cat: "Vegetables", price: 53, unit: "kg", img: "🧅" },
+      { id: 4, name: "Cucumber (Tiyoh)", cat: "Vegetables", price: 28, unit: "kg", img: "🥒" },
+      { id: 5, name: "Cauliflower (Kobi)", cat: "Vegetables", price: 35, unit: "pc", img: "🥦" },
+      { id: 6, name: "Cabbage (Bandhakobi)", cat: "Vegetables", price: 30, unit: "pc", img: "🥬" },
+      { id: 7, name: "Green Chilli & Ginger Pack", cat: "Vegetables", price: 30, unit: "pack", img: "🌶️" },
       
-      // Daily Groceries
-      { id: 7, name: "Miniket Premium Rice", cat: "Groceries", price: 52, unit: "kg", img: "🍚" },
-      { id: 8, name: "Mustard Oil (Kachi Ghani)", cat: "Groceries", price: 145, unit: "litre", img: "🛢️" },
-      { id: 9, name: "Masoor Dal (Red Lentil)", cat: "Groceries", price: 95, unit: "kg", img: "🥣" },
-      { id: 10, name: "Clean Refined Sugar", cat: "Groceries", price: 44, unit: "kg", img: "🧂" },
-      { id: 11, name: "Turmeric & Masala Pack", cat: "Groceries", price: 45, unit: "pack", img: "📦" }
+      // Groceries
+      { id: 8, name: "Miniket Premium Rice", cat: "Groceries", price: 52, unit: "kg", img: "🍚" },
+      { id: 9, name: "Mustard Oil (Kachi Ghani)", cat: "Groceries", price: 145, unit: "litre", img: "🛢️" },
+      { id: 10, name: "Masoor Dal (Red Lentil)", cat: "Groceries", price: 95, unit: "kg", img: "🥣" },
+      { id: 11, name: "Refined Pure Sugar", cat: "Groceries", price: 44, unit: "kg", img: "🧂" },
+      { id: 12, name: "Tata Salt (Iodized)", cat: "Groceries", price: 28, unit: "kg", img: "🧂" },
+      { id: 13, name: "Chakki Fresh Atta", cat: "Groceries", price: 42, unit: "kg", img: "🌾" },
+      { id: 14, name: "Turmeric & Kitchen Spices", cat: "Groceries", price: 45, unit: "pack", img: "📦" }
     ];
 
     let cart = [];
@@ -430,9 +449,20 @@
 
     function updateCartUI() {
       const totalCount = cart.reduce((acc, i) => acc + i.qty, 0);
-      const totalAmount = cart.reduce((acc, i) => acc + (i.qty * i.price), 0);
+      const subtotal = cart.reduce((acc, i) => acc + (i.qty * i.price), 0);
+      
+      // Delivery Logic: Under 300 = ₹21, 300 and above = ₹0
+      let deliveryCharge = 0;
+      if (subtotal > 0 && subtotal < 300) {
+        deliveryCharge = 21;
+      }
+
+      const grandTotal = subtotal + deliveryCharge;
+
       document.getElementById('cartCount').innerText = totalCount;
-      document.getElementById('cartTotal').innerText = totalAmount;
+      document.getElementById('itemsSubtotal').innerText = subtotal;
+      document.getElementById('deliveryChargeText').innerText = deliveryCharge === 0 ? "FREE" : "₹" + deliveryCharge;
+      document.getElementById('cartTotal').innerText = grandTotal;
 
       const listContainer = document.getElementById('cartItemsList');
       if (cart.length === 0) {
@@ -457,41 +487,4 @@
     }
 
     function togglePaymentView() {
-      const selected = document.querySelector('input[name="payMethod"]:checked').value;
-      const qrBox = document.getElementById('upiQrSection');
-      const totalAmount = cart.reduce((acc, i) => acc + (i.qty * i.price), 0);
-
-      if (selected === 'UPI') {
-        qrBox.style.display = 'block';
-        document.getElementById('qrAmount').innerText = totalAmount;
-        
-        // Generate dynamic UPI QR URL
-        const upiUrl = `upi://pay?pa=${UPI_VPA}&pn=Fresh%20Veggie&am=${totalAmount}&cu=INR`;
-        const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=${encodeURIComponent(upiUrl)}`;
-        document.getElementById('upiQrImg').src = qrApi;
-      } else {
-        qrBox.style.display = 'none';
-      }
-    }
-
-    // OTP Auth
-    function sendOtp() {
-      const num = document.getElementById('userMobile').value;
-      if (num.length < 10) {
-        alert("Please enter a valid 10-digit mobile number");
-        return;
-      }
-      alert("OTP sent to " + num + ". (Test OTP: 1234)");
-      document.getElementById('stepPhone').style.display = 'none';
-      document.getElementById('stepOtp').style.display = 'block';
-    }
-
-    function verifyOtp() {
-      const otp = document.getElementById('otpValue').value;
-      if (otp === "1234") {
-        const phone = document.getElementById('userMobile').value;
-        localStorage.setItem('fv_user', phone);
-
-        let wallet = parseInt(localStorage.getItem('fv_wallet') || 0);
-        if (!localStorage.getItem('fv_bonus_claimed')) {
-         
+      const selected = document.querySelector('input[name="payMethod"]:checked').value
