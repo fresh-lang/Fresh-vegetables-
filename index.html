@@ -40,7 +40,7 @@
       color: white;
       padding: 6px 10px;
       border-radius: 16px;
-      font-size: 13px;
+      font-size: 12px;
       cursor: pointer;
     }
     .main-wrap { max-width: 550px; margin: 0 auto; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
@@ -48,13 +48,25 @@
     .wallet-card {
       background: linear-gradient(135deg, #16823b, #0f5c2a);
       color: white;
-      padding: 12px;
+      padding: 14px;
       border-radius: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    .wallet-val { font-size: 20px; font-weight: 800; }
+    .wallet-val { font-size: 22px; font-weight: 800; }
+    .btn-wallet-add {
+      background: #ffffff;
+      color: var(--green-dark);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 4px;
+      display: inline-block;
+    }
 
     .delivery-notice {
       background: #e8f5e9;
@@ -112,18 +124,10 @@
       border-radius: 12px;
       padding: 14px;
     }
-    button.btn-add:active { background: #0c4b22; }
-
-    .panel {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px;
-    }
     .panel h3 { font-size: 15px; margin-bottom: 6px; color: var(--green-dark); }
     .panel p { font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.4; }
     
-    input[type="text"], input[type="tel"], input[type="password"], input[type="email"] {
+    input[type="text"], input[type="tel"], input[type="password"], input[type="number"] {
       width: 100%;
       padding: 10px;
       border: 1px solid var(--line);
@@ -160,8 +164,8 @@
       border-radius: 14px;
       padding: 18px;
       width: 100%;
-      max-width: 400px;
-      max-height: 85vh;
+      max-width: 440px;
+      max-height: 88vh;
       overflow-y: auto;
     }
     .popup-close {
@@ -199,27 +203,87 @@
     }
     .divider::before { left: 0; }
     .divider::after { right: 0; }
+
+    /* Tracking Stepper */
+    .track-step-wrap {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 18px 0 10px 0;
+    }
+    .track-step-wrap::before {
+      content: '';
+      position: absolute;
+      top: 13px;
+      left: 20px;
+      right: 20px;
+      height: 3px;
+      background: #e0e0e0;
+      z-index: 1;
+    }
+    .step-item {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      flex: 1;
+    }
+    .step-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      color: #777;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      margin: 0 auto 6px auto;
+    }
+    .step-item.active .step-dot {
+      background: var(--green);
+      color: white;
+      box-shadow: 0 0 0 3px rgba(22, 130, 59, 0.25);
+    }
+    .step-title {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .step-item.active .step-title {
+      color: var(--green-dark);
+      font-weight: 700;
+    }
+
+    .order-card-record {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+      background: #fafdfa;
+    }
   </style>
 </head>
 <body>
-  <!-- Top Navigation -->
+  <!-- Header -->
   <header>
     <div class="brand">🥦 Fresh Veggie</div>
     <div class="header-actions">
-      <button class="btn-header" onclick="showPopup('sellerPopup')">🏪 Sell</button>
+      <button class="btn-header" onclick="openMyOrders()">📦 Orders</button>
       <button class="btn-header" id="authBtn" onclick="showPopup('loginPopup')">👤 Login</button>
       <button class="btn-header" onclick="showCartPopup()">🛒 <span id="cartCount">0</span></button>
     </div>
   </header>
 
   <div class="main-wrap">
-    <!-- Wallet -->
+    <!-- Wallet Card with Add Money -->
     <div class="wallet-card">
       <div>
         <div style="font-size: 11px; opacity: 0.9;">Wallet Balance</div>
         <div class="wallet-val">₹<span id="walletBal">0</span></div>
+        <button class="btn-wallet-add" onclick="showPopup('walletPopup')">+ Add Money</button>
       </div>
-      <div>
+      <div style="text-align: right;">
         <span style="font-size: 11px; background: rgba(255,255,255,0.25); padding: 3px 8px; border-radius: 10px;" id="userTag">Guest</span>
       </div>
     </div>
@@ -350,6 +414,43 @@
     </div>
   </div>
 
+  <!-- POPUP: Add Money to Wallet -->
+  <div class="popup-box" id="walletPopup">
+    <div class="popup-inner">
+      <button class="popup-close" onclick="hidePopup('walletPopup')">✕</button>
+      <h3 style="color: var(--green); margin-bottom: 4px;">💳 Top-up Wallet</h3>
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Add balance using instant UPI scan.</p>
+      
+      <label style="font-size: 12px; font-weight: 600;">Select or Enter Amount (₹)</label>
+      <div style="display: flex; gap: 6px; margin-bottom: 8px;">
+        <button type="button" class="btn-header" style="background:#e8f5e9; color:var(--green-dark); flex:1;" onclick="setTopupAmount(100)">+₹100</button>
+        <button type="button" class="btn-header" style="background:#e8f5e9; color:var(--green-dark); flex:1;" onclick="setTopupAmount(200)">+₹200</button>
+        <button type="button" class="btn-header" style="background:#e8f5e9; color:var(--green-dark); flex:1;" onclick="setTopupAmount(500)">+₹500</button>
+        <button type="button" class="btn-header" style="background:#e8f5e9; color:var(--green-dark); flex:1;" onclick="setTopupAmount(1000)">+₹1000</button>
+      </div>
+      <input type="number" id="topupAmt" placeholder="Enter amount (min ₹10)" min="10" oninput="genTopupQr()">
+
+      <div id="topupQrArea" style="text-align: center; display: none; background:#f9fbf9; padding:10px; border-radius:8px; border:1px dashed var(--green); margin-bottom:10px;">
+        <p style="font-size: 11px; font-weight: 600; color: var(--green-dark); margin-bottom: 6px;">Scan & Pay via GPay / PhonePe / Paytm</p>
+        <img id="topupQrImg" src="" alt="Topup QR" style="width: 150px; height: 150px; border-radius: 6px; margin: 0 auto; display: block;">
+        <p style="font-size: 11px; color: var(--muted); margin-top: 4px;">UPI ID: <b>8134834380@mbk</b></p>
+      </div>
+
+      <button class="btn-block btn-primary" onclick="confirmTopup()">Confirm Payment Added</button>
+    </div>
+  </div>
+
+  <!-- POPUP: My Orders & Realtime Tracking -->
+  <div class="popup-box" id="ordersPopup">
+    <div class="popup-inner">
+      <button class="popup-close" onclick="hidePopup('ordersPopup')">✕</button>
+      <h3 style="color: var(--green); margin-bottom: 4px;">📦 My Orders & Tracking</h3>
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Live order status and dispatch updates.</p>
+      
+      <div id="ordersListWrap"></div>
+    </div>
+  </div>
+
   <!-- POPUP: Auth with Phone/Pass, Gmail & Guest -->
   <div class="popup-box" id="loginPopup">
     <div class="popup-inner">
@@ -400,28 +501,7 @@
     </div>
   </div>
 
-  <!-- POPUP: Seller (PAN) -->
-  <div class="popup-box" id="sellerPopup">
-    <div class="popup-inner">
-      <button class="popup-close" onclick="hidePopup('sellerPopup')">✕</button>
-      <h3 style="margin-bottom: 4px; color: var(--green);">🏪 Become a Seller</h3>
-      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Submit details with PAN for seller verification.</p>
-
-      <form onsubmit="submitSeller(event)">
-        <label style="font-size: 12px; font-weight: 600;">Full Name (As on PAN)</label>
-        <input type="text" id="sName" required placeholder="Full Name">
-        <label style="font-size: 12px; font-weight: 600;">PAN Card Number</label>
-        <input type="text" id="sPan" required placeholder="ABCDE1234F" maxlength="10" style="text-transform: uppercase;">
-        <label style="font-size: 12px; font-weight: 600;">Shop / Farm Name</label>
-        <input type="text" id="sShop" required placeholder="Store Name">
-        <label style="font-size: 12px; font-weight: 600;">Contact Mobile</label>
-        <input type="tel" id="sMobile" required placeholder="10-digit mobile" maxlength="10">
-        <button type="submit" class="btn-block btn-primary" style="margin-top: 6px;">Submit Verification</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- POPUP: Cart & Pure Online Checkout -->
+  <!-- POPUP: Cart & Online Checkout -->
   <div class="popup-box" id="cartPopup">
     <div class="popup-inner">
       <button class="popup-close" onclick="hidePopup('cartPopup')">✕</button>
@@ -442,7 +522,7 @@
             <span id="feeVal">₹0</span>
           </div>
           <div style="display:flex; justify-content:space-between; font-weight: 800; font-size: 15px; color: var(--green-dark); border-top: 1px dashed var(--line); padding-top: 4px;">
-            <span>Total:</span>
+             <span>Total:</span>
             <span>₹<span id="finalTotalVal">0</span></span>
           </div>
         </div>
@@ -481,14 +561,18 @@
         <input type="text" id="cAddress" placeholder="House no, road, school landmark">
 
         <label style="font-size: 12px; font-weight: 600; display: block; margin-top: 8px; margin-bottom: 6px;">Payment Method</label>
-        <div style="display: flex; gap: 12px; margin-bottom: 12px;">
-          <label style="display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer;">
+        <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px;">
+          <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
             <input type="radio" name="payType" value="COD" checked onchange="updatePayView()">
             💵 Cash on Delivery
           </label>
-          <label style="display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer;">
+          <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
+            <input type="radio" name="payType" value="WALLET" onchange="updatePayView()">
+            💰 Pay with Wallet (Bal: ₹<span id="chkWalletBal">0</span>)
+          </label>
+          <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
             <input type="radio" name="payType" value="UPI" onchange="updatePayView()">
-            📱 UPI QR
+            📱 UPI QR Scan
           </label>
         </div>
 
@@ -501,7 +585,7 @@
         <button class="btn-block btn-primary" onclick="placeOnlineOrder()">Confirm & Place Order</button>
       </div>
 
-      <!-- Online Order Success Screen (No WhatsApp Redirection) -->
+      <!-- Online Order Success Screen -->
       <div id="orderSuccessSection" style="display: none; text-align: center; padding: 16px 8px;">
         <div style="font-size: 52px; margin-bottom: 8px;">✅</div>
         <h3 style="color: var(--green); font-size: 20px; margin-bottom: 4px;">Order Placed Successfully!</h3>
@@ -513,10 +597,11 @@
           <p><b>Delivery Area:</b> <span id="displayOrderArea"></span></p>
           <p><b>Payment:</b> <span id="displayOrderPay"></span></p>
           <p><b>Total Amount:</b> ₹<span id="displayOrderAmount" style="font-weight: 800; color: var(--green-dark);"></span></p>
-          <p><b>Order Status:</b> <span style="background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 6px; font-size: 11px; font-weight: bold;">Confirmed / Out for Delivery</span></p>
+          <p><b>Initial Status:</b> <span style="background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 6px; font-size: 11px; font-weight: bold;">Order Placed</span></p>
         </div>
 
         <button type="button" class="btn-block btn-primary" onclick="resetAndCloseOrder()">Continue Shopping</button>
+        <button type="button" class="btn-block btn-guest" style="margin-top: 8px;" onclick="viewPlacedOrderTrack()">Track This Order</button>
       </div>
 
     </div>
@@ -525,6 +610,7 @@
   <script>
     var cartItems = [];
     var UPI_ID = "8134834380@mbk";
+    var latestPlacedOrderId = null;
 
     window.addEventListener("DOMContentLoaded", function() {
       initApp();
@@ -536,12 +622,10 @@
       var w = localStorage.getItem('fv_wallet') || 0;
       var r = localStorage.getItem('fv_ref');
 
-      // Create referral code only if mobile-password account
       if (userType === 'phone') {
         if (!r) {
           r = "FV" + Math.floor(1000 + Math.random() * 9000);
           localStorage.setItem('fv_ref', r);
-          // Register code in global mapping
           var codeMap = JSON.parse(localStorage.getItem('fv_ref_codes') || '{}');
           codeMap[r] = u;
           localStorage.setItem('fv_ref_codes', JSON.stringify(codeMap));
@@ -560,6 +644,7 @@
         }
       }
       document.getElementById('walletBal').innerText = w;
+      document.getElementById('chkWalletBal').innerText = w;
     }
 
     function showPopup(id) {
@@ -569,6 +654,105 @@
       document.getElementById(id).style.display = "none";
     }
 
+    // --- WALLET TOPUP LOGIC ---
+    function setTopupAmount(amt) {
+      document.getElementById('topupAmt').value = amt;
+      genTopupQr();
+    }
+
+    function genTopupQr() {
+      var amt = parseFloat(document.getElementById('topupAmt').value);
+      var qrArea = document.getElementById('topupQrArea');
+      if (amt && amt >= 10) {
+        qrArea.style.display = "block";
+        var upiUri = "upi://pay?pa=" + UPI_ID + "&pn=Fresh%20Veggie%20Wallet&am=" + amt + "&cu=INR";
+        document.getElementById('topupQrImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(upiUri);
+      } else {
+        qrArea.style.display = "none";
+      }
+    }
+
+    function confirmTopup() {
+      var amt = parseFloat(document.getElementById('topupAmt').value);
+      if (!amt || amt < 10) {
+        alert("Please enter a valid amount (minimum ₹10).");
+        return;
+      }
+      var cur = parseFloat(localStorage.getItem('fv_wallet') || 0);
+      var updated = cur + amt;
+      localStorage.setItem('fv_wallet', updated);
+      document.getElementById('walletBal').innerText = updated;
+      document.getElementById('chkWalletBal').innerText = updated;
+      alert("✅ ₹" + amt + " added to your Fresh Veggie wallet!");
+      document.getElementById('topupAmt').value = "";
+      document.getElementById('topupQrArea').style.display = "none";
+      hidePopup('walletPopup');
+    }
+
+    // --- ORDER TRACKING SIMULATOR ---
+    // Computes status by elapsed time:
+    // 0 to 1 min: Order Placed
+    // 1 to 3 min: Packed
+    // 3 to 7 min: Out for Delivery
+    // 7+ min: Delivered
+    function getOrderLiveStatus(orderTimestamp) {
+      var diffMin = (Date.now() - new Date(orderTimestamp).getTime()) / 60000;
+      if (diffMin < 1) return { step: 1, label: "Order Placed" };
+      if (diffMin < 3) return { step: 2, label: "Packed & Sealed" };
+      if (diffMin < 7) return { step: 3, label: "Out for Delivery" };
+      return { step: 4, label: "Delivered 🎉" };
+    }
+
+    function openMyOrders() {
+      var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
+      var wrap = document.getElementById('ordersListWrap');
+      
+      if (orders.length === 0) {
+        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:20px;'>No orders placed yet.</p>";
+        showPopup('ordersPopup');
+        return;
+      }
+
+      var html = "";
+      orders.slice().reverse().forEach(function(ord) {
+        var status = getOrderLiveStatus(ord.date);
+        html += '<div class="order-card-record">' +
+                  '<div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">' +
+                    '<b>' + ord.orderId + '</b>' +
+                    '<span style="color:var(--muted);">' + new Date(ord.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '</span>' +
+                  '</div>' +
+                  '<div style="font-size:12px; margin-bottom:6px;">' + ord.items.map(function(i){ return i.name + ' (x' + i.qty + ')'; }).join(', ') + '</div>' +
+                  '<div style="font-size:12px; margin-bottom:8px;"><b>Total:</b> ₹' + ord.total + ' (' + ord.payment + ') | <b>To:</b> ' + ord.village + '</div>' +
+                  
+                  '<!-- Tracking Stepper -->' +
+                  '<div class="track-step-wrap">' +
+                    '<div class="step-item ' + (status.step >= 1 ? 'active' : '') + '">' +
+                      '<div class="step-dot">1</div><div class="step-title">Placed</div>' +
+                    '</div>' +
+                    '<div class="step-item ' + (status.step >= 2 ? 'active' : '') + '">' +
+                      '<div class="step-dot">2</div><div class="step-title">Packed</div>' +
+                    '</div>' +
+                    '<div class="step-item ' + (status.step >= 3 ? 'active' : '') + '">' +
+                      '<div class="step-dot">3</div><div class="step-title">Out for Delivery</div>' +
+                    '</div>' +
+                    '<div class="step-item ' + (status.step >= 4 ? 'active' : '') + '">' +
+                      '<div class="step-dot">4</div><div class="step-title">Delivered</div>' +
+                    '</div>' +
+                  '</div>' +
+                  '<div style="text-align:center; font-size:11px; color:var(--green-dark); font-weight:700; margin-top:4px;">Status: ' + status.label + '</div>' +
+                '</div>';
+      });
+
+      wrap.innerHTML = html;
+      showPopup('ordersPopup');
+    }
+
+    function viewPlacedOrderTrack() {
+      hidePopup('cartPopup');
+      openMyOrders();
+    }
+
+    // --- AUTH VIEWS & LOGIN ---
     function toggleAuthView(type) {
       if (type === 'login') {
         document.getElementById('registerBox').style.display = 'none';
@@ -579,7 +763,6 @@
       }
     }
 
-    // 1. Mobile + Password Register (No OTP)
     function handleRegister() {
       var phone = document.getElementById('regPhone').value.trim();
       var pass = document.getElementById('regPass').value.trim();
@@ -601,7 +784,6 @@
         return;
       }
 
-      // Save user
       accounts[phone] = { pass: pass, referredBy: ref || null, orderCount: 0 };
       localStorage.setItem('fv_accounts', JSON.stringify(accounts));
       localStorage.setItem('fv_user', phone);
@@ -612,7 +794,6 @@
       window.location.reload();
     }
 
-    // 2. Mobile + Password Login
     function handleLogin() {
       var phone = document.getElementById('logPhone').value.trim();
       var pass = document.getElementById('logPass').value.trim();
@@ -629,7 +810,6 @@
       }
     }
 
-    // 3. Gmail Login (Excluded from referrals)
     function continueWithGmail() {
       var email = prompt("Enter your Gmail address:");
       if (!email || !email.includes("@gmail.com")) {
@@ -638,22 +818,21 @@
       }
       localStorage.setItem('fv_user', email);
       localStorage.setItem('fv_user_type', 'gmail');
-      alert("✅ Logged in via Gmail: " + email + "\n(Note: Referral rewards require a mobile number account)");
+      alert("✅ Logged in via Gmail: " + email);
       hidePopup('loginPopup');
       window.location.reload();
     }
 
-    // 4. Guest Login (Excluded from referrals)
     function continueAsGuest() {
       var guestId = "Guest_" + Math.floor(100 + Math.random() * 900);
       localStorage.setItem('fv_user', guestId);
       localStorage.setItem('fv_user_type', 'guest');
-      alert("⚡ Logged in as " + guestId + "\n(Note: Guest accounts cannot earn or trigger referral bonuses)");
+      alert("⚡ Logged in as " + guestId);
       hidePopup('loginPopup');
       window.location.reload();
     }
 
-    // Search and Category Filter
+    // --- SEARCH ---
     function doSearch() {
       var q = document.getElementById('searchInput').value.toLowerCase().trim();
       var cat = document.getElementById('catSelect').value;
@@ -662,15 +841,13 @@
       cards.forEach(function(card) {
         var name = (card.getAttribute('data-name') || '').toLowerCase();
         var cardCat = card.getAttribute('data-cat') || '';
-
         var matchesQuery = !q || name.includes(q);
         var matchesCat = (cat === 'All') || (cardCat === cat);
-
         card.style.display = (matchesQuery && matchesCat) ? 'flex' : 'none';
       });
     }
 
-    // Cart Management
+    // --- CART LOGIC ---
     function addItem(id, name, price, unit, btn) {
       var existing = cartItems.find(function(item) { return item.id === id; });
       if (existing) {
@@ -772,7 +949,7 @@
       }
     }
 
-    // Pure Online Order (No WhatsApp Redirect) + Strict Referral Trigger
+    // --- CHECKOUT & ORDER DISPATCH ---
     function placeOnlineOrder() {
       var totals = calculateTotals();
       if (totals.subtotal < 100) {
@@ -791,9 +968,22 @@
         return;
       }
 
-      var orderId = "FV-" + Math.floor(10000 + Math.random() * 90000);
+      // Wallet Balance Payment Deduction Check
+      if (payType === 'WALLET') {
+        var wBal = parseFloat(localStorage.getItem('fv_wallet') || 0);
+        if (wBal < totals.total) {
+          alert("Insufficient wallet balance (₹" + wBal + ")! Please choose UPI QR / COD or add money to your wallet.");
+          return;
+        }
+        localStorage.setItem('fv_wallet', wBal - totals.total);
+        document.getElementById('walletBal').innerText = wBal - totals.total;
+        document.getElementById('chkWalletBal').innerText = wBal - totals.total;
+      }
 
-      // Save order record locally
+      var orderId = "FV-" + Math.floor(10000 + Math.random() * 90000);
+      latestPlacedOrderId = orderId;
+
+      // Save order locally
       var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
       var newOrder = {
         orderId: orderId,
@@ -801,7 +991,7 @@
         phone: phone,
         village: village,
         address: address,
-        items: cartItems,
+        items: cartItems.slice(),
         total: totals.total,
         payment: payType,
         date: new Date().toISOString()
@@ -809,7 +999,7 @@
       orders.push(newOrder);
       localStorage.setItem('fv_orders', JSON.stringify(orders));
 
-      // Referral Reward Check: ONLY for Mobile + Password Accounts
+      // Referral Trigger: Phone + Pass accounts ONLY
       var u = localStorage.getItem('fv_user');
       var userType = localStorage.getItem('fv_user_type');
 
@@ -819,25 +1009,16 @@
           accounts[u].orderCount = (accounts[u].orderCount || 0) + 1;
           var refCodeUsed = accounts[u].referredBy;
 
-          // Process bonuses if this account registered using a valid friend's code
           if (refCodeUsed) {
             var codeMap = JSON.parse(localStorage.getItem('fv_ref_codes') || '{}');
             var referrerPhone = codeMap[refCodeUsed];
 
             if (referrerPhone && referrerPhone !== u) {
               var bonusEarned = 0;
-
-              // Rule 1: Get ₹5 on friend's 1st successful order
-              if (accounts[u].orderCount === 1) {
-                bonusEarned += 5;
-              }
-
-              // Rule 2: Get ₹5 for every ₹1000 order value
-              var milestoneBonus = Math.floor(totals.total / 1000) * 5;
-              bonusEarned += milestoneBonus;
+              if (accounts[u].orderCount === 1) bonusEarned += 5;
+              bonusEarned += Math.floor(totals.total / 1000) * 5;
 
               if (bonusEarned > 0) {
-                // If referrer is the active user in current session
                 var currentWallet = parseInt(localStorage.getItem('fv_wallet') || 0);
                 localStorage.setItem('fv_wallet', currentWallet + bonusEarned);
                 document.getElementById('walletBal').innerText = currentWallet + bonusEarned;
@@ -848,11 +1029,11 @@
         }
       }
 
-      // Display App Success Screen Directly (NO WhatsApp Opening)
+      // Display App Success Screen
       document.getElementById('displayOrderId').innerText = orderId;
       document.getElementById('displayOrderCustomer').innerText = name + " (" + phone + ")";
       document.getElementById('displayOrderArea').innerText = village + ", " + address;
-      document.getElementById('displayOrderPay').innerText = payType === "COD" ? "Cash on Delivery" : "UPI QR (Paid/Scan)";
+      document.getElementById('displayOrderPay').innerText = payType === "COD" ? "Cash on Delivery" : (payType === "WALLET" ? "Paid via Wallet" : "UPI QR (Paid/Scan)");
       document.getElementById('displayOrderAmount').innerText = totals.total;
 
       document.getElementById('checkoutFormWrapper').style.display = "none";
@@ -875,18 +1056,6 @@
       code.setSelectionRange(0, 99999);
       navigator.clipboard.writeText(code.value);
       alert("Referral code copied: " + code.value);
-    }
-
-    function submitSeller(e) {
-      e.preventDefault();
-      var pan = document.getElementById('sPan').value.toUpperCase().trim();
-      var panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-      if (!panRegex.test(pan)) {
-        alert("Please enter a valid 10-character Indian PAN number (e.g., ABCDE1234F).");
-        return;
-      }
-      alert("Application submitted successfully! Our team will verify your PAN details.");
-      hidePopup('sellerPopup');
     }
   </script>
 </body>
