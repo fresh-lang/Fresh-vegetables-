@@ -60,7 +60,7 @@
     }
     .wallet-val { font-size: 22px; font-weight: 800; }
 
-    /* Delivery Info Notice */
+    /* Delivery Rules Notice */
     .delivery-notice {
       background: #e8f5e9;
       border: 1px dashed var(--green);
@@ -82,6 +82,16 @@
       margin-bottom: 8px;
       outline: none;
     }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--green-dark);
+      margin: 10px 0 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
     
     /* Product Grid */
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -95,7 +105,7 @@
       flex-direction: column;
       justify-content: space-between;
     }
-    .product-img { font-size: 40px; margin-bottom: 6px; }
+    .product-img { font-size: 40px; margin-bottom: 4px; }
     .product-name { font-weight: 700; font-size: 14px; }
     .product-cat { font-size: 11px; color: var(--muted); }
     .product-price { font-size: 15px; font-weight: 800; color: var(--green-dark); margin: 6px 0; }
@@ -110,7 +120,7 @@
       font-size: 13px;
     }
 
-    /* Panels & Cards */
+    /* Panels */
     .panel {
       background: white;
       border: 1px solid var(--line);
@@ -166,7 +176,7 @@
 </head>
 <body>
 
-  <!-- Top Bar -->
+  <!-- Header -->
   <header>
     <div class="brand">🥦 Fresh Veggie & Grocery</div>
     <div class="header-actions">
@@ -206,10 +216,123 @@
       </select>
     </div>
 
-    <!-- Products Grid (Sabzi & Grocery List) -->
-    <div class="grid" id="productsGrid"></div>
+    <!-- Products Grid (Direct Pre-loaded Items) -->
+    <div class="grid" id="productsGrid">
+      <!-- 1 -->
+      <div class="product-card" data-name="potato alu" data-cat="Vegetables">
+        <div class="product-img">🥔</div>
+        <div class="product-name">Potato (Alu)</div>
+        <div class="product-cat">Fresh Vegetables</div>
+        <div class="product-price">₹27 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
+        <button class="btn-add" onclick="addToCart(1, 'Potato (Alu)', 27, 'kg')">Add to Cart</button>
+      </div>
+      <!-- 2 -->
+      <div class="product-card" data-name="tomato bilahi" data-cat="Vegetables">
+        <div class="product-img">🍅</div>
+        <div class="product-name">Tomato (Bilahi)</div>
+        <div class="product-cat">Fresh Vegetables</div>
+        <div class="product-price">₹35 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
+        <button class="btn-add" onclick="addToCart(2, 'Tomato (Bilahi)', 35, 'kg')">Add to Cart</button>
+      </div>
+      <!-- 3 -->
+      <div class="product-card" data-name="onion piyaj" data-cat="Vegetables">
+        <div class="product-img">🧅</div>
+        <div class="product-name">Onion (Piyaj)</div>
+        <div class="product-cat">Fresh Vegetables</div>
+        <div class="product-price">₹53 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
+        <button class="btn-add" onclick="addToCart(3, 'Onion (Piyaj)', 53, 'kg')">Add to Cart</button>
+      </div>
+      <!-- 4 -->
+      <div class="product-card" data-name="cucumber tiyoh" data-cat="Vegetables">
+        <div class="product-img">🥒</div>
+        <div class="product-name">Cucumber (Tiyoh)</div>
+        <div class="product-cat">Fresh Vegetables</div>
+        <div class="product-price">₹28 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
+        <button class="btn-add" onclick="addToCart(4, 'Cucumber (Tiyoh)', 28, 'kg')">Add to Cart</button>
+      </div>
+      <!-- 5 -->
+      <div class="product-card" data-name="cauliflower kobi" data-cat="Vegetables">
+        <div class="product-img">🥦</div>
+        <div class="product-name">Cauliflower (Kobi)</div>
+        <div class="product-cat">Fresh Vegetables</div>
+        <div class="product-price">₹35 <span style="font-size:12px; font-weight:normal;">/pc</span></div>
+        <button class="btn-add" onclick="addToCart(5, 'Cauliflower (Kobi)', 35, 'pc')">Add to Cart</button>
+      </div>
+      <!-- 6 -->
+      <div class="product-card" data-name="cabbage bandhakobi" data-cat="Vegetables">
+        <div class="product-img">🥬</div>
+        <div class="product-name">Cabbage (Bandhakobi)</div>
+        <div class="product-cat">Fresh Vegetables</div>
+        <div class="product-price">₹30 <span style="font-size:12px; font-weight:normal;">/pc</span></div>
+        <button class="btn-add" onclick="addToCart(6, 'Cabbage (Bandhakobi)', 30, 'pc')">Add to Cart</button>
+      </div>
+      <!-- 7 -->
+      <div class="product-card" data-name="chilli ginger" data-cat="Vegetables">
+        <div class="product-img">🌶️</div>
+        <div class="product-name">Green Chilli & Ginger</div>
+        <div class="product-cat">Fresh Vegetables</div>
+        <div class="product-price">₹30 <span style="font-size:12px; font-weight:normal;">/pack</span></div>
+        <button class="btn-add" onclick="addToCart(7, 'Green Chilli & Ginger', 30, 'pack')">Add to Cart</button>
+      </div>
+      <!-- 8 -->
+      <div class="product-card" data-name="miniket rice saul" data-cat="Groceries">
+        <div class="product-img">🍚</div>
+        <div class="product-name">Miniket Premium Rice</div>
+        <div class="product-cat">Daily Groceries</div>
+        <div class="product-price">₹52 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
+        <button class="btn-add" onclick="addToCart(8, 'Miniket Premium Rice', 52, 'kg')">Add to Cart</button>
+      </div>
+      <!-- 9 -->
+      <div class="product-card" data-name="mustard oil tel" data-cat="Groceries">
+        <div class="product-img">🛢️</div>
+        <div class="product-name">Mustard Oil (Kachi Ghani)</div>
+        <div class="product-cat">Daily Groceries</div>
+        <div class="product-price">₹145 <span style="font-size:12px; font-weight:normal;">/litre</span></div>
+        <button class="btn-add" onclick="addToCart(9, 'Mustard Oil (Kachi Ghani)', 145, 'litre')">Add to Cart</button>
+      </div>
+      <!-- 10 -->
+      <div class="product-card" data-name="masoor dal lentil" data-cat="Groceries">
+        <div class="product-img">🥣</div>
+        <div class="product-name">Masoor Dal (Red)</div>
+        <div class="product-cat">Daily Groceries</div>
+        <div class="product-price">₹95 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
+        <button class="btn-add" onclick="addToCart(10, 'Masoor Dal (Red)', 95, 'kg')">Add to Cart</button>
+      </div>
+      <!-- 11 -->
+      <div class="product-card" data-name="sugar chini" data-cat="Groceries">
+        <div class="product-img">🧂</div>
+        <div class="product-name">Refined Pure Sugar</div>
+        <div class="product-cat">Daily Groceries</div>
+        <div class="product-price">₹44 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
+        <button class="btn-add" onclick="addToCart(11, 'Refined Pure Sugar', 44, 'kg')">Add to Cart</button>
+      </div>
+      <!-- 12 -->
+      <div class="product-card" data-name="tata salt nimokh" data-cat="Groceries">
+        <div class="product-img">🧂</div>
+        <div class="product-name">Tata Salt (Iodized)</div>
+        <div class="product-cat">Daily Groceries</div>
+        <div class="product-price">₹28 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
+        <button class="btn-add" onclick="addToCart(12, 'Tata Salt (Iodized)', 28, 'kg')">Add to Cart</button>
+      </div>
+      <!-- 13 -->
+      <div class="product-card" data-name="atta flour" data-cat="Groceries">
+        <div class="product-img">🌾</div>
+        <div class="product-name">Chakki Fresh Atta</div>
+        <div class="product-cat">Daily Groceries</div>
+        <div class="product-price">₹42 <span style="font-size:12px; font-weight:normal;">/kg</span></div>
+        <button class="btn-add" onclick="addToCart(13, 'Chakki Fresh Atta', 42, 'kg')">Add to Cart</button>
+      </div>
+      <!-- 14 -->
+      <div class="product-card" data-name="turmeric spices masala" data-cat="Groceries">
+        <div class="product-img">📦</div>
+        <div class="product-name">Turmeric & Spices Pack</div>
+        <div class="product-cat">Daily Groceries</div>
+        <div class="product-price">₹45 <span style="font-size:12px; font-weight:normal;">/pack</span></div>
+        <button class="btn-add" onclick="addToCart(14, 'Turmeric & Spices Pack', 45, 'pack')">Add to Cart</button>
+      </div>
+    </div>
 
-    <!-- Referral Program Section (Shifted to Bottom) -->
+    <!-- Referral Program Section (Placed at Bottom) -->
     <div class="panel">
       <h3>🎁 Refer & Earn Rewards</h3>
       <p>Invite friends to Fresh Veggie! Earn <b>₹5</b> on their first successful order, plus <b>₹5 bonus</b> for every <b>₹1,000</b> in order value directly credited to your wallet!</p>
@@ -233,7 +356,7 @@
         <input type="tel" id="userMobile" placeholder="10-digit mobile number" maxlength="10">
         
         <label style="font-size: 12px; font-weight: 600;">Referral Code (Optional)</label>
-        <input type="text" id="inputReferral" placeholder="Enter friend's referral code">
+        <input type="text" id="inputReferral" placeholder="Enter referral code">
         
         <button class="btn-block btn-primary" onclick="sendOtp()">Send OTP</button>
       </div>
@@ -329,162 +452,5 @@
       <label style="font-size: 12px; font-weight: 600;">Full Address / Landmark</label>
       <input type="text" id="custAddress" placeholder="House no, road, school/temple landmark">
 
-      <!-- Payment Methods -->
-      <label style="font-size: 12px; font-weight: 600; display: block; margin-top: 8px; margin-bottom: 6px;">Payment Method</label>
-      <div style="display: flex; gap: 12px; margin-bottom: 12px;">
-        <label style="display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer;">
-          <input type="radio" name="payMethod" value="COD" checked onchange="togglePaymentView()">
-          💵 Cash on Delivery
-        </label>
-        <label style="display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer;">
-          <input type="radio" name="payMethod" value="UPI" onchange="togglePaymentView()">
-          📱 UPI QR Code
-        </label>
-      </div>
-
-      <!-- Live QR Code -->
-      <div id="upiQrSection" style="display: none; text-align: center; background: #f9fbf9; padding: 12px; border-radius: 10px; border: 1px dashed var(--green); margin-bottom: 12px;">
-        <p style="font-size: 12px; font-weight: 600; color: var(--green-dark); margin-bottom: 6px;">Scan & Pay via GPay / PhonePe / Paytm / BHIM</p>
-        <img id="upiQrImg" src="" alt="UPI QR Code" style="width: 170px; height: 170px; border-radius: 8px; margin: 0 auto; display: block;">
-        <p style="font-size: 11px; color: var(--muted); margin-top: 6px;">Amount: ₹<span id="qrAmount">0</span> | UPI ID: <b>8134834380@mbk</b></p>
-      </div>
-
-      <button class="btn-block btn-whatsapp" onclick="checkoutWhatsApp()">Place Order on WhatsApp</button>
-    </div>
-  </div>
-
-  <script>
-    // Product List: Fresh Vegetables & Daily Groceries
-    const PRODUCTS = [
-      // Vegetables
-      { id: 1, name: "Potato (Alu)", cat: "Vegetables", price: 27, unit: "kg", img: "🥔" },
-      { id: 2, name: "Tomato (Bilahi)", cat: "Vegetables", price: 35, unit: "kg", img: "🍅" },
-      { id: 3, name: "Onion (Piyaj)", cat: "Vegetables", price: 53, unit: "kg", img: "🧅" },
-      { id: 4, name: "Cucumber (Tiyoh)", cat: "Vegetables", price: 28, unit: "kg", img: "🥒" },
-      { id: 5, name: "Cauliflower (Kobi)", cat: "Vegetables", price: 35, unit: "pc", img: "🥦" },
-      { id: 6, name: "Cabbage (Bandhakobi)", cat: "Vegetables", price: 30, unit: "pc", img: "🥬" },
-      { id: 7, name: "Green Chilli & Ginger Pack", cat: "Vegetables", price: 30, unit: "pack", img: "🌶️" },
-      
-      // Groceries
-      { id: 8, name: "Miniket Premium Rice", cat: "Groceries", price: 52, unit: "kg", img: "🍚" },
-      { id: 9, name: "Mustard Oil (Kachi Ghani)", cat: "Groceries", price: 145, unit: "litre", img: "🛢️" },
-      { id: 10, name: "Masoor Dal (Red Lentil)", cat: "Groceries", price: 95, unit: "kg", img: "🥣" },
-      { id: 11, name: "Refined Pure Sugar", cat: "Groceries", price: 44, unit: "kg", img: "🧂" },
-      { id: 12, name: "Tata Salt (Iodized)", cat: "Groceries", price: 28, unit: "kg", img: "🧂" },
-      { id: 13, name: "Chakki Fresh Atta", cat: "Groceries", price: 42, unit: "kg", img: "🌾" },
-      { id: 14, name: "Turmeric & Kitchen Spices", cat: "Groceries", price: 45, unit: "pack", img: "📦" }
-    ];
-
-    let cart = [];
-    const ADMIN_WA = "918134834380";
-    const UPI_VPA = "8134834380@mbk";
-
-    window.onload = function() {
-      renderProducts(PRODUCTS);
-      loadUserData();
-      checkUrlReferral();
-    };
-
-    function loadUserData() {
-      let phone = localStorage.getItem('fv_user');
-      let wallet = localStorage.getItem('fv_wallet') || 0;
-      let refCode = localStorage.getItem('fv_myref');
-
-      if (!refCode) {
-        refCode = "FV" + Math.floor(1000 + Math.random() * 9000);
-        localStorage.setItem('fv_myref', refCode);
-      }
-      document.getElementById('myRefCode').value = refCode;
-
-      if (phone) {
-        document.getElementById('authBtn').innerText = phone.substring(0, 5) + '...';
-        document.getElementById('userStatusTag').innerText = "Verified Customer";
-        document.getElementById('custPhone').value = phone;
-      }
-      document.getElementById('walletBal').innerText = wallet;
-    }
-
-    function checkUrlReferral() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const ref = urlParams.get('ref');
-      if (ref) {
-        document.getElementById('inputReferral').value = ref;
-      }
-    }
-
-    function renderProducts(list) {
-      const container = document.getElementById('productsGrid');
-      container.innerHTML = list.map(item => `
-        <div class="product-card">
-          <div class="product-img">${item.img}</div>
-          <div class="product-name">${item.name}</div>
-          <div class="product-cat">${item.cat}</div>
-          <div class="product-price">₹${item.price} <span style="font-size:12px; font-weight:normal;">/${item.unit}</span></div>
-          <button class="btn-add" onclick="addToCart(${item.id})">Add to Cart</button>
-        </div>
-      `).join('');
-    }
-
-    function filterItems() {
-      const q = document.getElementById('searchInput').value.toLowerCase();
-      const cat = document.getElementById('catSelect').value;
-      const filtered = PRODUCTS.filter(p => {
-        const matchesCat = cat === "All" || p.cat === cat;
-        const matchesQuery = p.name.toLowerCase().includes(q);
-        return matchesCat && matchesQuery;
-      });
-      renderProducts(filtered);
-    }
-
-    function addToCart(id) {
-      const product = PRODUCTS.find(p => p.id === id);
-      const existing = cart.find(i => i.id === id);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        cart.push({ ...product, qty: 1 });
-      }
-      updateCartUI();
-    }
-
-    function updateCartUI() {
-      const totalCount = cart.reduce((acc, i) => acc + i.qty, 0);
-      const subtotal = cart.reduce((acc, i) => acc + (i.qty * i.price), 0);
-      
-      // Delivery Logic: Under 300 = ₹21, 300 and above = ₹0
-      let deliveryCharge = 0;
-      if (subtotal > 0 && subtotal < 300) {
-        deliveryCharge = 21;
-      }
-
-      const grandTotal = subtotal + deliveryCharge;
-
-      document.getElementById('cartCount').innerText = totalCount;
-      document.getElementById('itemsSubtotal').innerText = subtotal;
-      document.getElementById('deliveryChargeText').innerText = deliveryCharge === 0 ? "FREE" : "₹" + deliveryCharge;
-      document.getElementById('cartTotal').innerText = grandTotal;
-
-      const listContainer = document.getElementById('cartItemsList');
-      if (cart.length === 0) {
-        listContainer.innerHTML = "<p>Your shopping cart is empty.</p>";
-      } else {
-        listContainer.innerHTML = cart.map(i => `
-          <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-            <span>${i.name} x ${i.qty}</span>
-            <b>₹${i.price * i.qty}</b>
-          </div>
-        `).join('');
-      }
-
-      if (document.querySelector('input[name="payMethod"]:checked')?.value === 'UPI') {
-        togglePaymentView();
-      }
-    }
-
-    function openCartModal() {
-      updateCartUI();
-      openModal('cartModal');
-    }
-
-    function togglePaymentView() {
-      const selected = document.querySelector('input[name="payMethod"]:checked').value
+      <!-- Payment Method -->
+      <label style="font-size: 12px; font-weight: 600; display: block; margin-to
