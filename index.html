@@ -13,6 +13,7 @@
       --text: #1d2b20;
       --muted: #60766b;
       --line: #d8e6dc;
+      --danger: #d32f2f;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -108,8 +109,26 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      overflow: hidden;
+      position: relative;
     }
-    .product-img { font-size: 38px; margin-bottom: 4px; }
+    .product-media-box {
+      width: 100%;
+      height: 110px;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f7faf8;
+      margin-bottom: 6px;
+    }
+    .product-media-box img, .product-media-box video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .product-emoji { font-size: 44px; }
     .product-name { font-weight: 700; font-size: 14px; }
     .product-cat { font-size: 11px; color: var(--muted); }
     .product-price { font-size: 15px; font-weight: 800; color: var(--green-dark); margin: 6px 0; }
@@ -133,7 +152,7 @@
     }
     .panel h3 { font-size: 15px; margin-bottom: 6px; color: var(--green-dark); }
     .panel p { font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.4; }
-    input[type="text"], input[type="tel"], input[type="password"], input[type="number"] {
+    input[type="text"], input[type="tel"], input[type="password"], input[type="number"], input[type="file"] {
       width: 100%;
       padding: 10px;
       border: 1px solid var(--line);
@@ -141,6 +160,7 @@
       font-size: 14px;
       margin-bottom: 8px;
       outline: none;
+      background: white;
     }
     .btn-block {
       width: 100%;
@@ -208,8 +228,30 @@
     }
     .divider::before { left: 0; }
     .divider::after { right: 0; }
-
-    /* Tracking Stepper */
+    .profile-nav, .admin-nav {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      background: #eef5f0;
+      padding: 4px;
+      border-radius: 8px;
+    }
+    .profile-tab, .admin-tab {
+      flex: 1;
+      padding: 8px 4px;
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--muted);
+    }
+    .profile-tab.active, .admin-tab.active {
+      background: white;
+      color: var(--green-dark);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
     .track-step-wrap {
       display: flex;
       justify-content: space-between;
@@ -250,15 +292,8 @@
       color: white;
       box-shadow: 0 0 0 3px rgba(22, 130, 59, 0.25);
     }
-    .step-title {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--muted);
-    }
-    .step-item.active .step-title {
-      color: var(--green-dark);
-      font-weight: 700;
-    }
+    .step-title { font-size: 10px; font-weight: 600; color: var(--muted); }
+    .step-item.active .step-title { color: var(--green-dark); font-weight: 700; }
     .order-card-record {
       border: 1px solid var(--line);
       border-radius: 10px;
@@ -269,19 +304,17 @@
   </style>
 </head>
 <body>
-
-  <!-- Top Navigation (Logo has secret click) -->
+  <!-- Header -->
   <header>
     <div class="brand" onclick="secretAdminClick()" title="Fresh Veggie">🥦 Fresh Veggie</div>
     <div class="header-actions">
-      <button class="btn-header" onclick="openMyOrders()">📦 Orders</button>
-      <button class="btn-header" id="authBtn" onclick="showPopup('loginPopup')">👤 Login</button>
+      <button class="btn-header" onclick="openUserProfile()">👤 <span id="headerUserName">Profile</span></button>
       <button class="btn-header" onclick="showCartPopup()">🛒 <span id="cartCount">0</span></button>
     </div>
   </header>
 
   <div class="main-wrap">
-    <!-- Wallet Card with Add Money -->
+    <!-- Wallet Card -->
     <div class="wallet-card">
       <div>
         <div style="font-size: 11px; opacity: 0.9;">Wallet Balance</div>
@@ -289,11 +322,11 @@
         <button class="btn-wallet-add" onclick="showPopup('walletPopup')">+ Add Money</button>
       </div>
       <div style="text-align: right;">
-        <span style="font-size: 11px; background: rgba(255,255,255,0.25); padding: 3px 8px; border-radius: 10px;" id="userTag">Guest</span>
+        <span style="font-size: 11px; background: rgba(255,255,255,0.25); padding: 3px 8px; border-radius: 10px; cursor: pointer;" onclick="openUserProfile()" id="userTag">Guest</span>
       </div>
     </div>
 
-    <!-- Delivery Notice -->
+    <!-- Notice -->
     <div class="delivery-notice">
       <b>🚚 Gossaigaon Delivery Rules:</b><br>
       • Min order: <b>₹100</b> | Below ₹300: Fee <b>₹21</b> | ₹300+: <b>FREE</b>
@@ -309,104 +342,8 @@
       </select>
     </div>
 
-    <!-- Product Grid -->
-    <div class="grid" id="productsGrid">
-      <div class="product-card" data-name="potato alu" data-cat="Vegetables">
-        <div class="product-img">🥔</div>
-        <div class="product-name">Potato (Alu)</div>
-        <div class="product-cat">Vegetables</div>
-        <div class="product-price">₹27 /kg</div>
-        <button class="btn-add" onclick="addItem(1, 'Potato (Alu)', 27, 'kg', this)">Add to Cart</button>
-      </div>
-
-      <div class="product-card" data-name="tomato bilahi" data-cat="Vegetables">
-        <div class="product-img">🍅</div>
-        <div class="product-name">Tomato (Bilahi)</div>
-        <div class="product-cat">Vegetables</div>
-        <div class="product-price">₹35 /kg</div>
-        <button class="btn-add" onclick="addItem(2, 'Tomato (Bilahi)', 35, 'kg', this)">Add to Cart</button>
-      </div>
-
-      <div class="product-card" data-name="onion piyaj" data-cat="Vegetables">
-        <div class="product-img">🧅</div>
-        <div class="product-name">Onion (Piyaj)</div>
-        <div class="product-cat">Vegetables</div>
-        <div class="product-price">₹53 /kg</div>
-        <button class="btn-add" onclick="addItem(3, 'Onion (Piyaj)', 53, 'kg', this)">Add to Cart</button>
-      </div>
-
-      <div class="product-card" data-name="cucumber tiyoh" data-cat="Vegetables">
-        <div class="product-img">🥒</div>
-        <div class="product-name">Cucumber (Tiyoh)</div>
-        <div class="product-cat">Vegetables</div>
-        <div class="product-price">₹28 /kg</div>
-        <button class="btn-add" onclick="addItem(4, 'Cucumber (Tiyoh)', 28, 'kg', this)">Add to Cart</button>
-      </div>
-
-      <div class="product-card" data-name="cauliflower kobi" data-cat="Vegetables">
-        <div class="product-img">🥦</div>
-        <div class="product-name">Cauliflower (Kobi)</div>
-        <div class="product-cat">Vegetables</div>
-        <div class="product-price">₹35 /pc</div>
-        <button class="btn-add" onclick="addItem(5, 'Cauliflower (Kobi)', 35, 'pc', this)">Add to Cart</button>
-      </div>
-
-      <div class="product-card" data-name="cabbage bandhakobi" data-cat="Vegetables">
-        <div class="product-img">🥬</div>
-        <div class="product-name">Cabbage (Bandhakobi)</div>
-        <div class="product-cat">Vegetables</div>
-        <div class="product-price">₹30 /pc</div>
-        <button class="btn-add" onclick="addItem(6, 'Cabbage (Bandhakobi)', 30, 'pc', this)">Add to Cart</button>
-      </div>
-
-      <div class="product-card" data-name="miniket rice saul" data-cat="Groceries">
-        <div class="product-img">🍚</div>
-        <div class="product-name">Miniket Rice</div>
-        <div class="product-cat">Groceries</div>
-        <div class="product-price">₹52 /kg</div>
-        <button class="btn-add" onclick="addItem(7, 'Miniket Rice', 52, 'kg', this)">Add to Cart</button>
-      </div>
-
-      <div class="product-card" data-name="mustard oil tel" data-cat="Groceries">
-        <div class="product-img">🛢️</div>
-        <div class="product-name">Mustard Oil</div>
-        <div class="product-cat">Groceries</div>
-        <div class="product-price">₹145 /litre</div>
-        <button class="btn-add" onclick="addItem(8, 'Mustard Oil', 145, 'litre', this)">Add to Cart</button>
-      </div>
-
-      <div class="product-card" data-name="masoor dal" data-cat="Groceries">
-        <div class="product-img">🥣</div>
-        <div class="product-name">Masoor Dal</div>
-        <div class="product-cat">Groceries</div>
-        <div class="product-price">₹95 /kg</div>
-        <button class="btn-add" onclick="addItem(9, 'Masoor Dal', 95, 'kg', this)">Add to Cart</button>
-      </div>
-
-      <div class="product-card" data-name="sugar chini" data-cat="Groceries">
-        <div class="product-img">🧂</div>
-        <div class="product-name">Pure Sugar</div>
-        <div class="product-cat">Groceries</div>
-        <div class="product-price">₹44 /kg</div>
-        <button class="btn-add" onclick="addItem(10, 'Pure Sugar', 44, 'kg', this)">Add to Cart</button>
-      </div>
-
-      <div class="product-card" data-name="tata salt" data-cat="Groceries">
-        <div class="product-img">🧂</div>
-        <div class="product-name">Tata Salt</div>
-        <div class="product-cat">Groceries</div>
-        <div class="product-price">₹28 /kg</div>
-        <button class="btn-add" onclick="addItem(11, 'Tata Salt', 28, 'kg', this)">Add to Cart</button>
-      </div>
-
-      <div class="product-card" data-name="atta" data-cat="Groceries">
-        <div class="product-img">🌾</div>
-        <div class="product-name">Chakki Atta</div>
-        <div class="product-cat">Groceries</div>
-        <div class="product-price">₹42 /kg</div>
-        <button class="btn-add" onclick="addItem(12, 'Chakki Atta', 42, 'kg', this)">Add to Cart</button>
-      </div>
-    </div>
+    <!-- Products Grid -->
+    <div class="grid" id="productsGrid"></div>
 
     <!-- Referral Program -->
     <div class="panel" id="referralPanel">
@@ -416,6 +353,45 @@
         <input type="text" id="myRefCode" readonly style="font-weight: 700; text-align: center; margin-bottom: 0;">
         <button class="btn-block btn-primary" style="width: 100px;" onclick="copyCode()">Copy</button>
       </div>
+    </div>
+  </div>
+    <!-- POPUP: USER PROFILE -->
+  <div class="popup-box" id="profilePopup">
+    <div class="popup-inner">
+      <button class="popup-close" onclick="hidePopup('profilePopup')">✕</button>
+      
+      <div style="text-align: center; margin-bottom: 12px; border-bottom: 1px solid var(--line); padding-bottom: 10px;">
+        <div style="font-size: 40px; margin-bottom: 4px;">👤</div>
+        <h3 id="profUserTitle" style="color: var(--green-dark); font-size: 16px;">User Profile</h3>
+        <span id="profUserBadge" style="background:#e8f5e9; color:var(--green-dark); font-size:11px; padding:2px 8px; border-radius:10px; font-weight:700;">Verified User</span>
+      </div>
+
+      <div class="profile-nav">
+        <button class="profile-tab active" id="tabProfOrders" onclick="switchProfileTab('orders')">📦 My Orders</button>
+        <button class="profile-tab" id="tabProfRef" onclick="switchProfileTab('referral')">🎁 Referral Earnings</button>
+      </div>
+
+      <div id="profSectionOrders">
+        <div id="profileOrdersList"></div>
+      </div>
+
+      <div id="profSectionReferral" style="display: none;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+          <div style="background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 10px; text-align: center;">
+            <div style="font-size: 11px; color: var(--muted);">Referred Users</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--green-dark);" id="profTotalReferred">0</div>
+          </div>
+          <div style="background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 10px; text-align: center;">
+            <div style="font-size: 11px; color: var(--muted);">Earned Commission</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--green-dark);">₹<span id="profTotalComm">0</span></div>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 700; color: var(--green-dark); margin-bottom: 6px;">Commission Transaction History:</div>
+        <div id="profCommHistoryWrap" style="font-size: 12px;"></div>
+      </div>
+
+      <button class="btn-block btn-guest" style="margin-top: 14px;" onclick="userLogout()">🚪 Logout / Switch Account</button>
     </div>
   </div>
 
@@ -442,16 +418,6 @@
       </div>
 
       <button class="btn-block btn-primary" onclick="confirmTopup()">Confirm Payment Added</button>
-    </div>
-  </div>
-
-  <!-- POPUP: My Orders & Realtime Tracking -->
-  <div class="popup-box" id="ordersPopup">
-    <div class="popup-inner">
-      <button class="popup-close" onclick="hidePopup('ordersPopup')">✕</button>
-      <h3 style="color: var(--green); margin-bottom: 4px;">📦 My Orders & Tracking</h3>
-      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Live status and order milestones.</p>
-      <div id="ordersListWrap"></div>
     </div>
   </div>
 
@@ -600,46 +566,165 @@
         </div>
 
         <button type="button" class="btn-block btn-primary" onclick="resetAndCloseOrder()">Continue Shopping</button>
-        <button type="button" class="btn-block btn-guest" style="margin-top: 8px;" onclick="viewPlacedOrderTrack()">Track This Order</button>
+        <button type="button" class="btn-block btn-guest" style="margin-top: 8px;" onclick="viewPlacedOrderTrack()">Track in Profile</button>
       </div>
 
     </div>
   </div>
 
-  <!-- SECRET POPUP 2: ADMIN CONTROL DASHBOARD -->
+  <!-- SECRET ADMIN POPUP (PIN: 8822) -->
+  <div class="popup-box" id="adminSecretPopup">
+    <div class="popup-inner" style="max-width: 320px; text-align: center;">
+      <button class="popup-close" onclick="hidePopup('adminSecretPopup')">✕</button>
+      <div style="font-size: 34px; margin-bottom: 6px;">🔐</div>
+      <h3 style="color: var(--green-dark); margin-bottom: 4px;">Store Management</h3>
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Authorized store owner access only.</p>
+      
+      <input type="password" id="secretAdminPin" placeholder="••••" maxlength="4" style="text-align: center; letter-spacing: 6px; font-size: 20px;">
+      <button class="btn-block btn-primary" onclick="verifySecretAdmin()">Unlock Dashboard</button>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD -->
   <div class="popup-box" id="adminDashboardPopup">
     <div class="popup-inner" style="max-width: 480px; max-height: 90vh;">
       <button class="popup-close" onclick="hidePopup('adminDashboardPopup')">✕</button>
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 10px;">
-        <h3 style="color: var(--green-dark); font-size: 16px;">📦 Owner Control Panel</h3>
-        <button onclick="loadAdminOrdersList()" style="background:var(--green); color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">🔄 Refresh</button>
+      
+      <div class="admin-nav">
+        <button class="admin-tab active" id="tabAdmOrders" onclick="switchAdminTab('orders')">📦 Orders</button>
+        <button class="admin-tab" id="tabAdmAdd" onclick="switchAdminTab('add')">➕ Add Product</button>
+        <button class="admin-tab" id="tabAdmManage" onclick="switchAdminTab('manage')">📝 Manage</button>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
-        <div style="background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 8px; text-align: center;">
-          <div style="font-size: 11px; color: var(--muted);">Total Orders</div>
-          <div style="font-size: 18px; font-weight: 800; color: var(--green-dark);" id="admTotOrders">0</div>
+      <div id="admSectionOrders">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 6px; margin-bottom: 10px;">
+          <h3 style="color: var(--green-dark); font-size: 15px;">Live Order Feed</h3>
+          <button onclick="loadAdminOrdersList()" style="background:var(--green); color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">🔄 Refresh</button>
         </div>
-        <div style="background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 8px; text-align: center;">
-          <div style="font-size: 11px; color: var(--muted);">Total Sales</div>
-          <div style="font-size: 18px; font-weight: 800; color: var(--green-dark);">₹<span id="admTotSales">0</span></div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+          <div style="background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 8px; text-align: center;">
+            <div style="font-size: 11px; color: var(--muted);">Total Orders</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--green-dark);" id="admTotOrders">0</div>
+          </div>
+          <div style="background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 8px; text-align: center;">
+            <div style="font-size: 11px; color: var(--muted);">Total Sales</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--green-dark);">₹<span id="admTotSales">0</span></div>
+          </div>
         </div>
+
+        <div id="admOrderItemsWrap" style="font-size: 13px;"></div>
       </div>
 
-      <div id="admOrderItemsWrap" style="font-size: 13px;"></div>
+      <div id="admSectionAdd" style="display: none;">
+        <h3 style="color: var(--green-dark); font-size: 15px; margin-bottom: 10px;">Add New Store Product</h3>
+        <label style="font-size: 12px; font-weight: 600;">Product Name & Local Name</label>
+        <input type="text" id="newProdName" placeholder="e.g. Green Chilli (Jolokia)">
+
+        <div style="display: flex; gap: 8px;">
+          <div style="flex: 1;">
+            <label style="font-size: 12px; font-weight: 600;">Price (₹)</label>
+            <input type="number" id="newProdPrice" placeholder="e.g. 40">
+          </div>
+          <div style="flex: 1;">
+            <label style="font-size: 12px; font-weight: 600;">Unit Type</label>
+            <select id="newProdUnit">
+              <option value="kg">per kg</option>
+              <option value="pc">per piece</option>
+              <option value="litre">per litre</option>
+              <option value="packet">per packet</option>
+            </select>
+          </div>
+        </div>
+
+        <label style="font-size: 12px; font-weight: 600;">Category</label>
+        <select id="newProdCat">
+          <option value="Vegetables">Fresh Vegetables</option>
+          <option value="Groceries">Daily Groceries</option>
+        </select>
+
+        <label style="font-size: 12px; font-weight: 600;">Fallback Emoji</label>
+        <input type="text" id="newProdEmoji" placeholder="e.g. 🌶️" value="🥬">
+
+        <label style="font-size: 12px; font-weight: 600;">Upload Product Photo (Image)</label>
+        <input type="file" id="newProdPhoto" accept="image/*">
+
+        <label style="font-size: 12px; font-weight: 600;">Upload Product Short Video (Max 15MB)</label>
+        <input type="file" id="newProdVideo" accept="video/mp4,video/webm">
+
+        <button class="btn-block btn-primary" onclick="saveNewProduct()">Save & Publish Product</button>
+      </div>
+
+      <div id="admSectionManage" style="display: none;">
+        <h3 style="color: var(--green-dark); font-size: 15px; margin-bottom: 10px;">Store Products List</h3>
+        <div id="admProductsListWrap" style="font-size: 13px;"></div>
+      </div>
     </div>
   </div>
-
-  <script>
+    <script>
     var cartItems = [];
     var UPI_ID = "8134834380@mbk";
     var STORE_SECRET_PIN = "8822";
     var adminTapCount = 0;
     var adminTapTimer = null;
 
+    var defaultProducts = [
+      { id: 1, name: "Potato (Alu)", cat: "Vegetables", price: 27, unit: "kg", emoji: "🥔", photo: "", video: "" },
+      { id: 2, name: "Tomato (Bilahi)", cat: "Vegetables", price: 35, unit: "kg", emoji: "🍅", photo: "", video: "" },
+      { id: 3, name: "Onion (Piyaj)", cat: "Vegetables", price: 53, unit: "kg", emoji: "🧅", photo: "", video: "" },
+      { id: 4, name: "Cucumber (Tiyoh)", cat: "Vegetables", price: 28, unit: "kg", emoji: "🥒", photo: "", video: "" },
+      { id: 5, name: "Cauliflower (Kobi)", cat: "Vegetables", price: 35, unit: "pc", emoji: "🥦", photo: "", video: "" },
+      { id: 6, name: "Cabbage (Bandhakobi)", cat: "Vegetables", price: 30, unit: "pc", emoji: "🥬", photo: "", video: "" },
+      { id: 7, name: "Miniket Rice", cat: "Groceries", price: 52, unit: "kg", emoji: "🍚", photo: "", video: "" },
+      { id: 8, name: "Mustard Oil", cat: "Groceries", price: 145, unit: "litre", emoji: "🛢️", photo: "", video: "" },
+      { id: 9, name: "Masoor Dal", cat: "Groceries", price: 95, unit: "kg", emoji: "🥣", photo: "", video: "" },
+      { id: 10, name: "Pure Sugar", cat: "Groceries", price: 44, unit: "kg", emoji: "🧂", photo: "", video: "" },
+      { id: 11, name: "Tata Salt", cat: "Groceries", price: 28, unit: "kg", emoji: "🧂", photo: "", video: "" },
+      { id: 12, name: "Chakki Atta", cat: "Groceries", price: 42, unit: "kg", emoji: "🌾", photo: "", video: "" }
+    ];
+
     window.addEventListener("DOMContentLoaded", function() {
+      initProducts();
       initApp();
+      renderStoreProducts();
     });
+
+    function initProducts() {
+      if (!localStorage.getItem('fv_store_products')) {
+        localStorage.setItem('fv_store_products', JSON.stringify(defaultProducts));
+      }
+    }
+
+    function getStoreProducts() {
+      return JSON.parse(localStorage.getItem('fv_store_products') || '[]');
+    }
+
+    function renderStoreProducts() {
+      var grid = document.getElementById('productsGrid');
+      var products = getStoreProducts();
+      var html = "";
+
+      products.forEach(function(p) {
+        var mediaHtml = "";
+        if (p.video) {
+          mediaHtml = '<video src="' + p.video + '" autoplay loop muted playsinline></video>';
+        } else if (p.photo) {
+          mediaHtml = '<img src="' + p.photo + '" alt="' + p.name + '">';
+        } else {
+          mediaHtml = '<div class="product-emoji">' + (p.emoji || '🥬') + '</div>';
+        }
+
+        html += '<div class="product-card" data-name="' + p.name.toLowerCase() + '" data-cat="' + p.cat + '">' +
+                  '<div class="product-media-box">' + mediaHtml + '</div>' +
+                  '<div class="product-name">' + p.name + '</div>' +
+                  '<div class="product-cat">' + p.cat + '</div>' +
+                  '<div class="product-price">₹' + p.price + ' /' + p.unit + '</div>' +
+                  '<button class="btn-add" onclick="addItem(' + p.id + ', \'' + p.name.replace(/'/g, "\\'") + '\', ' + p.price + ', \'' + p.unit + '\', this)">Add to Cart</button>' +
+                '</div>';
+      });
+
+      grid.innerHTML = html;
+    }
 
     function initApp() {
       var u = localStorage.getItem('fv_user');
@@ -662,11 +747,14 @@
       }
 
       if (u) {
-        document.getElementById('authBtn').innerText = userType === 'phone' ? u.substring(0, 6) + ".." : (userType === 'gmail' ? "Gmail" : "Guest");
+        var shortTitle = userType === 'phone' ? u.substring(0, 5) + ".." : (userType === 'gmail' ? "Gmail" : "Guest");
+        document.getElementById('headerUserName').innerText = shortTitle;
         document.getElementById('userTag').innerText = userType === 'phone' ? "Verified Phone" : (userType === 'gmail' ? "Gmail User" : "Guest User");
         if (userType === 'phone') {
           document.getElementById('cPhone').value = u;
         }
+      } else {
+        document.getElementById('headerUserName').innerText = "Login";
       }
       document.getElementById('walletBal').innerText = w;
       document.getElementById('chkWalletBal').innerText = w;
@@ -675,7 +763,133 @@
     function showPopup(id) { document.getElementById(id).style.display = "flex"; }
     function hidePopup(id) { document.getElementById(id).style.display = "none"; }
 
-    // --- SECRET ADMIN LOGIC (Tap 5 times on Logo -> PIN 8822) ---
+    function openUserProfile() {
+      var u = localStorage.getItem('fv_user');
+      if (!u) {
+        showPopup('loginPopup');
+        return;
+      }
+      var userType = localStorage.getItem('fv_user_type') || 'guest';
+      document.getElementById('profUserTitle').innerText = u;
+      document.getElementById('profUserBadge').innerText = userType === 'phone' ? "Verified Mobile Account" : (userType === 'gmail' ? "Google / Gmail Account" : "Guest Account");
+
+      loadUserOrdersInProfile();
+      loadUserReferralInProfile();
+      switchProfileTab('orders');
+      showPopup('profilePopup');
+    }
+
+    function switchProfileTab(tab) {
+      document.getElementById('profSectionOrders').style.display = (tab === 'orders') ? 'block' : 'none';
+      document.getElementById('profSectionReferral').style.display = (tab === 'referral') ? 'block' : 'none';
+      document.getElementById('tabProfOrders').classList.toggle('active', tab === 'orders');
+      document.getElementById('tabProfRef').classList.toggle('active', tab === 'referral');
+    }
+
+    function loadUserOrdersInProfile() {
+      var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
+      var curUser = localStorage.getItem('fv_user');
+      var wrap = document.getElementById('profileOrdersList');
+
+      var myOrders = orders.filter(function(o) {
+        return o.phone === curUser || o.customer === curUser || curUser.startsWith("Guest");
+      });
+
+      if (myOrders.length === 0) {
+        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:20px;'>No orders placed under this account.</p>";
+        return;
+      }
+
+      var html = "";
+      myOrders.slice().reverse().forEach(function(ord) {
+        var statusText = ord.status || "Placed";
+        var step = 1;
+        if (statusText === "Packed") step = 2;
+        if (statusText === "Out for Delivery") step = 3;
+        if (statusText === "Delivered") step = 4;
+
+        html += '<div class="order-card-record">' +
+                  '<div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">' +
+                    '<b>' + ord.orderId + '</b>' +
+                    '<span style="color:var(--muted);">' + new Date(ord.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '</span>' +
+                  '</div>' +
+                  '<div style="font-size:12px; margin-bottom:6px;">' + ord.items.map(function(i){ return i.name + ' (x' + i.qty + ')'; }).join(', ') + '</div>' +
+                  '<div style="font-size:12px; margin-bottom:8px;"><b>Total:</b> ₹' + ord.total + ' (' + ord.payment + ') | <b>To:</b> ' + ord.village + '</div>' +
+                  
+                  '<div class="track-step-wrap">' +
+                    '<div class="step-item ' + (step >= 1 ? 'active' : '') + '">' +
+                      '<div class="step-dot">1</div><div class="step-title">Placed</div>' +
+                    '</div>' +
+                    '<div class="step-item ' + (step >= 2 ? 'active' : '') + '">' +
+                      '<div class="step-dot">2</div><div class="step-title">Packed</div>' +
+                    '</div>' +
+                    '<div class="step-item ' + (step >= 3 ? 'active' : '') + '">' +
+                      '<div class="step-dot">3</div><div class="step-title">Out for Delivery</div>' +
+                    '</div>' +
+                    '<div class="step-item ' + (step >= 4 ? 'active' : '') + '">' +
+                      '<div class="step-dot">4</div><div class="step-title">Delivered</div>' +
+                    '</div>' +
+                  '</div>' +
+                  '<div style="text-align:center; font-size:11px; color:var(--green-dark); font-weight:700; margin-top:4px;">Status: ' + statusText + '</div>' +
+                '</div>';
+      });
+
+      wrap.innerHTML = html;
+    }
+
+    function loadUserReferralInProfile() {
+      var curUser = localStorage.getItem('fv_user');
+      var userType = localStorage.getItem('fv_user_type');
+      var wrap = document.getElementById('profCommHistoryWrap');
+
+      if (userType !== 'phone') {
+        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:16px;'>Referral program is only unlocked for Mobile Number & Password accounts.</p>";
+        document.getElementById('profTotalReferred').innerText = "0";
+        document.getElementById('profTotalComm').innerText = "0";
+        return;
+      }
+
+      var allComm = JSON.parse(localStorage.getItem('fv_referral_history') || '[]');
+      var myComm = allComm.filter(function(c) { return c.referrer === curUser; });
+
+      var totalEarned = myComm.reduce(function(sum, item) { return sum + item.bonus; }, 0);
+      var referredSet = new Set(myComm.map(function(item) { return item.referredUser; }));
+
+      document.getElementById('profTotalReferred').innerText = referredSet.size;
+      document.getElementById('profTotalComm').innerText = totalEarned;
+
+      if (myComm.length === 0) {
+        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:16px;'>No commission received yet. Share your code to earn ₹5 per order!</p>";
+        return;
+      }
+
+      var html = "";
+      myComm.slice().reverse().forEach(function(item) {
+        html += '<div style="background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px; margin-bottom:6px;">' +
+                  '<div style="display:flex; justify-content:space-between; font-weight:700;">' +
+                    '<span style="color:var(--green-dark);">+ ₹' + item.bonus + ' Bonus</span>' +
+                    '<small style="color:var(--muted);">' + new Date(item.date).toLocaleDateString() + '</small>' +
+                  '</div>' +
+                  '<div style="color:var(--muted); font-size:11px; margin-top:2px;">' + item.reason + ' (User: ' + item.referredUser.substring(0, 4) + '****)</div>' +
+                '</div>';
+      });
+
+      wrap.innerHTML = html;
+    }
+
+    function userLogout() {
+      if (!confirm("Are you sure you want to log out?")) return;
+      localStorage.removeItem('fv_user');
+      localStorage.removeItem('fv_user_type');
+      hidePopup('profilePopup');
+      window.location.reload();
+    }
+
+    function viewPlacedOrderTrack() {
+      hidePopup('cartPopup');
+      openUserProfile();
+    }
+
     function secretAdminClick() {
       adminTapCount++;
       clearTimeout(adminTapTimer);
@@ -693,10 +907,122 @@
       if (pin === STORE_SECRET_PIN) {
         hidePopup('adminSecretPopup');
         loadAdminOrdersList();
+        loadAdminProductsManage();
         showPopup('adminDashboardPopup');
       } else {
         alert("Wrong PIN! Access denied.");
       }
+    }
+
+    function switchAdminTab(tab) {
+      document.getElementById('admSectionOrders').style.display = (tab === 'orders') ? 'block' : 'none';
+      document.getElementById('admSectionAdd').style.display = (tab === 'add') ? 'block' : 'none';
+      document.getElementById('admSectionManage').style.display = (tab === 'manage') ? 'block' : 'none';
+
+      document.getElementById('tabAdmOrders').classList.toggle('active', tab === 'orders');
+      document.getElementById('tabAdmAdd').classList.toggle('active', tab === 'add');
+      document.getElementById('tabAdmManage').classList.toggle('active', tab === 'manage');
+
+      if (tab === 'manage') loadAdminProductsManage();
+    }
+
+    function fileToBase64(file) {
+      return new Promise(function(resolve, reject) {
+        if (!file) { resolve(""); return; }
+        var reader = new FileReader();
+        reader.onload = function(e) { resolve(e.target.result); };
+        reader.onerror = function(err) { reject(err); };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function saveNewProduct() {
+      var name = document.getElementById('newProdName').value.trim();
+      var price = parseFloat(document.getElementById('newProdPrice').value);
+      var unit = document.getElementById('newProdUnit').value;
+      var cat = document.getElementById('newProdCat').value;
+      var emoji = document.getElementById('newProdEmoji').value.trim() || '🥬';
+
+      var photoFile = document.getElementById('newProdPhoto').files[0];
+      var videoFile = document.getElementById('newProdVideo').files[0];
+
+      if (!name || isNaN(price) || price <= 0) {
+        alert("Please enter a valid product name and price!");
+        return;
+      }
+
+      var photoBase64 = "";
+      var videoBase64 = "";
+
+      try {
+        if (photoFile) photoBase64 = await fileToBase64(photoFile);
+        if (videoFile) {
+          if (videoFile.size > 15 * 1024 * 1024) {
+            alert("Video file size is larger than 15MB. Please upload a shorter clip.");
+            return;
+          }
+          videoBase64 = await fileToBase64(videoFile);
+        }
+      } catch (err) {
+        alert("Error reading file! Please try a smaller image/video.");
+        return;
+      }
+
+      var products = getStoreProducts();
+      var newProduct = {
+        id: Date.now(),
+        name: name,
+        cat: cat,
+        price: price,
+        unit: unit,
+        emoji: emoji,
+        photo: photoBase64,
+        video: videoBase64
+      };
+
+      try {
+        products.push(newProduct);
+        localStorage.setItem('fv_store_products', JSON.stringify(products));
+      } catch (e) {
+        alert("Storage limit reached! Please use a smaller image/video resolution.");
+        return;
+      }
+
+      alert("🎉 Product '" + name + "' added successfully!");
+      document.getElementById('newProdName').value = "";
+      document.getElementById('newProdPrice').value = "";
+      document.getElementById('newProdPhoto').value = "";
+      document.getElementById('newProdVideo').value = "";
+
+      renderStoreProducts();
+      switchAdminTab('manage');
+    }
+
+    function loadAdminProductsManage() {
+      var products = getStoreProducts();
+      var wrap = document.getElementById('admProductsListWrap');
+      var html = "";
+
+      products.forEach(function(p) {
+        html += '<div style="display:flex; justify-content:space-between; align-items:center; border:1px solid var(--line); border-radius:8px; padding:8px; margin-bottom:8px; background:#fff;">' +
+                  '<div>' +
+                    '<b>' + p.name + '</b><br>' +
+                    '<small style="color:var(--muted);">' + p.cat + ' | ₹' + p.price + '/' + p.unit + (p.video ? ' | 🎥 Video' : (p.photo ? ' | 📷 Photo' : '')) + '</small>' +
+                  '</div>' +
+                  '<button onclick="deleteProduct(' + p.id + ')" style="background:var(--danger); color:white; border:none; padding:6px 10px; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer;">Delete</button>' +
+                '</div>';
+      });
+
+      wrap.innerHTML = html;
+    }
+
+    function deleteProduct(id) {
+      if (!confirm("Are you sure you want to remove this product?")) return;
+      var products = getStoreProducts();
+      products = products.filter(function(p) { return p.id !== id; });
+      localStorage.setItem('fv_store_products', JSON.stringify(products));
+      renderStoreProducts();
+      loadAdminProductsManage();
     }
 
     function loadAdminOrdersList() {
@@ -759,7 +1085,6 @@
       loadAdminOrdersList();
     }
 
-    // --- WALLET TOP-UP ---
     function setTopupAmount(amt) {
       document.getElementById('topupAmt').value = amt;
       genTopupQr();
@@ -794,61 +1119,6 @@
       hidePopup('walletPopup');
     }
 
-    // --- USER TRACKING VIEW ---
-    function openMyOrders() {
-      var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
-      var wrap = document.getElementById('ordersListWrap');
-      
-      if (orders.length === 0) {
-        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:20px;'>No orders placed yet.</p>";
-        showPopup('ordersPopup');
-        return;
-      }
-
-      var html = "";
-      orders.slice().reverse().forEach(function(ord) {
-        var statusText = ord.status || "Placed";
-        var step = 1;
-        if (statusText === "Packed") step = 2;
-        if (statusText === "Out for Delivery") step = 3;
-        if (statusText === "Delivered") step = 4;
-
-        html += '<div class="order-card-record">' +
-                  '<div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">' +
-                    '<b>' + ord.orderId + '</b>' +
-                    '<span style="color:var(--muted);">' + new Date(ord.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '</span>' +
-                  '</div>' +
-                  '<div style="font-size:12px; margin-bottom:6px;">' + ord.items.map(function(i){ return i.name + ' (x' + i.qty + ')'; }).join(', ') + '</div>' +
-                  '<div style="font-size:12px; margin-bottom:8px;"><b>Total:</b> ₹' + ord.total + ' (' + ord.payment + ') | <b>To:</b> ' + ord.village + '</div>' +
-                  
-                  '<div class="track-step-wrap">' +
-                    '<div class="step-item ' + (step >= 1 ? 'active' : '') + '">' +
-                      '<div class="step-dot">1</div><div class="step-title">Placed</div>' +
-                    '</div>' +
-                    '<div class="step-item ' + (step >= 2 ? 'active' : '') + '">' +
-                      '<div class="step-dot">2</div><div class="step-title">Packed</div>' +
-                    '</div>' +
-                    '<div class="step-item ' + (step >= 3 ? 'active' : '') + '">' +
-                      '<div class="step-dot">3</div><div class="step-title">Out for Delivery</div>' +
-                    '</div>' +
-                    '<div class="step-item ' + (step >= 4 ? 'active' : '') + '">' +
-                      '<div class="step-dot">4</div><div class="step-title">Delivered</div>' +
-                    '</div>' +
-                  '</div>' +
-                  '<div style="text-align:center; font-size:11px; color:var(--green-dark); font-weight:700; margin-top:4px;">Status: ' + statusText + '</div>' +
-                '</div>';
-      });
-
-      wrap.innerHTML = html;
-      showPopup('ordersPopup');
-    }
-
-    function viewPlacedOrderTrack() {
-      hidePopup('cartPopup');
-      openMyOrders();
-    }
-
-    // --- AUTHENTICATION ---
     function toggleAuthView(type) {
       if (type === 'login') {
         document.getElementById('registerBox').style.display = 'none';
@@ -928,7 +1198,6 @@
       window.location.reload();
     }
 
-    // --- SEARCH ---
     function doSearch() {
       var q = document.getElementById('searchInput').value.toLowerCase().trim();
       var cat = document.getElementById('catSelect').value;
@@ -943,7 +1212,6 @@
       });
     }
 
-    // --- CART ---
     function addItem(id, name, price, unit, btn) {
       var existing = cartItems.find(function(item) { return item.id === id; });
       if (existing) {
@@ -1045,7 +1313,6 @@
       }
     }
 
-    // --- ORDER DISPATCH & REFERRAL CHECK ---
     function placeOnlineOrder() {
       var totals = calculateTotals();
       if (totals.subtotal < 100) {
@@ -1093,7 +1360,6 @@
       orders.push(newOrder);
       localStorage.setItem('fv_orders', JSON.stringify(orders));
 
-      // Referral Bonus: Mobile + Password accounts ONLY
       var u = localStorage.getItem('fv_user');
       var userType = localStorage.getItem('fv_user_type');
 
@@ -1108,11 +1374,34 @@
             var referrerPhone = codeMap[refCodeUsed];
 
             if (referrerPhone && referrerPhone !== u) {
+              var commHistory = JSON.parse(localStorage.getItem('fv_referral_history') || '[]');
               var bonusEarned = 0;
-              if (accounts[u].orderCount === 1) bonusEarned += 5;
-              bonusEarned += Math.floor(totals.total / 1000) * 5;
+
+              if (accounts[u].orderCount === 1) {
+                bonusEarned += 5;
+                commHistory.push({
+                  referrer: referrerPhone,
+                  referredUser: u,
+                  bonus: 5,
+                  reason: "1st Order Reward",
+                  date: new Date().toISOString()
+                });
+              }
+
+              var milestoneBonus = Math.floor(totals.total / 1000) * 5;
+              if (milestoneBonus > 0) {
+                bonusEarned += milestoneBonus;
+                commHistory.push({
+                  referrer: referrerPhone,
+                  referredUser: u,
+                  bonus: milestoneBonus,
+                  reason: "₹" + totals.total + " Value Milestone Bonus",
+                  date: new Date().toISOString()
+                });
+              }
 
               if (bonusEarned > 0) {
+                localStorage.setItem('fv_referral_history', JSON.stringify(commHistory));
                 var currentWallet = parseInt(localStorage.getItem('fv_wallet') || 0);
                 localStorage.setItem('fv_wallet', currentWallet + bonusEarned);
                 document.getElementById('walletBal').innerText = currentWallet + bonusEarned;
@@ -1153,4 +1442,3 @@
   </script>
 </body>
 </html>
-                                                                                                  
