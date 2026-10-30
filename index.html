@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#16823b">
-<title>Fresh Veggie | Fresh vegetables at your doorstep</title>
+<title>Fresh Veggie | Online Grocery Store</title>
 <style>
 :root{--green:#16823b;--dark:#105c2a;--bg:#f4f8f4;--text:#1d2b20;--muted:#68766b;--line:#e1e9e1}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
@@ -25,11 +25,11 @@ footer{text-align:center;color:var(--muted);padding:28px 12px;font-size:12px}
 </style>
 </head>
 <body>
-<header><div class="head"><div><div class="brand">🥦 Fresh Veggie</div><div class="tag">Fresh vegetables at your doorstep · Guwahati</div></div><button class="light" onclick="document.querySelector('#cartPanel').scrollIntoView({behavior:'smooth'})">🛒 Cart <span id="cartCount">0</span></button></div></header>
+<header><div class="head"><div><div class="brand">🥦 Fresh Veggie</div><div class="tag">Vegetables, fruits & daily groceries · Guwahati</div></div><button class="light" onclick="document.querySelector('#cartPanel').scrollIntoView({behavior:'smooth'})">🛒 Cart <span id="cartCount">0</span></button></div></header>
 <main>
-<section class="hero"><h1>Fresh vegetables, delivered fresh.</h1><p>Choose your vegetables, place your order and pay by UPI or Cash on Delivery.</p></section>
-<div class="toolbar"><input id="search" placeholder="Search vegetables..." oninput="renderProducts()"><select id="category" onchange="renderProducts()"><option value="">All categories</option><option>Daily Vegetables</option><option>Greens</option><option>Seasonal</option></select></div>
-<div class="sectionhead"><h2>Today's vegetables</h2><span class="sub">Prices are per kg unless stated</span></div>
+<section class="hero"><h1>Fresh groceries, delivered to your doorstep.</h1><p>Shop vegetables, fruits and everyday essentials. Sample prices are for preview only and must be confirmed before real sales.</p></section>
+<div class="toolbar"><input id="search" placeholder="Search vegetables, fruits & groceries..." oninput="renderProducts()"><select id="category" onchange="renderProducts()"><option value="">All categories</option><option>Daily Vegetables</option><option>Greens</option><option>Seasonal</option><option>Fresh Fruits</option><option>Rice, Dal & Flour</option><option>Oil, Sugar & Spices</option><option>Dairy & Eggs</option><option>Snacks & Packaged Food</option><option>Tea, Coffee & Drinks</option><option>Household & Cleaning</option><option>Personal Care</option><option>Kitchen Essentials</option></select></div>
+<div class="sectionhead"><h2>Shop products</h2><span class="sub">Preview prices; confirm before launch</span></div>
 <div id="products" class="grid"></div>
 <section id="cartPanel" class="panel"><div class="sectionhead"><h2>Your cart</h2><button class="outline" onclick="clearCart()">Clear</button></div><div id="cartItems" class="sub">Your cart is empty.</div><div class="cartrow"><b>Subtotal</b><b id="subtotal">₹0</b></div><div class="cartrow"><span>Delivery charge</span><span id="delivery">₹0</span></div><div class="cartrow"><b>Total</b><b id="total">₹0</b></div></section>
 
@@ -67,7 +67,35 @@ const PRODUCTS = [
 {id:"chilli",name:"Green chilli",category:"Greens",price:55,unit:"kg",emoji:"🌶️"},
 {id:"eggplant",name:"Brinjal",category:"Daily Vegetables",price:38,unit:"kg",emoji:"🍆"},
 {id:"okra",name:"Okra",category:"Daily Vegetables",price:35,unit:"kg",emoji:"🥒"},
-{id:"ginger",name:"Ginger",category:"Daily Vegetables",price:135,unit:"kg",emoji:"🫚"}
+{id:"ginger",name:"Ginger",category:"Daily Vegetables",price:135,unit:"kg",emoji:"🫚"},
+{id:"banana",name:"Banana",category:"Fresh Fruits",price:50,unit:"dozen",emoji:"🍌"},
+{id:"apple",name:"Apple",category:"Fresh Fruits",price:140,unit:"kg",emoji:"🍎"},
+{id:"orange",name:"Orange",category:"Fresh Fruits",price:80,unit:"kg",emoji:"🍊"},
+{id:"papaya",name:"Papaya",category:"Fresh Fruits",price:45,unit:"kg",emoji:"🍈"},
+{id:"rice",name:"Rice",category:"Rice, Dal & Flour",price:60,unit:"kg",emoji:"🍚"},
+{id:"masoor-dal",name:"Masoor Dal",category:"Rice, Dal & Flour",price:110,unit:"kg",emoji:"🫘"},
+{id:"moong-dal",name:"Moong Dal",category:"Rice, Dal & Flour",price:125,unit:"kg",emoji:"🫘"},
+{id:"atta",name:"Wheat Flour (Atta)",category:"Rice, Dal & Flour",price:45,unit:"kg",emoji:"🌾"},
+{id:"mustard-oil",name:"Mustard Oil",category:"Oil, Sugar & Spices",price:170,unit:"litre",emoji:"🫗"},
+{id:"sugar",name:"Sugar",category:"Oil, Sugar & Spices",price:48,unit:"kg",emoji:"🍚"},
+{id:"salt",name:"Salt",category:"Oil, Sugar & Spices",price:22,unit:"kg",emoji:"🧂"},
+{id:"turmeric",name:"Turmeric Powder",category:"Oil, Sugar & Spices",price:35,unit:"100 g",emoji:"🟡"},
+{id:"milk",name:"Milk",category:"Dairy & Eggs",price:30,unit:"500 ml",emoji:"🥛"},
+{id:"eggs",name:"Eggs",category:"Dairy & Eggs",price:75,unit:"6 pcs",emoji:"🥚"},
+{id:"curd",name:"Curd",category:"Dairy & Eggs",price:40,unit:"500 g",emoji:"🥣"},
+{id:"biscuits",name:"Biscuits",category:"Snacks & Packaged Food",price:10,unit:"pack",emoji:"🍪"},
+{id:"noodles",name:"Instant Noodles",category:"Snacks & Packaged Food",price:15,unit:"pack",emoji:"🍜"},
+{id:"chips",name:"Potato Chips",category:"Snacks & Packaged Food",price:20,unit:"pack",emoji:"🥔"},
+{id:"tea",name:"Tea",category:"Tea, Coffee & Drinks",price:65,unit:"250 g",emoji:"🍵"},
+{id:"coffee",name:"Coffee",category:"Tea, Coffee & Drinks",price:90,unit:"100 g",emoji:"☕"},
+{id:"juice",name:"Fruit Juice",category:"Tea, Coffee & Drinks",price:35,unit:"pack",emoji:"🧃"},
+{id:"detergent",name:"Detergent Powder",category:"Household & Cleaning",price:55,unit:"500 g",emoji:"🧺"},
+{id:"dishwash",name:"Dishwash Liquid",category:"Household & Cleaning",price:60,unit:"bottle",emoji:"🧽"},
+{id:"soap",name:"Bath Soap",category:"Personal Care",price:35,unit:"bar",emoji:"🧼"},
+{id:"toothpaste",name:"Toothpaste",category:"Personal Care",price:55,unit:"pack",emoji:"🪥"},
+{id:"shampoo",name:"Shampoo",category:"Personal Care",price:80,unit:"bottle",emoji:"🧴"},
+{id:"foil",name:"Aluminium Foil",category:"Kitchen Essentials",price:45,unit:"roll",emoji:"🧻"},
+{id:"matches",name:"Matchbox",category:"Kitchen Essentials",price:2,unit:"box",emoji:"🔥"}
 ];
 const UPI_ID = "8134834380@mbk";
 const BUSINESS_NAME = "Fresh Veggie";
@@ -94,7 +122,7 @@ function renderCart(){
  document.querySelector("#subtotal").textContent=money(t.sub);document.querySelector("#delivery").textContent=money(t.delivery);document.querySelector("#total").textContent=money(t.total);
 }
 document.querySelector("#checkout").addEventListener("submit",async e=>{
- e.preventDefault();const entries=Object.entries(cart),t=totals();if(!entries.length){alert("Please add vegetables to your cart.");return;}
+ e.preventDefault();const entries=Object.entries(cart),t=totals();if(!entries.length){alert("Please add products to your cart.");return;}
  const fd=new FormData(e.target),data=Object.fromEntries(fd.entries());
  if(!/^[6-9][0-9]{9}$/.test(data.phone)){alert("Enter a valid 10-digit Indian mobile number.");return;}
  const order={customer:{name:data.name,phone:data.phone,address:data.address,area:data.area,pincode:data.pincode},items:entries.map(([id,q])=>{let p=PRODUCTS.find(x=>x.id===id);return {productId:id,name:p.name,unit:p.unit,quantity:q,unitPrice:p.price,lineTotal:p.price*q}}),subtotal:t.sub,deliveryCharge:t.delivery,total:t.total,paymentMethod:data.payment,referralCode:(data.referralCode||"").trim().toUpperCase(),paymentStatus:data.payment==="COD"?"COD_PENDING":"PAYMENT_PENDING",orderStatus:"RECEIVED",createdAt:new Date().toISOString()};
