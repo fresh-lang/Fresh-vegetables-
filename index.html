@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="theme-color" content="#127032">
-  <title>Fresh Veggie & Grocery | Farm Fresh Gossaigaon</title>
+  <title>Fresh Veggie & Grocery | Gossaigaon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -78,6 +78,7 @@
       transition: all 0.2s;
     }
     .btn-header:active { transform: scale(0.96); background: rgba(255,255,255,0.25); }
+
     .main-wrap {
       max-width: 520px;
       margin: 0 auto;
@@ -133,6 +134,7 @@
       font-weight: 600;
       border: 1px solid rgba(255,255,255,0.2);
     }
+
     .delivery-notice {
       background: #f0f8f3;
       border: 1px solid #c9e4d3;
@@ -145,6 +147,7 @@
       align-items: center;
       gap: 10px;
     }
+
     .search-box { display: flex; flex-direction: column; gap: 8px; }
     .search-input-wrap { position: relative; }
     .search-input-wrap input {
@@ -157,8 +160,22 @@
       outline: none;
       box-shadow: var(--shadow);
     }
-    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 15px; }
-    .cat-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .cat-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
     .cat-bar::-webkit-scrollbar { display: none; }
     .cat-pill {
       white-space: nowrap;
@@ -178,6 +195,7 @@
       border-color: var(--primary);
       box-shadow: 0 4px 12px rgba(18, 112, 50, 0.25);
     }
+
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .product-card {
       background: var(--surface);
@@ -230,9 +248,20 @@
       font-weight: 700;
     }
     .stock-badge.out { background: rgba(220, 38, 38, 0.9); }
-    .product-name { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 2px; }
+    .product-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
     .product-unit { font-size: 11px; color: var(--muted); }
-    .product-price { font-size: 16px; font-weight: 800; color: var(--primary); margin: 6px 0; }
+    .product-price {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 6px 0;
+    }
     button.btn-add {
       background: var(--primary);
       color: white;
@@ -246,6 +275,7 @@
       transition: background 0.15s;
     }
     button.btn-add:disabled { background: #cbd5e1; cursor: not-allowed; }
+
     .panel {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -255,6 +285,7 @@
     }
     .panel h3 { font-size: 14px; margin-bottom: 4px; color: var(--primary-dark); }
     .panel p { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
+
     input[type="text"], input[type="tel"], input[type="password"], input[type="number"], select {
       width: 100%;
       padding: 10px 12px;
@@ -265,6 +296,8 @@
       outline: none;
       background: var(--surface);
     }
+    input:focus, select:focus { border-color: var(--primary); }
+
     .btn-block {
       width: 100%;
       padding: 12px;
@@ -279,6 +312,7 @@
     .btn-danger { background: var(--danger); color: white; }
     .btn-gmail { background: #ea4335; color: white; margin-top: 6px; }
     .btn-guest { background: #4a5568; color: white; margin-top: 6px; }
+
     .popup-box {
       display: none;
       position: fixed;
@@ -376,6 +410,7 @@
     }
     .step-title { font-size: 10px; font-weight: 600; color: var(--muted); }
     .step-item.active .step-title { color: var(--primary-dark); font-weight: 700; }
+
     .scratch-wrapper {
       position: relative;
       width: 240px;
@@ -408,7 +443,7 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header (5 Tap on Logo -> PIN 8822) -->
   <header>
     <div class="brand-wrap" onclick="secretAdminClick()" title="Secret Admin Mode">
       <div class="brand-icon">
@@ -427,7 +462,8 @@
       </button>
     </div>
   </header>
-    <div class="main-wrap">
+
+  <div class="main-wrap">
     <!-- Wallet Card -->
     <div class="wallet-card">
       <div>
@@ -442,7 +478,7 @@
 
     <!-- Notice -->
     <div class="delivery-notice">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#127032" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#127032" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
       <div><b>Gossaigaon Delivery:</b> Min order ₹100. Fee ₹21 under ₹300; <b>FREE</b> for ₹300+.</div>
     </div>
 
@@ -459,7 +495,7 @@
       </div>
     </div>
 
-    <!-- Products Grid -->
+    <!-- Products Grid (Filled dynamically via script) -->
     <div class="grid" id="productsGrid"></div>
 
     <!-- Referral Program -->
@@ -473,7 +509,7 @@
     </div>
   </div>
 
-  <!-- POPUP 1: WELCOME BONUS (Display up to ₹100, Real Credit ₹20) -->
+  <!-- POPUP 1: SIGNUP WELCOME BONUS (Display up to ₹100, credits ₹20) -->
   <div class="popup-box" id="welcomeBonusPopup">
     <div class="popup-inner" style="max-width: 320px; text-align: center; border: 2px solid #ffcc00; background: linear-gradient(180deg, #ffffff 0%, #fef9e7 100%);">
       <div style="font-size: 46px; margin-bottom: 4px;">🎉</div>
@@ -486,7 +522,7 @@
     </div>
   </div>
 
-  <!-- POPUP 2: POST-ORDER SCRATCH CARD (Pending until Delivery/Accept) -->
+  <!-- POPUP 2: SCRATCH CARD (Credit only if store accepts order) -->
   <div class="popup-box" id="scratchPopup">
     <div class="popup-inner" style="max-width: 340px; text-align: center;">
       <h3 style="color: var(--primary); font-size: 18px;">🎁 Order Reward Unlocked!</h3>
@@ -497,7 +533,7 @@
           <span style="font-size: 32px;">💰</span>
           <h4 style="font-size: 14px; color: #92400e; margin-top: 4px;">Cashback Revealed!</h4>
           <div style="font-size: 26px; font-weight: 800; color: #b45309; margin: 4px 0;">₹<span id="scratchAmountDisplay">0.50</span></div>
-          <small style="font-size: 10px; color: var(--muted);">Credits to wallet upon order confirmation</small>
+          <small style="font-size: 10px; color: var(--muted);">Status: Will credit to wallet upon Order Acceptance</small>
         </div>
         <canvas id="scratchCanvas" class="scratch-canvas" width="240" height="240"></canvas>
       </div>
@@ -533,9 +569,10 @@
           </div>
           <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px; text-align: center;">
             <div style="font-size: 11px; color: var(--muted);">Cash Earned</div>
-            <div style="font-size: 18px; font-weight: 800; color: var(--primary);">₹<span id="profTotalComm">0.00</span></div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--primary);">₹<span id="profTotalComm">0</span></div>
           </div>
         </div>
+
         <div style="font-size: 12px; font-weight: 700; color: var(--primary-dark); margin-bottom: 6px;">Commission Credits:</div>
         <div id="profCommHistoryWrap" style="font-size: 12px;"></div>
       </div>
@@ -603,7 +640,8 @@
       </div>
     </div>
   </div>
-    <!-- POPUP: Checkout -->
+
+  <!-- POPUP: Checkout -->
   <div class="popup-box" id="cartPopup">
     <div class="popup-inner">
       <button class="popup-close" onclick="hidePopup('cartPopup')">✕</button>
@@ -682,8 +720,7 @@
 
     </div>
   </div>
-
-  <!-- SECRET PIN AUTH (PIN: 8822) -->
+    <!-- SECRET PIN AUTH (PIN: 8822) -->
   <div class="popup-box" id="adminSecretPopup">
     <div class="popup-inner" style="max-width: 320px; text-align: center;">
       <button class="popup-close" onclick="hidePopup('adminSecretPopup')">✕</button>
@@ -773,7 +810,57 @@
 
     </div>
   </div>
-      function renderStoreProducts() {
+
+  <script>
+    var cartItems = [];
+    var UPI_ID = "8134834380@mbk";
+    var STORE_SECRET_PIN = "8822";
+    var adminTapCount = 0;
+    var adminTapTimer = null;
+    var currentCatFilter = "All";
+    var activeScratchReward = 0.50;
+    var scratchRevealed = false;
+    var currentPlacedOrderId = null;
+
+    var defaultProducts = [
+      { id: 1, name: "Potato (Alu)", cat: "Vegetables", price: 27, unit: "kg", stock: 100, photo: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 2, name: "Tomato (Bilahi)", cat: "Vegetables", price: 35, unit: "kg", stock: 80, photo: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 3, name: "Onion (Piyaj)", cat: "Vegetables", price: 53, unit: "kg", stock: 60, photo: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 4, name: "Cucumber (Tiyoh)", cat: "Vegetables", price: 28, unit: "kg", stock: 45, photo: "https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 5, name: "Cauliflower (Kobi)", cat: "Vegetables", price: 35, unit: "pc", stock: 30, photo: "https://images.unsplash.com/photo-1568584711075-3d021a7c3ca3?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 6, name: "Cabbage (Bandhakobi)", cat: "Vegetables", price: 30, unit: "pc", stock: 40, photo: "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 7, name: "Miniket Super Rice", cat: "Groceries", price: 52, unit: "kg", stock: 150, photo: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 8, name: "Pure Mustard Oil", cat: "Groceries", price: 145, unit: "litre", stock: 50, photo: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 9, name: "Masoor Dal", cat: "Groceries", price: 95, unit: "kg", stock: 75, photo: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 10, name: "Refined Pure Sugar", cat: "Groceries", price: 44, unit: "kg", stock: 90, photo: "https://images.unsplash.com/photo-1622484212850-cab596d629f2?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 11, name: "Tata Salt", cat: "Groceries", price: 28, unit: "kg", stock: 120, photo: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 12, name: "Chakki Fresh Atta", cat: "Groceries", price: 42, unit: "kg", stock: 85, photo: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=400&q=80", video: "" }
+    ];
+
+    window.addEventListener("DOMContentLoaded", function() {
+      initProducts();
+      initApp();
+      renderStoreProducts();
+    });
+
+    function initProducts() {
+      var saved = localStorage.getItem('fv_store_products');
+      if (!saved || saved.indexOf("stock") === -1) {
+        localStorage.setItem('fv_store_products', JSON.stringify(defaultProducts));
+      }
+    }
+
+    function restoreDefaults() {
+      if (!confirm("Reset all products to default images, stock & prices?")) return;
+      localStorage.setItem('fv_store_products', JSON.stringify(defaultProducts));
+      renderStoreProducts();
+      loadAdminProductsManage();
+    }
+
+    function getStoreProducts() {
+      return JSON.parse(localStorage.getItem('fv_store_products') || '[]');
+    }
+        function renderStoreProducts() {
       var grid = document.getElementById('productsGrid');
       var products = getStoreProducts();
       var q = (document.getElementById('searchInput').value || "").toLowerCase().trim();
@@ -991,7 +1078,7 @@
       loadAdminProductsManage();
     }
 
-        function loadAdminOrdersList() {
+    function loadAdminOrdersList() {
       var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
       var wrap = document.getElementById('admOrderItemsWrap');
       var totalSales = 0;
@@ -1198,7 +1285,8 @@
       document.getElementById('tabProfOrders').classList.toggle('active', tab === 'orders');
       document.getElementById('tabProfRef').classList.toggle('active', tab === 'referral');
     }
-            function loadUserOrdersInProfile() {
+
+    function loadUserOrdersInProfile() {
       var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
       var curUser = localStorage.getItem('fv_user');
       var wrap = document.getElementById('profileOrdersList');
@@ -1572,5 +1660,4 @@
     }
   </script>
 </body>
-      </html>
-        
+</html>
