@@ -32,7 +32,13 @@
       justify-content: space-between;
       align-items: center;
     }
-    .brand { font-size: 18px; font-weight: 800; }
+    .brand {
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
     .header-actions { display: flex; gap: 6px; }
     .btn-header {
       background: rgba(255, 255, 255, 0.25);
@@ -43,8 +49,14 @@
       font-size: 12px;
       cursor: pointer;
     }
-    .main-wrap { max-width: 550px; margin: 0 auto; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
-    
+    .main-wrap {
+      max-width: 550px;
+      margin: 0 auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
     .wallet-card {
       background: linear-gradient(135deg, #16823b, #0f5c2a);
       color: white;
@@ -59,15 +71,14 @@
       background: #ffffff;
       color: var(--green-dark);
       border: none;
-      padding: 6px 12px;
+      padding: 5px 12px;
       border-radius: 20px;
       font-size: 12px;
       font-weight: 800;
       cursor: pointer;
-      margin-top: 4px;
+      margin-top: 6px;
       display: inline-block;
     }
-
     .delivery-notice {
       background: #e8f5e9;
       border: 1px dashed var(--green);
@@ -77,7 +88,6 @@
       color: var(--green-dark);
       line-height: 1.4;
     }
-    
     .search-box input, select {
       width: 100%;
       padding: 10px;
@@ -88,7 +98,6 @@
       margin-bottom: 8px;
       outline: none;
     }
-    
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .product-card {
       background: white;
@@ -104,7 +113,6 @@
     .product-name { font-weight: 700; font-size: 14px; }
     .product-cat { font-size: 11px; color: var(--muted); }
     .product-price { font-size: 15px; font-weight: 800; color: var(--green-dark); margin: 6px 0; }
-    
     button.btn-add {
       background: var(--green);
       color: white;
@@ -117,7 +125,6 @@
       width: 100%;
     }
     button.btn-add:active { background: #0c4b22; }
-
     .panel {
       background: white;
       border: 1px solid var(--line);
@@ -126,7 +133,6 @@
     }
     .panel h3 { font-size: 15px; margin-bottom: 6px; color: var(--green-dark); }
     .panel p { font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.4; }
-    
     input[type="text"], input[type="tel"], input[type="password"], input[type="number"] {
       width: 100%;
       padding: 10px;
@@ -148,7 +154,6 @@
     .btn-primary { background: var(--green); color: white; }
     .btn-gmail { background: #ea4335; color: white; margin-top: 6px; }
     .btn-guest { background: #4a6572; color: white; margin-top: 6px; }
-
     .popup-box {
       display: none;
       position: fixed;
@@ -209,7 +214,7 @@
       display: flex;
       justify-content: space-between;
       position: relative;
-      margin: 18px 0 10px 0;
+      margin: 16px 0 10px 0;
     }
     .track-step-wrap::before {
       content: '';
@@ -254,7 +259,6 @@
       color: var(--green-dark);
       font-weight: 700;
     }
-
     .order-card-record {
       border: 1px solid var(--line);
       border-radius: 10px;
@@ -265,9 +269,10 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
+
+  <!-- Top Navigation (Logo has secret click) -->
   <header>
-    <div class="brand">🥦 Fresh Veggie</div>
+    <div class="brand" onclick="secretAdminClick()" title="Fresh Veggie">🥦 Fresh Veggie</div>
     <div class="header-actions">
       <button class="btn-header" onclick="openMyOrders()">📦 Orders</button>
       <button class="btn-header" id="authBtn" onclick="showPopup('loginPopup')">👤 Login</button>
@@ -288,13 +293,13 @@
       </div>
     </div>
 
-    <!-- Notice -->
+    <!-- Delivery Notice -->
     <div class="delivery-notice">
       <b>🚚 Gossaigaon Delivery Rules:</b><br>
       • Min order: <b>₹100</b> | Below ₹300: Fee <b>₹21</b> | ₹300+: <b>FREE</b>
     </div>
 
-    <!-- Search -->
+    <!-- Search & Filter -->
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="Search vegetables, dal, rice..." oninput="doSearch()">
       <select id="catSelect" onchange="doSearch()">
@@ -304,7 +309,7 @@
       </select>
     </div>
 
-    <!-- Products Grid -->
+    <!-- Product Grid -->
     <div class="grid" id="productsGrid">
       <div class="product-card" data-name="potato alu" data-cat="Vegetables">
         <div class="product-img">🥔</div>
@@ -445,8 +450,7 @@
     <div class="popup-inner">
       <button class="popup-close" onclick="hidePopup('ordersPopup')">✕</button>
       <h3 style="color: var(--green); margin-bottom: 4px;">📦 My Orders & Tracking</h3>
-      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Live order status and dispatch updates.</p>
-      
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Live status and order milestones.</p>
       <div id="ordersListWrap"></div>
     </div>
   </div>
@@ -456,10 +460,9 @@
     <div class="popup-inner">
       <button class="popup-close" onclick="hidePopup('loginPopup')">✕</button>
       
-      <!-- Register Form -->
       <div id="registerBox">
         <h3 style="margin-bottom: 4px; color: var(--green);">📱 Create Account</h3>
-        <p style="font-size: 13px; color: var(--muted); margin-bottom: 12px;">Register with mobile & password (No OTP needed).</p>
+        <p style="font-size: 13px; color: var(--muted); margin-bottom: 12px;">Register with phone & password (No OTP needed).</p>
         
         <label style="font-size: 12px; font-weight: 600;">Mobile Number</label>
         <input type="tel" id="regPhone" placeholder="10-digit mobile number" maxlength="10">
@@ -468,7 +471,7 @@
         <input type="password" id="regPass" placeholder="Enter password (min 6 characters)">
 
         <label style="font-size: 12px; font-weight: 600;">Referral Code (Optional)</label>
-        <input type="text" id="refInput" placeholder="Friend's code (Phone accounts only)">
+        <input type="text" id="refInput" placeholder="Friend's referral code">
 
         <button class="btn-block btn-primary" onclick="handleRegister()">Register Account</button>
         
@@ -479,10 +482,9 @@
         <span class="auth-toggle" onclick="toggleAuthView('login')">Already have an account? Login here</span>
       </div>
 
-      <!-- Login Form -->
       <div id="loginFormBox" style="display: none;">
         <h3 style="margin-bottom: 4px; color: var(--green);">🔐 User Login</h3>
-        <p style="font-size: 13px; color: var(--muted); margin-bottom: 12px;">Login with your registered phone & password.</p>
+        <p style="font-size: 13px; color: var(--muted); margin-bottom: 12px;">Login with registered phone & password.</p>
         
         <label style="font-size: 12px; font-weight: 600;">Mobile Number</label>
         <input type="tel" id="logPhone" placeholder="10-digit mobile number" maxlength="10">
@@ -506,10 +508,8 @@
     <div class="popup-inner">
       <button class="popup-close" onclick="hidePopup('cartPopup')">✕</button>
       
-      <!-- Checkout Form Section -->
       <div id="checkoutFormWrapper">
         <h3 style="margin-bottom: 10px; color: var(--green);">🛒 Delivery & Payment</h3>
-        
         <div id="cartItemList" style="font-size: 13px; margin-bottom: 10px;"></div>
         
         <div style="background: #f9fbf9; padding: 10px; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 12px; font-size: 13px;">
@@ -522,7 +522,7 @@
             <span id="feeVal">₹0</span>
           </div>
           <div style="display:flex; justify-content:space-between; font-weight: 800; font-size: 15px; color: var(--green-dark); border-top: 1px dashed var(--line); padding-top: 4px;">
-             <span>Total:</span>
+            <span>Total:</span>
             <span>₹<span id="finalTotalVal">0</span></span>
           </div>
         </div>
@@ -585,7 +585,6 @@
         <button class="btn-block btn-primary" onclick="placeOnlineOrder()">Confirm & Place Order</button>
       </div>
 
-      <!-- Online Order Success Screen -->
       <div id="orderSuccessSection" style="display: none; text-align: center; padding: 16px 8px;">
         <div style="font-size: 52px; margin-bottom: 8px;">✅</div>
         <h3 style="color: var(--green); font-size: 20px; margin-bottom: 4px;">Order Placed Successfully!</h3>
@@ -607,10 +606,36 @@
     </div>
   </div>
 
+  <!-- SECRET POPUP 2: ADMIN CONTROL DASHBOARD -->
+  <div class="popup-box" id="adminDashboardPopup">
+    <div class="popup-inner" style="max-width: 480px; max-height: 90vh;">
+      <button class="popup-close" onclick="hidePopup('adminDashboardPopup')">✕</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 10px;">
+        <h3 style="color: var(--green-dark); font-size: 16px;">📦 Owner Control Panel</h3>
+        <button onclick="loadAdminOrdersList()" style="background:var(--green); color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">🔄 Refresh</button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+        <div style="background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 8px; text-align: center;">
+          <div style="font-size: 11px; color: var(--muted);">Total Orders</div>
+          <div style="font-size: 18px; font-weight: 800; color: var(--green-dark);" id="admTotOrders">0</div>
+        </div>
+        <div style="background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 8px; text-align: center;">
+          <div style="font-size: 11px; color: var(--muted);">Total Sales</div>
+          <div style="font-size: 18px; font-weight: 800; color: var(--green-dark);">₹<span id="admTotSales">0</span></div>
+        </div>
+      </div>
+
+      <div id="admOrderItemsWrap" style="font-size: 13px;"></div>
+    </div>
+  </div>
+
   <script>
     var cartItems = [];
     var UPI_ID = "8134834380@mbk";
-    var latestPlacedOrderId = null;
+    var STORE_SECRET_PIN = "8822";
+    var adminTapCount = 0;
+    var adminTapTimer = null;
 
     window.addEventListener("DOMContentLoaded", function() {
       initApp();
@@ -647,14 +672,94 @@
       document.getElementById('chkWalletBal').innerText = w;
     }
 
-    function showPopup(id) {
-      document.getElementById(id).style.display = "flex";
-    }
-    function hidePopup(id) {
-      document.getElementById(id).style.display = "none";
+    function showPopup(id) { document.getElementById(id).style.display = "flex"; }
+    function hidePopup(id) { document.getElementById(id).style.display = "none"; }
+
+    // --- SECRET ADMIN LOGIC (Tap 5 times on Logo -> PIN 8822) ---
+    function secretAdminClick() {
+      adminTapCount++;
+      clearTimeout(adminTapTimer);
+      adminTapTimer = setTimeout(function() { adminTapCount = 0; }, 2000);
+
+      if (adminTapCount >= 5) {
+        adminTapCount = 0;
+        document.getElementById('secretAdminPin').value = "";
+        showPopup('adminSecretPopup');
+      }
     }
 
-    // --- WALLET TOPUP LOGIC ---
+    function verifySecretAdmin() {
+      var pin = document.getElementById('secretAdminPin').value.trim();
+      if (pin === STORE_SECRET_PIN) {
+        hidePopup('adminSecretPopup');
+        loadAdminOrdersList();
+        showPopup('adminDashboardPopup');
+      } else {
+        alert("Wrong PIN! Access denied.");
+      }
+    }
+
+    function loadAdminOrdersList() {
+      var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
+      var wrap = document.getElementById('admOrderItemsWrap');
+      var totalSales = 0;
+
+      if (orders.length === 0) {
+        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:16px;'>No orders received yet.</p>";
+        document.getElementById('admTotOrders').innerText = "0";
+        document.getElementById('admTotSales').innerText = "0";
+        return;
+      }
+
+      var html = "";
+      orders.slice().reverse().forEach(function(ord, revIdx) {
+        var originalIdx = orders.length - 1 - revIdx;
+        totalSales += Number(ord.total) || 0;
+        var curStatus = ord.status || "Placed";
+
+        html += '<div style="border: 1px solid var(--line); border-radius: 8px; padding: 10px; margin-bottom: 10px; background: #fafdfa;">' +
+                  '<div style="display:flex; justify-content:space-between; margin-bottom:4px;">' +
+                    '<b style="color:var(--green-dark);">' + ord.orderId + '</b>' +
+                    '<small style="color:var(--muted);">' + new Date(ord.date).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) + '</small>' +
+                  '</div>' +
+                  '<div style="font-size:12px; margin-bottom:4px;"><b>Customer:</b> ' + ord.customer + ' (' + ord.phone + ')</div>' +
+                  '<div style="font-size:12px; margin-bottom:4px; color:var(--muted);">' + ord.village + ', ' + ord.address + '</div>' +
+                  '<div style="background:#fff; border:1px solid #eee; padding:6px; border-radius:4px; margin:6px 0; font-size:11px;">' +
+                    ord.items.map(function(i){ return i.name + ' × ' + i.qty + ' (₹' + (i.price*i.qty) + ')'; }).join('<br>') +
+                  '</div>' +
+                  '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">' +
+                    '<span>Pay: <b>' + ord.payment + '</b></span>' +
+                    '<b style="color:var(--green-dark);">₹' + ord.total + '</b>' +
+                  '</div>' +
+                  '<div style="display:flex; gap:6px;">' +
+                    '<select id="admSel_' + originalIdx + '" style="margin-bottom:0; padding:6px; font-size:12px; flex:1;">' +
+                      '<option value="Placed" ' + (curStatus==='Placed'?'selected':'') + '>Placed</option>' +
+                      '<option value="Packed" ' + (curStatus==='Packed'?'selected':'') + '>Packed</option>' +
+                      '<option value="Out for Delivery" ' + (curStatus==='Out for Delivery'?'selected':'') + '>Out for Delivery</option>' +
+                      '<option value="Delivered" ' + (curStatus==='Delivered'?'selected':'') + '>Delivered</option>' +
+                    '</select>' +
+                    '<button onclick="admSaveStatus(' + originalIdx + ')" style="background:var(--green); color:white; border:none; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">Update</button>' +
+                  '</div>' +
+                '</div>';
+      });
+
+      wrap.innerHTML = html;
+      document.getElementById('admTotOrders').innerText = orders.length;
+      document.getElementById('admTotSales').innerText = totalSales;
+    }
+
+    function admSaveStatus(idx) {
+      var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
+      var sel = document.getElementById('admSel_' + idx);
+      if (!sel) return;
+
+      orders[idx].status = sel.value;
+      localStorage.setItem('fv_orders', JSON.stringify(orders));
+      alert("Order #" + orders[idx].orderId + " status updated to: " + sel.value);
+      loadAdminOrdersList();
+    }
+
+    // --- WALLET TOP-UP ---
     function setTopupAmount(amt) {
       document.getElementById('topupAmt').value = amt;
       genTopupQr();
@@ -689,20 +794,7 @@
       hidePopup('walletPopup');
     }
 
-    // --- ORDER TRACKING SIMULATOR ---
-    // Computes status by elapsed time:
-    // 0 to 1 min: Order Placed
-    // 1 to 3 min: Packed
-    // 3 to 7 min: Out for Delivery
-    // 7+ min: Delivered
-    function getOrderLiveStatus(orderTimestamp) {
-      var diffMin = (Date.now() - new Date(orderTimestamp).getTime()) / 60000;
-      if (diffMin < 1) return { step: 1, label: "Order Placed" };
-      if (diffMin < 3) return { step: 2, label: "Packed & Sealed" };
-      if (diffMin < 7) return { step: 3, label: "Out for Delivery" };
-      return { step: 4, label: "Delivered 🎉" };
-    }
-
+    // --- USER TRACKING VIEW ---
     function openMyOrders() {
       var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
       var wrap = document.getElementById('ordersListWrap');
@@ -715,7 +807,12 @@
 
       var html = "";
       orders.slice().reverse().forEach(function(ord) {
-        var status = getOrderLiveStatus(ord.date);
+        var statusText = ord.status || "Placed";
+        var step = 1;
+        if (statusText === "Packed") step = 2;
+        if (statusText === "Out for Delivery") step = 3;
+        if (statusText === "Delivered") step = 4;
+
         html += '<div class="order-card-record">' +
                   '<div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">' +
                     '<b>' + ord.orderId + '</b>' +
@@ -724,22 +821,21 @@
                   '<div style="font-size:12px; margin-bottom:6px;">' + ord.items.map(function(i){ return i.name + ' (x' + i.qty + ')'; }).join(', ') + '</div>' +
                   '<div style="font-size:12px; margin-bottom:8px;"><b>Total:</b> ₹' + ord.total + ' (' + ord.payment + ') | <b>To:</b> ' + ord.village + '</div>' +
                   
-                  '<!-- Tracking Stepper -->' +
                   '<div class="track-step-wrap">' +
-                    '<div class="step-item ' + (status.step >= 1 ? 'active' : '') + '">' +
+                    '<div class="step-item ' + (step >= 1 ? 'active' : '') + '">' +
                       '<div class="step-dot">1</div><div class="step-title">Placed</div>' +
                     '</div>' +
-                    '<div class="step-item ' + (status.step >= 2 ? 'active' : '') + '">' +
+                    '<div class="step-item ' + (step >= 2 ? 'active' : '') + '">' +
                       '<div class="step-dot">2</div><div class="step-title">Packed</div>' +
                     '</div>' +
-                    '<div class="step-item ' + (status.step >= 3 ? 'active' : '') + '">' +
+                    '<div class="step-item ' + (step >= 3 ? 'active' : '') + '">' +
                       '<div class="step-dot">3</div><div class="step-title">Out for Delivery</div>' +
                     '</div>' +
-                    '<div class="step-item ' + (status.step >= 4 ? 'active' : '') + '">' +
+                    '<div class="step-item ' + (step >= 4 ? 'active' : '') + '">' +
                       '<div class="step-dot">4</div><div class="step-title">Delivered</div>' +
                     '</div>' +
                   '</div>' +
-                  '<div style="text-align:center; font-size:11px; color:var(--green-dark); font-weight:700; margin-top:4px;">Status: ' + status.label + '</div>' +
+                  '<div style="text-align:center; font-size:11px; color:var(--green-dark); font-weight:700; margin-top:4px;">Status: ' + statusText + '</div>' +
                 '</div>';
       });
 
@@ -752,7 +848,7 @@
       openMyOrders();
     }
 
-    // --- AUTH VIEWS & LOGIN ---
+    // --- AUTHENTICATION ---
     function toggleAuthView(type) {
       if (type === 'login') {
         document.getElementById('registerBox').style.display = 'none';
@@ -847,7 +943,7 @@
       });
     }
 
-    // --- CART LOGIC ---
+    // --- CART ---
     function addItem(id, name, price, unit, btn) {
       var existing = cartItems.find(function(item) { return item.id === id; });
       if (existing) {
@@ -949,7 +1045,7 @@
       }
     }
 
-    // --- CHECKOUT & ORDER DISPATCH ---
+    // --- ORDER DISPATCH & REFERRAL CHECK ---
     function placeOnlineOrder() {
       var totals = calculateTotals();
       if (totals.subtotal < 100) {
@@ -968,7 +1064,6 @@
         return;
       }
 
-      // Wallet Balance Payment Deduction Check
       if (payType === 'WALLET') {
         var wBal = parseFloat(localStorage.getItem('fv_wallet') || 0);
         if (wBal < totals.total) {
@@ -981,9 +1076,7 @@
       }
 
       var orderId = "FV-" + Math.floor(10000 + Math.random() * 90000);
-      latestPlacedOrderId = orderId;
 
-      // Save order locally
       var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
       var newOrder = {
         orderId: orderId,
@@ -994,12 +1087,13 @@
         items: cartItems.slice(),
         total: totals.total,
         payment: payType,
+        status: "Placed",
         date: new Date().toISOString()
       };
       orders.push(newOrder);
       localStorage.setItem('fv_orders', JSON.stringify(orders));
 
-      // Referral Trigger: Phone + Pass accounts ONLY
+      // Referral Bonus: Mobile + Password accounts ONLY
       var u = localStorage.getItem('fv_user');
       var userType = localStorage.getItem('fv_user_type');
 
@@ -1029,7 +1123,6 @@
         }
       }
 
-      // Display App Success Screen
       document.getElementById('displayOrderId').innerText = orderId;
       document.getElementById('displayOrderCustomer').innerText = name + " (" + phone + ")";
       document.getElementById('displayOrderArea').innerText = village + ", " + address;
@@ -1060,3 +1153,4 @@
   </script>
 </body>
 </html>
+                                                                                                  
