@@ -2,255 +2,385 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#16823b">
-  <title>Fresh Veggie & Grocery | Gossaigaon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#127032">
+  <title>Fresh Veggie & Grocery | Farm Fresh Gossaigaon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green: #16823b;
-      --green-dark: #0f5c2a;
-      --bg: #f4f8f5;
-      --text: #1d2b20;
-      --muted: #60766b;
-      --line: #d8e6dc;
-      --danger: #d32f2f;
+      --primary: #127032;
+      --primary-dark: #094a20;
+      --primary-light: #e8f5ed;
+      --accent: #ff8c00;
+      --bg: #f8faf8;
+      --surface: #ffffff;
+      --text: #17241c;
+      --muted: #627568;
+      --border: #e3ece6;
+      --radius: 14px;
+      --shadow: 0 4px 20px -2px rgba(18, 112, 50, 0.08);
+      --shadow-lg: 0 10px 30px -4px rgba(0, 0, 0, 0.12);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
     body {
-      font-family: system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
-      padding-bottom: 90px;
+      padding-bottom: 110px;
+      -webkit-font-smoothing: antialiased;
     }
     header {
-      background: var(--green);
+      background: rgba(18, 112, 50, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       color: white;
-      padding: 12px 16px;
+      padding: 14px 18px;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 50;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .brand {
-      font-size: 18px;
-      font-weight: 800;
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       cursor: pointer;
       user-select: none;
-      -webkit-tap-highlight-color: transparent;
     }
-    .header-actions { display: flex; gap: 6px; }
-    .btn-header {
-      background: rgba(255, 255, 255, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      color: white;
-      padding: 6px 10px;
-      border-radius: 16px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-    .main-wrap {
-      max-width: 550px;
-      margin: 0 auto;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .wallet-card {
-      background: linear-gradient(135deg, #16823b, #0f5c2a);
-      color: white;
-      padding: 14px;
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .wallet-val { font-size: 22px; font-weight: 800; }
-    .btn-wallet-add {
-      background: #ffffff;
-      color: var(--green-dark);
-      border: none;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 800;
-      cursor: pointer;
-      margin-top: 6px;
-      display: inline-block;
-    }
-    .delivery-notice {
-      background: #e8f5e9;
-      border: 1px dashed var(--green);
+    .brand-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(255,255,255,0.2);
       border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 12px;
-      color: var(--green-dark);
-      line-height: 1.4;
-    }
-    .search-box input, select {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      font-size: 14px;
-      background: white;
-      margin-bottom: 8px;
-      outline: none;
-    }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .product-card {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      position: relative;
-    }
-    .product-media-box {
-      width: 100%;
-      height: 110px;
-      border-radius: 8px;
-      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #f7faf8;
-      margin-bottom: 6px;
     }
-    .product-media-box img, .product-media-box video {
+    .brand-text { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .btn-header {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: white;
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .btn-header:active { transform: scale(0.96); background: rgba(255,255,255,0.25); }
+
+    .main-wrap {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Wallet Card Modern */
+    .wallet-card {
+      background: linear-gradient(135deg, #127032 0%, #08401b 100%);
+      color: white;
+      padding: 18px;
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(18, 112, 50, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .wallet-card::after {
+      content: "";
+      position: absolute;
+      right: -20px;
+      bottom: -30px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .wallet-lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; opacity: 0.8; font-weight: 600; }
+    .wallet-val { font-size: 26px; font-weight: 800; margin-top: 2px; }
+    .btn-wallet-add {
+      background: #ffffff;
+      color: var(--primary-dark);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: inline-block;
+      transition: 0.2s;
+    }
+    .btn-wallet-add:active { transform: scale(0.95); }
+
+    .user-pill {
+      font-size: 11px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(4px);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* Notice Banner */
+    .delivery-notice {
+      background: #f0f8f3;
+      border: 1px solid #c9e4d3;
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--primary-dark);
+      line-height: 1.45;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Search Bar & Pills */
+    .search-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .search-input-wrap {
+      position: relative;
+    }
+    .search-input-wrap input {
+      width: 100%;
+      padding: 12px 14px 12px 38px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 14px;
+      background: var(--surface);
+      outline: none;
+      box-shadow: var(--shadow);
+      transition: border-color 0.2s;
+    }
+    .search-input-wrap input:focus { border-color: var(--primary); }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .cat-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+    .cat-bar::-webkit-scrollbar { display: none; }
+    .cat-pill {
+      white-space: nowrap;
+      padding: 7px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cat-pill.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(18, 112, 50, 0.25);
+    }
+
+    /* Products Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+    .product-card:active { transform: translateY(-2px); }
+
+    .product-media-wrap {
+      width: 100%;
+      height: 125px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f2f5f3;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .product-media-wrap img, .product-media-wrap video {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
-    .product-emoji { font-size: 44px; }
-    .product-name { font-weight: 700; font-size: 14px; }
-    .product-cat { font-size: 11px; color: var(--muted); }
-    .product-price { font-size: 15px; font-weight: 800; color: var(--green-dark); margin: 6px 0; }
+    .product-cat-tag {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      text-transform: uppercase;
+    }
+    .product-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+    .product-unit { font-size: 11px; color: var(--muted); }
+    .product-price {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 6px 0;
+    }
     button.btn-add {
-      background: var(--green);
+      background: var(--primary);
       color: white;
       border: none;
-      padding: 10px;
-      border-radius: 8px;
+      padding: 9px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 12px;
+      width: 100%;
+      transition: background 0.15s;
+    }
+    button.btn-add:active { background: var(--primary-dark); }
+
+    /* Modals & Panels */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+    .panel h3 { font-size: 14px; margin-bottom: 4px; color: var(--primary-dark); }
+    .panel p { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
+
+    input[type="text"], input[type="tel"], input[type="password"], input[type="number"], select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 13px;
+      margin-bottom: 8px;
+      outline: none;
+      background: var(--surface);
+    }
+    input:focus, select:focus { border-color: var(--primary); }
+
+    .btn-block {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
       font-weight: 700;
       cursor: pointer;
       font-size: 13px;
-      width: 100%;
+      transition: 0.15s;
     }
-    button.btn-add:active { background: #0c4b22; }
-    .panel {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px;
-    }
-    .panel h3 { font-size: 15px; margin-bottom: 6px; color: var(--green-dark); }
-    .panel p { font-size: 12px; color: var(--muted); margin-bottom: 8px; line-height: 1.4; }
-    input[type="text"], input[type="tel"], input[type="password"], input[type="number"], input[type="file"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      font-size: 14px;
-      margin-bottom: 8px;
-      outline: none;
-      background: white;
-    }
-    .btn-block {
-      width: 100%;
-      padding: 11px;
-      border-radius: 8px;
-      border: none;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .btn-primary { background: var(--green); color: white; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:active { background: var(--primary-dark); }
     .btn-gmail { background: #ea4335; color: white; margin-top: 6px; }
-    .btn-guest { background: #4a6572; color: white; margin-top: 6px; }
+    .btn-guest { background: #4a5568; color: white; margin-top: 6px; }
+
     .popup-box {
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.65);
+      background: rgba(10, 24, 15, 0.7);
+      backdrop-filter: blur(4px);
       z-index: 9999;
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
     .popup-inner {
-      background: white;
-      border-radius: 14px;
-      padding: 18px;
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 20px;
       width: 100%;
       max-width: 440px;
       max-height: 88vh;
       overflow-y: auto;
+      box-shadow: var(--shadow-lg);
     }
     .popup-close {
       float: right;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
       border: none;
-      background: transparent;
+      background: #f0f4f1;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
       cursor: pointer;
-      padding: 2px 6px;
-    }
-    .auth-toggle {
-      font-size: 12px;
-      color: var(--green);
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 8px;
-      text-align: center;
-      display: block;
-    }
-    .divider {
-      text-align: center;
-      margin: 10px 0;
-      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: var(--muted);
-      position: relative;
     }
-    .divider::before, .divider::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      width: 42%;
-      height: 1px;
-      background: var(--line);
-    }
-    .divider::before { left: 0; }
-    .divider::after { right: 0; }
     .profile-nav, .admin-nav {
       display: flex;
       gap: 6px;
       margin-bottom: 12px;
-      background: #eef5f0;
+      background: #eef4f0;
       padding: 4px;
-      border-radius: 8px;
+      border-radius: 12px;
     }
     .profile-tab, .admin-tab {
       flex: 1;
-      padding: 8px 4px;
+      padding: 8px 6px;
       font-size: 12px;
       font-weight: 700;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       background: transparent;
       color: var(--muted);
     }
     .profile-tab.active, .admin-tab.active {
-      background: white;
-      color: var(--green-dark);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     }
     .track-step-wrap {
       display: flex;
@@ -265,51 +395,49 @@
       left: 20px;
       right: 20px;
       height: 3px;
-      background: #e0e0e0;
+      background: #e2e8e4;
       z-index: 1;
     }
-    .step-item {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      flex: 1;
-    }
+    .step-item { position: relative; z-index: 2; text-align: center; flex: 1; }
     .step-dot {
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      background: #e0e0e0;
-      color: #777;
+      background: #e2e8e4;
+      color: #718096;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: bold;
       margin: 0 auto 6px auto;
     }
     .step-item.active .step-dot {
-      background: var(--green);
+      background: var(--primary);
       color: white;
-      box-shadow: 0 0 0 3px rgba(22, 130, 59, 0.25);
+      box-shadow: 0 0 0 3px rgba(18, 112, 50, 0.2);
     }
     .step-title { font-size: 10px; font-weight: 600; color: var(--muted); }
-    .step-item.active .step-title { color: var(--green-dark); font-weight: 700; }
-    .order-card-record {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 12px;
-      background: #fafdfa;
-    }
+    .step-item.active .step-title { color: var(--primary-dark); font-weight: 700; }
   </style>
-</head>
-<body>
-  <!-- Top Navigation Header -->
+</head><body>
+  <!-- Header (5 Tap on Logo -> PIN 8822) -->
   <header>
-    <div class="brand" onclick="secretAdminClick()" title="Fresh Veggie">🥦 Fresh Veggie</div>
+    <div class="brand-wrap" onclick="secretAdminClick()" title="Secret Admin Mode">
+      <div class="brand-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+      </div>
+      <div class="brand-text">Fresh Veggie</div>
+    </div>
     <div class="header-actions">
-      <button class="btn-header" onclick="openUserProfile()">👤 <span id="headerUserName">Profile</span></button>
-      <button class="btn-header" onclick="showCartPopup()">🛒 <span id="cartCount">0</span></button>
+      <button class="btn-header" onclick="openUserProfile()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span id="headerUserName">Profile</span>
+      </button>
+      <button class="btn-header" onclick="showCartPopup()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        <span id="cartCount">0</span>
+      </button>
     </div>
   </header>
 
@@ -317,53 +445,57 @@
     <!-- Wallet Card -->
     <div class="wallet-card">
       <div>
-        <div style="font-size: 11px; opacity: 0.9;">Wallet Balance</div>
+        <div class="wallet-lbl">Wallet Balance</div>
         <div class="wallet-val">₹<span id="walletBal">0</span></div>
-        <button class="btn-wallet-add" onclick="showPopup('walletPopup')">+ Add Money</button>
+        <button class="btn-wallet-add" onclick="showPopup('walletPopup')">+ Add Cash</button>
       </div>
-      <div style="text-align: right;">
-        <span style="font-size: 11px; background: rgba(255,255,255,0.25); padding: 3px 8px; border-radius: 10px; cursor: pointer;" onclick="openUserProfile()" id="userTag">Guest</span>
+      <div style="text-align: right; z-index: 2;">
+        <span class="user-pill" onclick="openUserProfile()" id="userTag">Guest</span>
       </div>
     </div>
 
     <!-- Notice -->
     <div class="delivery-notice">
-      <b>🚚 Gossaigaon Delivery Rules:</b><br>
-      • Min order: <b>₹100</b> | Below ₹300: Fee <b>₹21</b> | ₹300+: <b>FREE</b>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#127032" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      <div><b>Gossaigaon Delivery:</b> Min order ₹100. Fee ₹21 under ₹300; <b>FREE</b> for ₹300+.</div>
     </div>
 
-    <!-- Search & Filter -->
+    <!-- Search & Categories -->
     <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search vegetables, dal, rice..." oninput="doSearch()">
-      <select id="catSelect" onchange="doSearch()">
-        <option value="All">All Categories</option>
-        <option value="Vegetables">Fresh Vegetables</option>
-        <option value="Groceries">Daily Groceries</option>
-      </select>
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search fresh vegetables, oil, rice..." oninput="doSearch()">
+      </div>
+      <div class="cat-bar">
+        <div class="cat-pill active" onclick="setCategoryFilter('All', this)">All Items</div>
+        <div class="cat-pill" onclick="setCategoryFilter('Vegetables', this)">Fresh Vegetables</div>
+        <div class="cat-pill" onclick="setCategoryFilter('Groceries', this)">Daily Groceries</div>
+      </div>
     </div>
 
-    <!-- Products Grid -->
+    <!-- Products Grid (Real Image Previews) -->
     <div class="grid" id="productsGrid"></div>
 
     <!-- Referral Program -->
-    <div class="panel" id="referralPanel">
-      <h3>🎁 Refer & Earn Rewards</h3>
-      <p id="refNotice">Share code: Earn <b>₹5</b> on friend's 1st order + <b>₹5 bonus</b> for every ₹1,000 order value! (Phone account required)</p>
-      <div style="display: flex; gap: 6px;">
-        <input type="text" id="myRefCode" readonly style="font-weight: 700; text-align: center; margin-bottom: 0;">
-        <button class="btn-block btn-primary" style="width: 100px;" onclick="copyCode()">Copy</button>
+    <div class="panel">
+      <h3>🎁 Refer & Earn Cash</h3>
+      <p id="refNotice">Invite friends: Get <b>₹5</b> on 1st order + <b>₹5 bonus</b> per ₹1,000 cart value!</p>
+      <div style="display: flex; gap: 8px;">
+        <input type="text" id="myRefCode" readonly style="font-weight: 800; text-align: center; margin-bottom: 0;">
+        <button class="btn-block btn-primary" style="width: 110px;" onclick="copyCode()">Copy Code</button>
       </div>
-    </div>
-  </div>
-    <!-- POPUP: USER PROFILE -->
+    </div> 
+      <!-- POPUP: USER PROFILE -->
   <div class="popup-box" id="profilePopup">
     <div class="popup-inner">
       <button class="popup-close" onclick="hidePopup('profilePopup')">✕</button>
       
-      <div style="text-align: center; margin-bottom: 12px; border-bottom: 1px solid var(--line); padding-bottom: 10px;">
-        <div style="font-size: 40px; margin-bottom: 4px;">👤</div>
-        <h3 id="profUserTitle" style="color: var(--green-dark); font-size: 16px;">User Profile</h3>
-        <span id="profUserBadge" style="background:#e8f5e9; color:var(--green-dark); font-size:11px; padding:2px 8px; border-radius:10px; font-weight:700;">Verified User</span>
+      <div style="text-align: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 10px;">
+        <div style="width: 50px; height: 50px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px auto; font-size: 20px; font-weight: 800;">
+          👤
+        </div>
+        <h3 id="profUserTitle" style="color: var(--primary-dark); font-size: 15px;">Account</h3>
+        <span id="profUserBadge" class="user-pill" style="color: var(--primary); border-color: var(--border);">Active</span>
       </div>
 
       <div class="profile-nav">
@@ -377,130 +509,105 @@
 
       <div id="profSectionReferral" style="display: none;">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
-          <div style="background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 10px; text-align: center;">
-            <div style="font-size: 11px; color: var(--muted);">Referred Users</div>
-            <div style="font-size: 18px; font-weight: 800; color: var(--green-dark);" id="profTotalReferred">0</div>
+          <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px; text-align: center;">
+            <div style="font-size: 11px; color: var(--muted);">Friends Referred</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--primary);" id="profTotalReferred">0</div>
           </div>
-          <div style="background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 10px; text-align: center;">
-            <div style="font-size: 11px; color: var(--muted);">Earned Commission</div>
-            <div style="font-size: 18px; font-weight: 800; color: var(--green-dark);">₹<span id="profTotalComm">0</span></div>
+          <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 10px; text-align: center;">
+            <div style="font-size: 11px; color: var(--muted);">Cash Earned</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--primary);">₹<span id="profTotalComm">0</span></div>
           </div>
         </div>
 
-        <div style="font-size: 12px; font-weight: 700; color: var(--green-dark); margin-bottom: 6px;">Commission Transaction History:</div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--primary-dark); margin-bottom: 6px;">Commission Credits:</div>
         <div id="profCommHistoryWrap" style="font-size: 12px;"></div>
       </div>
 
-      <button class="btn-block btn-guest" style="margin-top: 14px;" onclick="userLogout()">🚪 Logout / Switch Account</button>
+      <button class="btn-block btn-guest" style="margin-top: 14px;" onclick="userLogout()">Logout / Switch Account</button>
     </div>
   </div>
 
-  <!-- POPUP: Add Money to Wallet -->
+  <!-- POPUP: Add Cash to Wallet -->
   <div class="popup-box" id="walletPopup">
     <div class="popup-inner">
       <button class="popup-close" onclick="hidePopup('walletPopup')">✕</button>
-      <h3 style="color: var(--green); margin-bottom: 4px;">💳 Top-up Wallet</h3>
-      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Add balance using instant UPI scan.</p>
+      <h3 style="color: var(--primary); margin-bottom: 4px;">Top-up Wallet</h3>
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Pay via GPay, PhonePe, Paytm QR.</p>
       
-      <label style="font-size: 12px; font-weight: 600;">Select or Enter Amount (₹)</label>
       <div style="display: flex; gap: 6px; margin-bottom: 8px;">
-        <button type="button" class="btn-header" style="background:#e8f5e9; color:var(--green-dark); flex:1;" onclick="setTopupAmount(100)">+₹100</button>
-        <button type="button" class="btn-header" style="background:#e8f5e9; color:var(--green-dark); flex:1;" onclick="setTopupAmount(200)">+₹200</button>
-        <button type="button" class="btn-header" style="background:#e8f5e9; color:var(--green-dark); flex:1;" onclick="setTopupAmount(500)">+₹500</button>
-        <button type="button" class="btn-header" style="background:#e8f5e9; color:var(--green-dark); flex:1;" onclick="setTopupAmount(1000)">+₹1000</button>
+        <button type="button" class="cat-pill" style="flex:1;" onclick="setTopupAmount(100)">+₹100</button>
+        <button type="button" class="cat-pill" style="flex:1;" onclick="setTopupAmount(200)">+₹200</button>
+        <button type="button" class="cat-pill" style="flex:1;" onclick="setTopupAmount(500)">+₹500</button>
       </div>
       <input type="number" id="topupAmt" placeholder="Enter amount (min ₹10)" min="10" oninput="genTopupQr()">
 
-      <div id="topupQrArea" style="text-align: center; display: none; background:#f9fbf9; padding:10px; border-radius:8px; border:1px dashed var(--green); margin-bottom:10px;">
-        <p style="font-size: 11px; font-weight: 600; color: var(--green-dark); margin-bottom: 6px;">Scan & Pay via GPay / PhonePe / Paytm</p>
-        <img id="topupQrImg" src="" alt="Topup QR" style="width: 150px; height: 150px; border-radius: 6px; margin: 0 auto; display: block;">
-        <p style="font-size: 11px; color: var(--muted); margin-top: 4px;">UPI ID: <b>8134834380@mbk</b></p>
+      <div id="topupQrArea" style="text-align: center; display: none; background: #fdfdfd; padding: 12px; border-radius: 14px; border: 1px dashed var(--primary); margin-bottom: 12px;">
+        <p style="font-size: 11px; font-weight: 700; color: var(--primary-dark); margin-bottom: 6px;">Scan QR with any UPI App</p>
+        <img id="topupQrImg" src="" alt="Topup QR" style="width: 140px; height: 140px; border-radius: 8px; margin: 0 auto; display: block;">
+        <p style="font-size: 11px; color: var(--muted); margin-top: 6px;">UPI: <b>8134834380@mbk</b></p>
       </div>
 
-      <button class="btn-block btn-primary" onclick="confirmTopup()">Confirm Payment Added</button>
+      <button class="btn-block btn-primary" onclick="confirmTopup()">Confirm Balance Added</button>
     </div>
   </div>
 
-  <!-- POPUP: Auth with Phone/Pass, Gmail & Guest -->
+  <!-- POPUP: Auth Dialog -->
   <div class="popup-box" id="loginPopup">
     <div class="popup-inner">
       <button class="popup-close" onclick="hidePopup('loginPopup')">✕</button>
       
       <div id="registerBox">
-        <h3 style="margin-bottom: 4px; color: var(--green);">📱 Create Account</h3>
-        <p style="font-size: 13px; color: var(--muted); margin-bottom: 12px;">Register with phone & password (No OTP needed).</p>
+        <h3 style="margin-bottom: 4px; color: var(--primary);">Create Account</h3>
+        <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Sign up with phone and password (No OTP).</p>
         
-        <label style="font-size: 12px; font-weight: 600;">Mobile Number</label>
         <input type="tel" id="regPhone" placeholder="10-digit mobile number" maxlength="10">
+        <input type="password" id="regPass" placeholder="Create password (min 6 characters)">
+        <input type="text" id="refInput" placeholder="Referral code (Optional)">
 
-        <label style="font-size: 12px; font-weight: 600;">Create Password</label>
-        <input type="password" id="regPass" placeholder="Enter password (min 6 characters)">
+        <button class="btn-block btn-primary" onclick="handleRegister()">Sign Up</button>
+        <button class="btn-block btn-gmail" onclick="continueWithGmail()">Login with Gmail</button>
+        <button class="btn-block btn-guest" onclick="continueAsGuest()">Instant Guest Access</button>
 
-        <label style="font-size: 12px; font-weight: 600;">Referral Code (Optional)</label>
-        <input type="text" id="refInput" placeholder="Friend's referral code">
-
-        <button class="btn-block btn-primary" onclick="handleRegister()">Register Account</button>
-        
-        <div class="divider">OR</div>
-        <button class="btn-block btn-gmail" onclick="continueWithGmail()">📧 Quick Login with Gmail</button>
-        <button class="btn-block btn-guest" onclick="continueAsGuest()">⚡ Instant Guest Login</button>
-
-        <span class="auth-toggle" onclick="toggleAuthView('login')">Already have an account? Login here</span>
+        <p class="auth-toggle" onclick="toggleAuthView('login')">Already registered? Log in here</p>
       </div>
 
       <div id="loginFormBox" style="display: none;">
-        <h3 style="margin-bottom: 4px; color: var(--green);">🔐 User Login</h3>
-        <p style="font-size: 13px; color: var(--muted); margin-bottom: 12px;">Login with registered phone & password.</p>
+        <h3 style="margin-bottom: 4px; color: var(--primary);">Welcome Back</h3>
+        <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Login with your phone & password.</p>
         
-        <label style="font-size: 12px; font-weight: 600;">Mobile Number</label>
         <input type="tel" id="logPhone" placeholder="10-digit mobile number" maxlength="10">
-
-        <label style="font-size: 12px; font-weight: 600;">Password</label>
         <input type="password" id="logPass" placeholder="Enter password">
 
         <button class="btn-block btn-primary" onclick="handleLogin()">Login</button>
-        
-        <div class="divider">OR</div>
-        <button class="btn-block btn-gmail" onclick="continueWithGmail()">📧 Quick Login with Gmail</button>
-        <button class="btn-block btn-guest" onclick="continueAsGuest()">⚡ Instant Guest Login</button>
+        <button class="btn-block btn-gmail" onclick="continueWithGmail()">Login with Gmail</button>
+        <button class="btn-block btn-guest" onclick="continueAsGuest()">Instant Guest Access</button>
 
-        <span class="auth-toggle" onclick="toggleAuthView('register')">New user? Create account</span>
+        <p class="auth-toggle" onclick="toggleAuthView('register')">New customer? Create account</p>
       </div>
     </div>
   </div>
-    <!-- POPUP: Cart & Online Checkout -->
+      <!-- POPUP: Checkout -->
   <div class="popup-box" id="cartPopup">
     <div class="popup-inner">
       <button class="popup-close" onclick="hidePopup('cartPopup')">✕</button>
       
       <div id="checkoutFormWrapper">
-        <h3 style="margin-bottom: 10px; color: var(--green);">🛒 Delivery & Payment</h3>
+        <h3 style="margin-bottom: 8px; color: var(--primary);">Checkout & Delivery</h3>
         <div id="cartItemList" style="font-size: 13px; margin-bottom: 10px;"></div>
         
-        <div style="background: #f9fbf9; padding: 10px; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 12px; font-size: 13px;">
-          <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
-            <span>Subtotal:</span>
-            <span>₹<span id="subTotalVal">0</span></span>
-          </div>
-          <div style="display:flex; justify-content:space-between; margin-bottom: 4px;">
-            <span>Delivery Fee:</span>
-            <span id="feeVal">₹0</span>
-          </div>
-          <div style="display:flex; justify-content:space-between; font-weight: 800; font-size: 15px; color: var(--green-dark); border-top: 1px dashed var(--line); padding-top: 4px;">
-            <span>Total:</span>
-            <span>₹<span id="finalTotalVal">0</span></span>
+        <div style="background: var(--bg); padding: 12px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; font-size: 13px;">
+          <div style="display:flex; justify-content:space-between; margin-bottom: 4px;"><span>Subtotal:</span><span>₹<span id="subTotalVal">0</span></span></div>
+          <div style="display:flex; justify-content:space-between; margin-bottom: 4px;"><span>Delivery Fee:</span><span id="feeVal">₹0</span></div>
+          <div style="display:flex; justify-content:space-between; font-weight: 800; font-size: 15px; color: var(--primary); border-top: 1px dashed var(--border); padding-top: 6px; margin-top: 4px;">
+            <span>Final Total:</span><span>₹<span id="finalTotalVal">0</span></span>
           </div>
         </div>
 
-        <label style="font-size: 12px; font-weight: 600;">Full Name</label>
-        <input type="text" id="cName" placeholder="Your name">
-
-        <label style="font-size: 12px; font-weight: 600;">Mobile Number</label>
+        <input type="text" id="cName" placeholder="Full name">
         <input type="tel" id="cPhone" placeholder="10-digit mobile number" maxlength="10">
 
-        <label style="font-size: 12px; font-weight: 600;">Select Village (Gossaigaon)</label>
         <select id="cVillage">
-          <option value="">-- Select Village --</option>
+          <option value="">-- Choose Gossaigaon Area --</option>
           <option value="Gossaigaon Town">Gossaigaon Town / Ward</option>
           <option value="Habrubil">Habrubil</option>
           <option value="Padmabil">Padmabil</option>
@@ -509,177 +616,165 @@
           <option value="Kachugaon">Kachugaon</option>
           <option value="Telipara">Telipara</option>
           <option value="Bhowraguri">Bhowraguri</option>
-          <option value="Tamarhat Road">Tamarhat Road</option>
           <option value="Srirampur">Srirampur</option>
           <option value="Shimultapu">Shimultapu</option>
-          <option value="Rautmari">Rautmari</option>
-          <option value="Dingdinga">Dingdinga</option>
-          <option value="Alinagar">Alinagar</option>
-          <option value="Kumarganj">Kumarganj</option>
-          <option value="Mornai Tea Estate">Mornai Tea Estate</option>
-          <option value="Hathigarh">Hathigarh</option>
-          <option value="Guabari">Guabari</option>
-          <option value="Other Village">Other Nearby Village</option>
+          <option value="Other Area">Other Nearby Village</option>
         </select>
 
-        <label style="font-size: 12px; font-weight: 600;">Address & Landmark</label>
-        <input type="text" id="cAddress" placeholder="House no, road, school landmark">
+        <input type="text" id="cAddress" placeholder="Exact house, road, or landmark">
 
-        <label style="font-size: 12px; font-weight: 600; display: block; margin-top: 8px; margin-bottom: 6px;">Payment Method</label>
-        <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px;">
-          <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
-            <input type="radio" name="payType" value="COD" checked onchange="updatePayView()">
-            💵 Cash on Delivery
-          </label>
-          <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
-            <input type="radio" name="payType" value="WALLET" onchange="updatePayView()">
-            💰 Pay with Wallet (Bal: ₹<span id="chkWalletBal">0</span>)
-          </label>
-          <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
-            <input type="radio" name="payType" value="UPI" onchange="updatePayView()">
-            📱 UPI QR Scan
-          </label>
+        <div style="margin: 8px 0 10px 0;">
+          <label style="font-size: 12px; font-weight: 700;">Payment Mode</label>
+          <div style="display: flex; gap: 8px; margin-top: 6px;">
+            <label style="flex:1; border:1px solid var(--border); padding:8px; border-radius:8px; font-size:12px; display:flex; align-items:center; gap:4px; cursor:pointer;">
+              <input type="radio" name="payType" value="COD" checked onchange="updatePayView()"> COD
+            </label>
+            <label style="flex:1; border:1px solid var(--border); padding:8px; border-radius:8px; font-size:12px; display:flex; align-items:center; gap:4px; cursor:pointer;">
+              <input type="radio" name="payType" value="WALLET" onchange="updatePayView()"> Wallet
+            </label>
+            <label style="flex:1; border:1px solid var(--border); padding:8px; border-radius:8px; font-size:12px; display:flex; align-items:center; gap:4px; cursor:pointer;">
+              <input type="radio" name="payType" value="UPI" onchange="updatePayView()"> UPI QR
+            </label>
+          </div>
         </div>
 
-        <div id="qrBox" style="display: none; text-align: center; background: #f9fbf9; padding: 12px; border-radius: 8px; border: 1px dashed var(--green); margin-bottom: 12px;">
-          <p style="font-size: 12px; font-weight: 600; color: var(--green-dark); margin-bottom: 6px;">Scan & Pay via GPay / PhonePe / Paytm</p>
-          <img id="qrImg" src="" alt="UPI QR" style="width: 160px; height: 160px; border-radius: 6px; margin: 0 auto; display: block;">
-          <p style="font-size: 11px; color: var(--muted); margin-top: 6px;">Amount: ₹<span id="qrTotal">0</span> | UPI: <b>8134834380@mbk</b></p>
+        <div id="qrBox" style="display: none; text-align: center; background: #fff; padding: 12px; border-radius: 12px; border: 1px dashed var(--primary); margin-bottom: 12px;">
+          <img id="qrImg" src="" alt="UPI QR" style="width: 140px; height: 140px; border-radius: 8px; margin: 0 auto; display: block;">
+          <p style="font-size: 11px; color: var(--muted); margin-top: 4px;">Scan & Pay: ₹<span id="qrTotal">0</span></p>
         </div>
 
-        <button class="btn-block btn-primary" onclick="placeOnlineOrder()">Confirm & Place Order</button>
+        <button class="btn-block btn-primary" onclick="placeOnlineOrder()">Place Order</button>
       </div>
 
-      <div id="orderSuccessSection" style="display: none; text-align: center; padding: 16px 8px;">
-        <div style="font-size: 52px; margin-bottom: 8px;">✅</div>
-        <h3 style="color: var(--green); font-size: 20px; margin-bottom: 4px;">Order Placed Successfully!</h3>
-        <p style="font-size: 13px; color: var(--muted); margin-bottom: 14px;">Your order has been booked and scheduled for delivery.</p>
+      <!-- Success Screen -->
+      <div id="orderSuccessSection" style="display: none; text-align: center; padding: 12px 0;">
+        <div style="width: 50px; height: 50px; background: #e8f5ed; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto; color: var(--primary); font-size: 24px;">✓</div>
+        <h3 style="color: var(--primary); font-size: 18px;">Order Confirmed!</h3>
+        <p style="font-size: 12px; color: var(--muted); margin-bottom: 14px;">Your items are scheduled for prompt dispatch.</p>
         
-        <div style="background: #f4f8f5; border: 1px dashed var(--green); border-radius: 10px; padding: 12px; margin-bottom: 16px; text-align: left; font-size: 13px; line-height: 1.6;">
-          <p><b>Order ID:</b> <span id="displayOrderId" style="color: var(--green-dark); font-weight: 800;"></span></p>
-          <p><b>Customer:</b> <span id="displayOrderCustomer"></span></p>
-          <p><b>Delivery Area:</b> <span id="displayOrderArea"></span></p>
-          <p><b>Payment:</b> <span id="displayOrderPay"></span></p>
-          <p><b>Total Amount:</b> ₹<span id="displayOrderAmount" style="font-weight: 800; color: var(--green-dark);"></span></p>
-          <p><b>Initial Status:</b> <span style="background: #d4edda; color: #155724; padding: 2px 6px; border-radius: 6px; font-size: 11px; font-weight: bold;">Order Placed</span></p>
+        <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 14px; text-align: left; font-size: 12px; line-height: 1.6;">
+          <p><b>Order ID:</b> <span id="displayOrderId" style="color: var(--primary);"></span></p>
+          <p><b>Receiver:</b> <span id="displayOrderCustomer"></span></p>
+          <p><b>Area:</b> <span id="displayOrderArea"></span></p>
+          <p><b>Total Amount:</b> ₹<span id="displayOrderAmount" style="font-weight: 800;"></span> (<span id="displayOrderPay"></span>)</p>
         </div>
 
         <button type="button" class="btn-block btn-primary" onclick="resetAndCloseOrder()">Continue Shopping</button>
-        <button type="button" class="btn-block btn-guest" style="margin-top: 8px;" onclick="viewPlacedOrderTrack()">Track in Profile</button>
+        <button type="button" class="btn-block btn-guest" style="margin-top: 6px;" onclick="viewPlacedOrderTrack()">Track Order Status</button>
       </div>
 
     </div>
   </div>
 
-  <!-- SECRET ADMIN POPUP (PIN: 8822) -->
+  <!-- SECRET POPUP 1: PIN AUTH (PIN: 8822) -->
   <div class="popup-box" id="adminSecretPopup">
     <div class="popup-inner" style="max-width: 320px; text-align: center;">
       <button class="popup-close" onclick="hidePopup('adminSecretPopup')">✕</button>
-      <div style="font-size: 34px; margin-bottom: 6px;">🔐</div>
-      <h3 style="color: var(--green-dark); margin-bottom: 4px;">Store Management</h3>
-      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Authorized store owner access only.</p>
+      <div style="font-size: 28px; margin-bottom: 6px;">🔐</div>
+      <h3 style="color: var(--primary-dark); font-size: 16px;">Store Manager</h3>
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 12px;">Authorized administrator PIN</p>
       
-      <input type="password" id="secretAdminPin" placeholder="••••" maxlength="4" style="text-align: center; letter-spacing: 6px; font-size: 20px;">
+      <input type="password" id="secretAdminPin" placeholder="••••" maxlength="4" style="text-align: center; letter-spacing: 8px; font-size: 20px;">
       <button class="btn-block btn-primary" onclick="verifySecretAdmin()">Unlock Dashboard</button>
     </div>
   </div>
 
-  <!-- ADMIN DASHBOARD -->
+  <!-- SECRET POPUP 2: CREATIVE ADMIN DASHBOARD -->
   <div class="popup-box" id="adminDashboardPopup">
     <div class="popup-inner" style="max-width: 480px; max-height: 90vh;">
       <button class="popup-close" onclick="hidePopup('adminDashboardPopup')">✕</button>
       
       <div class="admin-nav">
         <button class="admin-tab active" id="tabAdmOrders" onclick="switchAdminTab('orders')">📦 Orders</button>
-        <button class="admin-tab" id="tabAdmAdd" onclick="switchAdminTab('add')">➕ Add Product</button>
-        <button class="admin-tab" id="tabAdmManage" onclick="switchAdminTab('manage')">📝 Manage</button>
+        <button class="admin-tab" id="tabAdmAdd" onclick="switchAdminTab('add')">➕ Add Item</button>
+        <button class="admin-tab" id="tabAdmManage" onclick="switchAdminTab('manage')">📝 Catalog</button>
       </div>
 
+      <!-- Tab: Orders Feed -->
       <div id="admSectionOrders">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 6px; margin-bottom: 10px;">
-          <h3 style="color: var(--green-dark); font-size: 15px;">Live Order Feed</h3>
-          <button onclick="loadAdminOrdersList()" style="background:var(--green); color:white; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">🔄 Refresh</button>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <span style="font-size: 12px; font-weight: 700; color: var(--muted);">Live Customer Orders</span>
+          <button onclick="loadAdminOrdersList()" class="cat-pill" style="padding: 4px 10px;">🔄 Sync</button>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
-          <div style="background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 8px; text-align: center;">
+          <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 8px; text-align: center;">
             <div style="font-size: 11px; color: var(--muted);">Total Orders</div>
-            <div style="font-size: 18px; font-weight: 800; color: var(--green-dark);" id="admTotOrders">0</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--primary);" id="admTotOrders">0</div>
           </div>
-          <div style="background: #f4f8f5; border: 1px solid var(--line); border-radius: 8px; padding: 8px; text-align: center;">
-            <div style="font-size: 11px; color: var(--muted);">Total Sales</div>
-            <div style="font-size: 18px; font-weight: 800; color: var(--green-dark);">₹<span id="admTotSales">0</span></div>
+          <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 8px; text-align: center;">
+            <div style="font-size: 11px; color: var(--muted);">Total Revenue</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--primary);">₹<span id="admTotSales">0</span></div>
           </div>
         </div>
 
         <div id="admOrderItemsWrap" style="font-size: 13px;"></div>
       </div>
 
+      <!-- Tab: Add Product With Real Image/Video -->
       <div id="admSectionAdd" style="display: none;">
-        <h3 style="color: var(--green-dark); font-size: 15px; margin-bottom: 10px;">Add New Store Product</h3>
-        <label style="font-size: 12px; font-weight: 600;">Product Name & Local Name</label>
-        <input type="text" id="newProdName" placeholder="e.g. Green Chilli (Jolokia)">
-
+        <h3 style="color: var(--primary-dark); font-size: 14px; margin-bottom: 10px;">Add New Inventory Item</h3>
+        
+        <input type="text" id="newProdName" placeholder="Product title (e.g. Fresh Cauliflower)">
+        
         <div style="display: flex; gap: 8px;">
-          <div style="flex: 1;">
-            <label style="font-size: 12px; font-weight: 600;">Price (₹)</label>
-            <input type="number" id="newProdPrice" placeholder="e.g. 40">
-          </div>
-          <div style="flex: 1;">
-            <label style="font-size: 12px; font-weight: 600;">Unit Type</label>
-            <select id="newProdUnit">
-              <option value="kg">per kg</option>
-              <option value="pc">per piece</option>
-              <option value="litre">per litre</option>
-              <option value="packet">per packet</option>
-            </select>
-          </div>
+          <input type="number" id="newProdPrice" placeholder="Price (₹)">
+          <select id="newProdUnit">
+            <option value="kg">per kg</option>
+            <option value="pc">per piece</option>
+            <option value="litre">per litre</option>
+            <option value="pack">per pack</option>
+          </select>
         </div>
 
-        <label style="font-size: 12px; font-weight: 600;">Category</label>
         <select id="newProdCat">
           <option value="Vegetables">Fresh Vegetables</option>
           <option value="Groceries">Daily Groceries</option>
         </select>
 
-        <label style="font-size: 12px; font-weight: 600;">Fallback Emoji</label>
-        <input type="text" id="newProdEmoji" placeholder="e.g. 🌶️" value="🥬">
-
-        <label style="font-size: 12px; font-weight: 600;">Upload Product Photo (Image)</label>
+        <label style="font-size: 11px; font-weight: 700; color: var(--muted);">Image Source (Choose Upload OR Direct URL)</label>
         <input type="file" id="newProdPhoto" accept="image/*">
+        <input type="text" id="newProdPhotoUrl" placeholder="Or paste image web link (https://...)">
 
-        <label style="font-size: 12px; font-weight: 600;">Upload Product Short Video (Max 15MB)</label>
+        <label style="font-size: 11px; font-weight: 700; color: var(--muted);">Optional Short Video Clip</label>
         <input type="file" id="newProdVideo" accept="video/mp4,video/webm">
 
-        <button class="btn-block btn-primary" onclick="saveNewProduct()">Save & Publish Product</button>
+        <button class="btn-block btn-primary" style="margin-top: 6px;" onclick="saveNewProduct()">Save to Inventory</button>
       </div>
 
+      <!-- Tab: Catalog Management -->
       <div id="admSectionManage" style="display: none;">
-        <h3 style="color: var(--green-dark); font-size: 15px; margin-bottom: 10px;">Store Products List</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <h3 style="color: var(--primary-dark); font-size: 14px;">Store Catalog</h3>
+          <button onclick="restoreDefaults()" style="font-size: 10px; color: var(--primary); background: transparent; border: none; cursor: pointer; text-decoration: underline;">Reset to Default</button>
+        </div>
         <div id="admProductsListWrap" style="font-size: 13px;"></div>
       </div>
+
     </div>
   </div>
-    <script>
+      <script>
     var cartItems = [];
     var UPI_ID = "8134834380@mbk";
     var STORE_SECRET_PIN = "8822";
     var adminTapCount = 0;
     var adminTapTimer = null;
+    var currentCatFilter = "All";
 
+    // Standard Real-Image Catalog (Zero Emojis)
     var defaultProducts = [
-      { id: 1, name: "Potato (Alu)", cat: "Vegetables", price: 27, unit: "kg", emoji: "🥔", photo: "", video: "" },
-      { id: 2, name: "Tomato (Bilahi)", cat: "Vegetables", price: 35, unit: "kg", emoji: "🍅", photo: "", video: "" },
-      { id: 3, name: "Onion (Piyaj)", cat: "Vegetables", price: 53, unit: "kg", emoji: "🧅", photo: "", video: "" },
-      { id: 4, name: "Cucumber (Tiyoh)", cat: "Vegetables", price: 28, unit: "kg", emoji: "🥒", photo: "", video: "" },
-      { id: 5, name: "Cauliflower (Kobi)", cat: "Vegetables", price: 35, unit: "pc", emoji: "🥦", photo: "", video: "" },
-      { id: 6, name: "Cabbage (Bandhakobi)", cat: "Vegetables", price: 30, unit: "pc", emoji: "🥬", photo: "", video: "" },
-      { id: 7, name: "Miniket Rice", cat: "Groceries", price: 52, unit: "kg", emoji: "🍚", photo: "", video: "" },
-      { id: 8, name: "Mustard Oil", cat: "Groceries", price: 145, unit: "litre", emoji: "🛢️", photo: "", video: "" },
-      { id: 9, name: "Masoor Dal", cat: "Groceries", price: 95, unit: "kg", emoji: "🥣", photo: "", video: "" },
-      { id: 10, name: "Pure Sugar", cat: "Groceries", price: 44, unit: "kg", emoji: "🧂", photo: "", video: "" },
-      { id: 11, name: "Tata Salt", cat: "Groceries", price: 28, unit: "kg", emoji: "🧂", photo: "", video: "" },
-      { id: 12, name: "Chakki Atta", cat: "Groceries", price: 42, unit: "kg", emoji: "🌾", photo: "", video: "" }
+      { id: 1, name: "Potato (Alu)", cat: "Vegetables", price: 27, unit: "kg", photo: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 2, name: "Tomato (Bilahi)", cat: "Vegetables", price: 35, unit: "kg", photo: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 3, name: "Onion (Piyaj)", cat: "Vegetables", price: 53, unit: "kg", photo: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 4, name: "Cucumber (Tiyoh)", cat: "Vegetables", price: 28, unit: "kg", photo: "https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 5, name: "Cauliflower (Kobi)", cat: "Vegetables", price: 35, unit: "pc", photo: "https://images.unsplash.com/photo-1568584711075-3d021a7c3ca3?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 6, name: "Cabbage (Bandhakobi)", cat: "Vegetables", price: 30, unit: "pc", photo: "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 7, name: "Miniket Super Rice", cat: "Groceries", price: 52, unit: "kg", photo: "https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 8, name: "Pure Mustard Oil", cat: "Groceries", price: 145, unit: "litre", photo: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 9, name: "Masoor Dal", cat: "Groceries", price: 95, unit: "kg", photo: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 10, name: "Refined Pure Sugar", cat: "Groceries", price: 44, unit: "kg", photo: "https://images.unsplash.com/photo-1622484212850-cab596d629f2?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 11, name: "Tata Salt", cat: "Groceries", price: 28, unit: "kg", photo: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=400&q=80", video: "" },
+      { id: 12, name: "Chakki Fresh Atta", cat: "Groceries", price: 42, unit: "kg", photo: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=400&q=80", video: "" }
     ];
 
     window.addEventListener("DOMContentLoaded", function() {
@@ -689,9 +784,18 @@
     });
 
     function initProducts() {
-      if (!localStorage.getItem('fv_store_products')) {
+      var saved = localStorage.getItem('fv_store_products');
+      // Auto-migrate if old products still contain emojis
+      if (!saved || saved.indexOf("emoji") !== -1) {
         localStorage.setItem('fv_store_products', JSON.stringify(defaultProducts));
       }
+    }
+
+    function restoreDefaults() {
+      if (!confirm("Reset all products to default images & prices?")) return;
+      localStorage.setItem('fv_store_products', JSON.stringify(defaultProducts));
+      renderStoreProducts();
+      loadAdminProductsManage();
     }
 
     function getStoreProducts() {
@@ -701,28 +805,47 @@
     function renderStoreProducts() {
       var grid = document.getElementById('productsGrid');
       var products = getStoreProducts();
+      var q = (document.getElementById('searchInput').value || "").toLowerCase().trim();
       var html = "";
 
       products.forEach(function(p) {
+        var matchesQ = !q || p.name.toLowerCase().includes(q);
+        var matchesCat = (currentCatFilter === 'All') || (p.cat === currentCatFilter);
+
+        if (!matchesQ || !matchesCat) return;
+
         var mediaHtml = "";
         if (p.video) {
           mediaHtml = '<video src="' + p.video + '" autoplay loop muted playsinline></video>';
-        } else if (p.photo) {
-          mediaHtml = '<img src="' + p.photo + '" alt="' + p.name + '">';
         } else {
-          mediaHtml = '<div class="product-emoji">' + (p.emoji || '🥬') + '</div>';
+          var imgUrl = p.photo || "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80";
+          mediaHtml = '<img src="' + imgUrl + '" alt="' + p.name + '" loading="lazy">';
         }
 
-        html += '<div class="product-card" data-name="' + p.name.toLowerCase() + '" data-cat="' + p.cat + '">' +
-                  '<div class="product-media-box">' + mediaHtml + '</div>' +
+        html += '<div class="product-card">' +
+                  '<div class="product-media-wrap">' +
+                    '<span class="product-cat-tag">' + p.cat + '</span>' +
+                    mediaHtml +
+                  '</div>' +
                   '<div class="product-name">' + p.name + '</div>' +
-                  '<div class="product-cat">' + p.cat + '</div>' +
-                  '<div class="product-price">₹' + p.price + ' /' + p.unit + '</div>' +
+                  '<div class="product-unit">Fresh stock /' + p.unit + '</div>' +
+                  '<div class="product-price">₹' + p.price + '</div>' +
                   '<button class="btn-add" onclick="addItem(' + p.id + ', \'' + p.name.replace(/'/g, "\\'") + '\', ' + p.price + ', \'' + p.unit + '\', this)">Add to Cart</button>' +
                 '</div>';
       });
 
-      grid.innerHTML = html;
+      grid.innerHTML = html || "<p style='grid-column: span 2; text-align:center; color:var(--muted); padding:20px;'>No items found in this section.</p>";
+    }
+
+    function setCategoryFilter(cat, btn) {
+      currentCatFilter = cat;
+      document.querySelectorAll('.cat-pill').forEach(function(el) { el.classList.remove('active'); });
+      btn.classList.add('active');
+      renderStoreProducts();
+    }
+
+    function doSearch() {
+      renderStoreProducts();
     }
 
     function initApp() {
@@ -742,153 +865,24 @@
         document.getElementById('myRefCode').value = r;
       } else {
         document.getElementById('myRefCode').value = "Phone Login Required";
-        document.getElementById('refNotice').innerText = "⚠️ Referral rewards are active ONLY for verified Mobile Number accounts. Guest & Gmail logins are excluded.";
+        document.getElementById('refNotice').innerText = "Referral rewards unlock for registered Mobile accounts only.";
       }
 
       if (u) {
         var shortTitle = userType === 'phone' ? u.substring(0, 5) + ".." : (userType === 'gmail' ? "Gmail" : "Guest");
         document.getElementById('headerUserName').innerText = shortTitle;
-        document.getElementById('userTag').innerText = userType === 'phone' ? "Verified Phone" : (userType === 'gmail' ? "Gmail User" : "Guest User");
+        document.getElementById('userTag').innerText = userType === 'phone' ? "Verified" : "Guest";
         if (userType === 'phone') {
           document.getElementById('cPhone').value = u;
         }
-      } else {
-        document.getElementById('headerUserName').innerText = "Login";
       }
       document.getElementById('walletBal').innerText = w;
-      document.getElementById('chkWalletBal').innerText = w;
     }
 
     function showPopup(id) { document.getElementById(id).style.display = "flex"; }
     function hidePopup(id) { document.getElementById(id).style.display = "none"; }
 
-    function openUserProfile() {
-      var u = localStorage.getItem('fv_user');
-      if (!u) {
-        showPopup('loginPopup');
-        return;
-      }
-      var userType = localStorage.getItem('fv_user_type') || 'guest';
-      document.getElementById('profUserTitle').innerText = u;
-      document.getElementById('profUserBadge').innerText = userType === 'phone' ? "Verified Mobile Account" : (userType === 'gmail' ? "Google / Gmail Account" : "Guest Account");
-
-      loadUserOrdersInProfile();
-      loadUserReferralInProfile();
-      switchProfileTab('orders');
-      showPopup('profilePopup');
-    }
-
-    function switchProfileTab(tab) {
-      document.getElementById('profSectionOrders').style.display = (tab === 'orders') ? 'block' : 'none';
-      document.getElementById('profSectionReferral').style.display = (tab === 'referral') ? 'block' : 'none';
-      document.getElementById('tabProfOrders').classList.toggle('active', tab === 'orders');
-      document.getElementById('tabProfRef').classList.toggle('active', tab === 'referral');
-    }
-
-    function loadUserOrdersInProfile() {
-      var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
-      var curUser = localStorage.getItem('fv_user');
-      var wrap = document.getElementById('profileOrdersList');
-
-      var myOrders = orders.filter(function(o) {
-        return o.phone === curUser || o.customer === curUser || curUser.startsWith("Guest");
-      });
-
-      if (myOrders.length === 0) {
-        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:20px;'>No orders placed under this account.</p>";
-        return;
-      }
-
-      var html = "";
-      myOrders.slice().reverse().forEach(function(ord) {
-        var statusText = ord.status || "Placed";
-        var step = 1;
-        if (statusText === "Packed") step = 2;
-        if (statusText === "Out for Delivery") step = 3;
-        if (statusText === "Delivered") step = 4;
-
-        html += '<div class="order-card-record">' +
-                  '<div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">' +
-                    '<b>' + ord.orderId + '</b>' +
-                    '<span style="color:var(--muted);">' + new Date(ord.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + '</span>' +
-                  '</div>' +
-                  '<div style="font-size:12px; margin-bottom:6px;">' + ord.items.map(function(i){ return i.name + ' (x' + i.qty + ')'; }).join(', ') + '</div>' +
-                  '<div style="font-size:12px; margin-bottom:8px;"><b>Total:</b> ₹' + ord.total + ' (' + ord.payment + ') | <b>To:</b> ' + ord.village + '</div>' +
-                  
-                  '<div class="track-step-wrap">' +
-                    '<div class="step-item ' + (step >= 1 ? 'active' : '') + '">' +
-                      '<div class="step-dot">1</div><div class="step-title">Placed</div>' +
-                    '</div>' +
-                    '<div class="step-item ' + (step >= 2 ? 'active' : '') + '">' +
-                      '<div class="step-dot">2</div><div class="step-title">Packed</div>' +
-                    '</div>' +
-                    '<div class="step-item ' + (step >= 3 ? 'active' : '') + '">' +
-                      '<div class="step-dot">3</div><div class="step-title">Out for Delivery</div>' +
-                    '</div>' +
-                    '<div class="step-item ' + (step >= 4 ? 'active' : '') + '">' +
-                      '<div class="step-dot">4</div><div class="step-title">Delivered</div>' +
-                    '</div>' +
-                  '</div>' +
-                  '<div style="text-align:center; font-size:11px; color:var(--green-dark); font-weight:700; margin-top:4px;">Status: ' + statusText + '</div>' +
-                '</div>';
-      });
-
-      wrap.innerHTML = html;
-    }
-
-    function loadUserReferralInProfile() {
-      var curUser = localStorage.getItem('fv_user');
-      var userType = localStorage.getItem('fv_user_type');
-      var wrap = document.getElementById('profCommHistoryWrap');
-
-      if (userType !== 'phone') {
-        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:16px;'>Referral program is only unlocked for Mobile Number & Password accounts.</p>";
-        document.getElementById('profTotalReferred').innerText = "0";
-        document.getElementById('profTotalComm').innerText = "0";
-        return;
-      }
-
-      var allComm = JSON.parse(localStorage.getItem('fv_referral_history') || '[]');
-      var myComm = allComm.filter(function(c) { return c.referrer === curUser; });
-
-      var totalEarned = myComm.reduce(function(sum, item) { return sum + item.bonus; }, 0);
-      var referredSet = new Set(myComm.map(function(item) { return item.referredUser; }));
-
-      document.getElementById('profTotalReferred').innerText = referredSet.size;
-      document.getElementById('profTotalComm').innerText = totalEarned;
-
-      if (myComm.length === 0) {
-        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:16px;'>No commission received yet. Share your code to earn ₹5 per order!</p>";
-        return;
-      }
-
-      var html = "";
-      myComm.slice().reverse().forEach(function(item) {
-        html += '<div style="background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px; margin-bottom:6px;">' +
-                  '<div style="display:flex; justify-content:space-between; font-weight:700;">' +
-                    '<span style="color:var(--green-dark);">+ ₹' + item.bonus + ' Bonus</span>' +
-                    '<small style="color:var(--muted);">' + new Date(item.date).toLocaleDateString() + '</small>' +
-                  '</div>' +
-                  '<div style="color:var(--muted); font-size:11px; margin-top:2px;">' + item.reason + ' (User: ' + item.referredUser.substring(0, 4) + '****)</div>' +
-                '</div>';
-      });
-
-      wrap.innerHTML = html;
-    }
-
-    function userLogout() {
-      if (!confirm("Are you sure you want to log out?")) return;
-      localStorage.removeItem('fv_user');
-      localStorage.removeItem('fv_user_type');
-      hidePopup('profilePopup');
-      window.location.reload();
-    }
-
-    function viewPlacedOrderTrack() {
-      hidePopup('cartPopup');
-      openUserProfile();
-    }
-
+    // --- SECRET ADMIN PANEL TRIGGER ---
     function secretAdminClick() {
       adminTapCount++;
       clearTimeout(adminTapTimer);
@@ -909,7 +903,7 @@
         loadAdminProductsManage();
         showPopup('adminDashboardPopup');
       } else {
-        alert("Wrong PIN! Access denied.");
+        alert("Incorrect PIN.");
       }
     }
 
@@ -940,59 +934,41 @@
       var price = parseFloat(document.getElementById('newProdPrice').value);
       var unit = document.getElementById('newProdUnit').value;
       var cat = document.getElementById('newProdCat').value;
-      var emoji = document.getElementById('newProdEmoji').value.trim() || '🥬';
-
+      var photoUrl = document.getElementById('newProdPhotoUrl').value.trim();
       var photoFile = document.getElementById('newProdPhoto').files[0];
       var videoFile = document.getElementById('newProdVideo').files[0];
 
       if (!name || isNaN(price) || price <= 0) {
-        alert("Please enter a valid product name and price!");
+        alert("Enter item title & valid price.");
         return;
       }
 
-      var photoBase64 = "";
-      var videoBase64 = "";
+      var finalPhoto = photoUrl;
+      var finalVideo = "";
 
       try {
-        if (photoFile) photoBase64 = await fileToBase64(photoFile);
-        if (videoFile) {
-          if (videoFile.size > 15 * 1024 * 1024) {
-            alert("Video file size is larger than 15MB. Please upload a shorter clip.");
-            return;
-          }
-          videoBase64 = await fileToBase64(videoFile);
-        }
-      } catch (err) {
-        alert("Error reading file! Please try a smaller image/video.");
+        if (photoFile) finalPhoto = await fileToBase64(photoFile);
+        if (videoFile) finalVideo = await fileToBase64(videoFile);
+      } catch (e) {
+        alert("File conversion issue.");
         return;
       }
 
       var products = getStoreProducts();
-      var newProduct = {
+      products.push({
         id: Date.now(),
         name: name,
         cat: cat,
         price: price,
         unit: unit,
-        emoji: emoji,
-        photo: photoBase64,
-        video: videoBase64
-      };
+        photo: finalPhoto || "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80",
+        video: finalVideo
+      });
 
-      try {
-        products.push(newProduct);
-        localStorage.setItem('fv_store_products', JSON.stringify(products));
-      } catch (e) {
-        alert("Storage limit reached! Please use a smaller image/video resolution.");
-        return;
-      }
-
-      alert("🎉 Product '" + name + "' added successfully!");
+      localStorage.setItem('fv_store_products', JSON.stringify(products));
+      alert("✓ Item saved to catalog.");
       document.getElementById('newProdName').value = "";
       document.getElementById('newProdPrice').value = "";
-      document.getElementById('newProdPhoto').value = "";
-      document.getElementById('newProdVideo').value = "";
-
       renderStoreProducts();
       switchAdminTab('manage');
     }
@@ -1003,12 +979,9 @@
       var html = "";
 
       products.forEach(function(p) {
-        html += '<div style="display:flex; justify-content:space-between; align-items:center; border:1px solid var(--line); border-radius:8px; padding:8px; margin-bottom:8px; background:#fff;">' +
-                  '<div>' +
-                    '<b>' + p.name + '</b><br>' +
-                    '<small style="color:var(--muted);">' + p.cat + ' | ₹' + p.price + '/' + p.unit + (p.video ? ' | 🎥 Video' : (p.photo ? ' | 📷 Photo' : '')) + '</small>' +
-                  '</div>' +
-                  '<button onclick="deleteProduct(' + p.id + ')" style="background:var(--danger); color:white; border:none; padding:6px 10px; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer;">Delete</button>' +
+        html += '<div style="display:flex; justify-content:space-between; align-items:center; border:1px solid var(--border); border-radius:10px; padding:8px 12px; margin-bottom:8px; background:#fff;">' +
+                  '<div><b>' + p.name + '</b><br><small style="color:var(--muted);">' + p.cat + ' • ₹' + p.price + '/' + p.unit + '</small></div>' +
+                  '<button onclick="deleteProduct(' + p.id + ')" style="background:#fee2e2; color:#b91c1c; border:none; padding:5px 10px; border-radius:6px; font-weight:700; cursor:pointer;">Delete</button>' +
                 '</div>';
       });
 
@@ -1016,9 +989,8 @@
     }
 
     function deleteProduct(id) {
-      if (!confirm("Are you sure you want to remove this product?")) return;
-      var products = getStoreProducts();
-      products = products.filter(function(p) { return p.id !== id; });
+      if (!confirm("Delete this product?")) return;
+      var products = getStoreProducts().filter(function(p) { return p.id !== id; });
       localStorage.setItem('fv_store_products', JSON.stringify(products));
       renderStoreProducts();
       loadAdminProductsManage();
@@ -1030,7 +1002,7 @@
       var totalSales = 0;
 
       if (orders.length === 0) {
-        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:16px;'>No orders received yet.</p>";
+        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:16px;'>No customer orders yet.</p>";
         document.getElementById('admTotOrders').innerText = "0";
         document.getElementById('admTotSales').innerText = "0";
         return;
@@ -1042,19 +1014,18 @@
         totalSales += Number(ord.total) || 0;
         var curStatus = ord.status || "Placed";
 
-        html += '<div style="border: 1px solid var(--line); border-radius: 8px; padding: 10px; margin-bottom: 10px; background: #fafdfa;">' +
-                  '<div style="display:flex; justify-content:space-between; margin-bottom:4px;">' +
-                    '<b style="color:var(--green-dark);">' + ord.orderId + '</b>' +
+        html += '<div style="border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; background: #fafcfb;">' +
+                  '<div style="display:flex; justify-content:space-between; font-weight:700;">' +
+                    '<span style="color:var(--primary);">' + ord.orderId + '</span>' +
                     '<small style="color:var(--muted);">' + new Date(ord.date).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) + '</small>' +
                   '</div>' +
-                  '<div style="font-size:12px; margin-bottom:4px;"><b>Customer:</b> ' + ord.customer + ' (' + ord.phone + ')</div>' +
-                  '<div style="font-size:12px; margin-bottom:4px; color:var(--muted);">' + ord.village + ', ' + ord.address + '</div>' +
-                  '<div style="background:#fff; border:1px solid #eee; padding:6px; border-radius:4px; margin:6px 0; font-size:11px;">' +
+                  '<div style="font-size:12px; margin-top:2px;">' + ord.customer + ' (' + ord.phone + ')</div>' +
+                  '<div style="font-size:12px; color:var(--muted);">' + ord.village + ', ' + ord.address + '</div>' +
+                  '<div style="background:#fff; border:1px solid #edf2ee; padding:6px 8px; border-radius:6px; margin:6px 0; font-size:11px;">' +
                     ord.items.map(function(i){ return i.name + ' × ' + i.qty + ' (₹' + (i.price*i.qty) + ')'; }).join('<br>') +
                   '</div>' +
-                  '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">' +
-                    '<span>Pay: <b>' + ord.payment + '</b></span>' +
-                    '<b style="color:var(--green-dark);">₹' + ord.total + '</b>' +
+                  '<div style="display:flex; justify-content:space-between; margin-bottom:8px;">' +
+                    '<span>Pay: ' + ord.payment + '</span><b>₹' + ord.total + '</b>' +
                   '</div>' +
                   '<div style="display:flex; gap:6px;">' +
                     '<select id="admSel_' + originalIdx + '" style="margin-bottom:0; padding:6px; font-size:12px; flex:1;">' +
@@ -1063,7 +1034,7 @@
                       '<option value="Out for Delivery" ' + (curStatus==='Out for Delivery'?'selected':'') + '>Out for Delivery</option>' +
                       '<option value="Delivered" ' + (curStatus==='Delivered'?'selected':'') + '>Delivered</option>' +
                     '</select>' +
-                    '<button onclick="admSaveStatus(' + originalIdx + ')" style="background:var(--green); color:white; border:none; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">Update</button>' +
+                    '<button onclick="admSaveStatus(' + originalIdx + ')" class="btn-primary" style="padding:6px 14px; border-radius:8px; border:none; cursor:pointer;">Update</button>' +
                   '</div>' +
                 '</div>';
       });
@@ -1080,157 +1051,125 @@
 
       orders[idx].status = sel.value;
       localStorage.setItem('fv_orders', JSON.stringify(orders));
-      alert("Order #" + orders[idx].orderId + " status updated to: " + sel.value);
+      alert("Order #" + orders[idx].orderId + " updated to: " + sel.value);
       loadAdminOrdersList();
     }
 
-    function setTopupAmount(amt) {
-      document.getElementById('topupAmt').value = amt;
-      genTopupQr();
+    // --- PROFILE & REWARDS ---
+    function openUserProfile() {
+      var u = localStorage.getItem('fv_user');
+      if (!u) { showPopup('loginPopup'); return; }
+      var userType = localStorage.getItem('fv_user_type') || 'guest';
+      document.getElementById('profUserTitle').innerText = u;
+      document.getElementById('profUserBadge').innerText = userType === 'phone' ? "Verified Mobile" : "Guest Account";
+
+      loadUserOrdersInProfile();
+      loadUserReferralInProfile();
+      switchProfileTab('orders');
+      showPopup('profilePopup');
     }
 
-    function genTopupQr() {
-      var amt = parseFloat(document.getElementById('topupAmt').value);
-      var qrArea = document.getElementById('topupQrArea');
-      if (amt && amt >= 10) {
-        qrArea.style.display = "block";
-        var upiUri = "upi://pay?pa=" + UPI_ID + "&pn=Fresh%20Veggie%20Wallet&am=" + amt + "&cu=INR";
-        document.getElementById('topupQrImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(upiUri);
-      } else {
-        qrArea.style.display = "none";
-      }
+    function switchProfileTab(tab) {
+      document.getElementById('profSectionOrders').style.display = (tab === 'orders') ? 'block' : 'none';
+      document.getElementById('profSectionReferral').style.display = (tab === 'referral') ? 'block' : 'none';
+      document.getElementById('tabProfOrders').classList.toggle('active', tab === 'orders');
+      document.getElementById('tabProfRef').classList.toggle('active', tab === 'referral');
     }
 
-    function confirmTopup() {
-      var amt = parseFloat(document.getElementById('topupAmt').value);
-      if (!amt || amt < 10) {
-        alert("Please enter a valid amount (minimum ₹10).");
-        return;
-      }
-      var cur = parseFloat(localStorage.getItem('fv_wallet') || 0);
-      var updated = cur + amt;
-      localStorage.setItem('fv_wallet', updated);
-      document.getElementById('walletBal').innerText = updated;
-      document.getElementById('chkWalletBal').innerText = updated;
-      alert("✅ ₹" + amt + " added to your Fresh Veggie wallet!");
-      document.getElementById('topupAmt').value = "";
-      document.getElementById('topupQrArea').style.display = "none";
-      hidePopup('walletPopup');
-    }
+    function loadUserOrdersInProfile() {
+      var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
+      var curUser = localStorage.getItem('fv_user');
+      var wrap = document.getElementById('profileOrdersList');
 
-    function toggleAuthView(type) {
-      if (type === 'login') {
-        document.getElementById('registerBox').style.display = 'none';
-        document.getElementById('loginFormBox').style.display = 'block';
-      } else {
-        document.getElementById('registerBox').style.display = 'block';
-        document.getElementById('loginFormBox').style.display = 'none';
-      }
-    }
-
-    function handleRegister() {
-      var phone = document.getElementById('regPhone').value.trim();
-      var pass = document.getElementById('regPass').value.trim();
-      var ref = document.getElementById('refInput').value.trim();
-
-      if (phone.length !== 10 || isNaN(phone)) {
-        alert("Please enter a valid 10-digit mobile number!");
-        return;
-      }
-      if (pass.length < 6) {
-        alert("Password must be at least 6 characters long.");
-        return;
-      }
-
-      var accounts = JSON.parse(localStorage.getItem('fv_accounts') || '{}');
-      if (accounts[phone]) {
-        alert("Account already exists with this mobile! Switching to Login.");
-        toggleAuthView('login');
-        return;
-      }
-
-      accounts[phone] = { pass: pass, referredBy: ref || null, orderCount: 0 };
-      localStorage.setItem('fv_accounts', JSON.stringify(accounts));
-      localStorage.setItem('fv_user', phone);
-      localStorage.setItem('fv_user_type', 'phone');
-
-      alert("🎉 Account created successfully!");
-      hidePopup('loginPopup');
-      window.location.reload();
-    }
-
-    function handleLogin() {
-      var phone = document.getElementById('logPhone').value.trim();
-      var pass = document.getElementById('logPass').value.trim();
-
-      var accounts = JSON.parse(localStorage.getItem('fv_accounts') || '{}');
-      if (accounts[phone] && accounts[phone].pass === pass) {
-        localStorage.setItem('fv_user', phone);
-        localStorage.setItem('fv_user_type', 'phone');
-        alert("✅ Logged in successfully!");
-        hidePopup('loginPopup');
-        window.location.reload();
-      } else {
-        alert("Invalid mobile number or password.");
-      }
-    }
-
-    function continueWithGmail() {
-      var email = prompt("Enter your Gmail address:");
-      if (!email || !email.includes("@gmail.com")) {
-        alert("Please enter a valid Gmail address.");
-        return;
-      }
-      localStorage.setItem('fv_user', email);
-      localStorage.setItem('fv_user_type', 'gmail');
-      alert("✅ Logged in via Gmail: " + email);
-      hidePopup('loginPopup');
-      window.location.reload();
-    }
-
-    function continueAsGuest() {
-      var guestId = "Guest_" + Math.floor(100 + Math.random() * 900);
-      localStorage.setItem('fv_user', guestId);
-      localStorage.setItem('fv_user_type', 'guest');
-      alert("⚡ Logged in as " + guestId);
-      hidePopup('loginPopup');
-      window.location.reload();
-    }
-
-    function doSearch() {
-      var q = document.getElementById('searchInput').value.toLowerCase().trim();
-      var cat = document.getElementById('catSelect').value;
-      var cards = document.querySelectorAll('.product-card');
-
-      cards.forEach(function(card) {
-        var name = (card.getAttribute('data-name') || '').toLowerCase();
-        var cardCat = card.getAttribute('data-cat') || '';
-        var matchesQuery = !q || name.includes(q);
-        var matchesCat = (cat === 'All') || (cardCat === cat);
-        card.style.display = (matchesQuery && matchesCat) ? 'flex' : 'none';
+      var myOrders = orders.filter(function(o) {
+        return o.phone === curUser || o.customer === curUser || (curUser && curUser.startsWith("Guest"));
       });
+
+      if (myOrders.length === 0) {
+        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:20px;'>No orders found.</p>";
+        return;
+      }
+
+      var html = "";
+      myOrders.slice().reverse().forEach(function(ord) {
+        var statusText = ord.status || "Placed";
+        var step = 1;
+        if (statusText === "Packed") step = 2;
+        if (statusText === "Out for Delivery") step = 3;
+        if (statusText === "Delivered") step = 4;
+
+        html += '<div style="border:1px solid var(--border); border-radius:12px; padding:12px; margin-bottom:10px; background:#fff;">' +
+                  '<div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700;">' +
+                    '<span>' + ord.orderId + '</span><span style="color:var(--muted);">' + new Date(ord.date).toLocaleDateString() + '</span>' +
+                  '</div>' +
+                  '<div style="font-size:12px; color:var(--muted); margin:4px 0;">' + ord.items.map(function(i){ return i.name + ' (x' + i.qty + ')'; }).join(', ') + '</div>' +
+                  '<div style="font-size:12px;"><b>₹' + ord.total + '</b> (' + ord.payment + ')</div>' +
+                  '<div class="track-step-wrap">' +
+                    '<div class="step-item ' + (step >= 1 ? 'active' : '') + '"><div class="step-dot">1</div><div class="step-title">Placed</div></div>' +
+                    '<div class="step-item ' + (step >= 2 ? 'active' : '') + '"><div class="step-dot">2</div><div class="step-title">Packed</div></div>' +
+                    '<div class="step-item ' + (step >= 3 ? 'active' : '') + '"><div class="step-dot">3</div><div class="step-title">Out</div></div>' +
+                    '<div class="step-item ' + (step >= 4 ? 'active' : '') + '"><div class="step-dot">4</div><div class="step-title">Delivered</div></div>' +
+                  '</div>' +
+                '</div>';
+      });
+
+      wrap.innerHTML = html;
     }
 
-    function addItem(id, name, price, unit, btn) {
-      var existing = cartItems.find(function(item) { return item.id === id; });
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        cartItems.push({ id: id, name: name, price: price, unit: unit, qty: 1 });
-      }
-      updateCartBadge();
+    function loadUserReferralInProfile() {
+      var curUser = localStorage.getItem('fv_user');
+      var allComm = JSON.parse(localStorage.getItem('fv_referral_history') || '[]');
+      var myComm = allComm.filter(function(c) { return c.referrer === curUser; });
 
-      var originalText = btn.innerText;
+      var totalEarned = myComm.reduce(function(sum, item) { return sum + item.bonus; }, 0);
+      var referredSet = new Set(myComm.map(function(item) { return item.referredUser; }));
+
+      document.getElementById('profTotalReferred').innerText = referredSet.size;
+      document.getElementById('profTotalComm').innerText = totalEarned;
+
+      var wrap = document.getElementById('profCommHistoryWrap');
+      if (myComm.length === 0) {
+        wrap.innerHTML = "<p style='text-align:center; color:var(--muted); padding:12px;'>Share your code to earn bonuses.</p>";
+        return;
+      }
+
+      var html = "";
+      myComm.slice().reverse().forEach(function(item) {
+        html += '<div style="background:#fff; border:1px solid var(--border); border-radius:8px; padding:8px; margin-bottom:6px;">' +
+                  '<div style="display:flex; justify-content:space-between; font-weight:700;">' +
+                    '<span style="color:var(--primary);">+ ₹' + item.bonus + '</span><small style="color:var(--muted);">' + new Date(item.date).toLocaleDateString() + '</small>' +
+                  '</div>' +
+                  '<div style="color:var(--muted); font-size:11px;">' + item.reason + '</div>' +
+                '</div>';
+      });
+      wrap.innerHTML = html;
+    }
+
+    function userLogout() {
+      if (!confirm("Log out now?")) return;
+      localStorage.removeItem('fv_user');
+      localStorage.removeItem('fv_user_type');
+      window.location.reload();
+    }
+
+    function viewPlacedOrderTrack() {
+      hidePopup('cartPopup');
+      openUserProfile();
+    }
+
+    // --- CART ACTIONS ---
+    function addItem(id, name, price, unit, btn) {
+      var existing = cartItems.find(function(it) { return it.id === id; });
+      if (existing) { existing.qty += 1; }
+      else { cartItems.push({ id: id, name: name, price: price, unit: unit, qty: 1 }); }
+
+      updateCartBadge();
       btn.innerText = "✓ Added";
-      btn.style.background = "#0f5c2a";
-      setTimeout(function() {
-        btn.innerText = originalText;
-        btn.style.background = "";
-      }, 700);
+      setTimeout(function() { btn.innerText = "Add to Cart"; }, 700);
     }
 
     function updateCartBadge() {
-      var count = cartItems.reduce(function(sum, item) { return sum + item.qty; }, 0);
+      var count = cartItems.reduce(function(s, i) { return s + i.qty; }, 0);
       document.getElementById('cartCount').innerText = count;
     }
 
@@ -1238,28 +1177,19 @@
       var item = cartItems.find(function(it) { return it.id === id; });
       if (!item) return;
       item.qty += delta;
-      if (item.qty <= 0) {
-        cartItems = cartItems.filter(function(it) { return it.id !== id; });
-      }
+      if (item.qty <= 0) { cartItems = cartItems.filter(function(it) { return it.id !== id; }); }
       updateCartBadge();
       renderCartUI();
     }
 
     function calculateTotals() {
-      var subtotal = cartItems.reduce(function(sum, item) { return sum + (item.price * item.qty); }, 0);
-      var deliveryFee = 0;
-      if (subtotal > 0 && subtotal < 300) {
-        deliveryFee = 21;
-      }
-      var total = subtotal + deliveryFee;
-      return { subtotal: subtotal, deliveryFee: deliveryFee, total: total };
+      var subtotal = cartItems.reduce(function(s, i) { return s + (i.price * i.qty); }, 0);
+      var fee = (subtotal > 0 && subtotal < 300) ? 21 : 0;
+      return { subtotal: subtotal, fee: fee, total: subtotal + fee };
     }
 
     function showCartPopup() {
-      if (cartItems.length === 0) {
-        alert("Your cart is empty! Add items first.");
-        return;
-      }
+      if (cartItems.length === 0) { alert("Cart is empty."); return; }
       renderCartUI();
       document.getElementById('checkoutFormWrapper').style.display = "block";
       document.getElementById('orderSuccessSection').style.display = "none";
@@ -1268,20 +1198,14 @@
 
     function renderCartUI() {
       var list = document.getElementById('cartItemList');
-      if (cartItems.length === 0) {
-        list.innerHTML = "<p style='text-align:center; color:var(--muted); padding:10px;'>Cart is empty.</p>";
-        hidePopup('cartPopup');
-        return;
-      }
-
-      var html = '<div style="max-height: 140px; overflow-y: auto; border-bottom: 1px solid var(--line); margin-bottom: 8px;">';
+      var html = '<div style="max-height: 140px; overflow-y: auto; margin-bottom: 8px;">';
       cartItems.forEach(function(item) {
-        html += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 0;">' +
+        html += '<div style="display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:1px solid #f0f4f1;">' +
                   '<div><b>' + item.name + '</b><br><small style="color:var(--muted)">₹' + item.price + '/' + item.unit + '</small></div>' +
-                  '<div style="display:flex; align-items:center; gap: 6px;">' +
-                    '<button onclick="changeQty(' + item.id + ', -1)" style="padding:2px 8px; border:1px solid #ccc; background:#fff; border-radius:4px; cursor:pointer;">-</button>' +
+                  '<div style="display:flex; align-items:center; gap:6px;">' +
+                    '<button onclick="changeQty(' + item.id + ', -1)" style="width:24px; height:24px; border:1px solid #ddd; background:#fff; border-radius:4px;">-</button>' +
                     '<span>' + item.qty + '</span>' +
-                    '<button onclick="changeQty(' + item.id + ', 1)" style="padding:2px 8px; border:1px solid #ccc; background:#fff; border-radius:4px; cursor:pointer;">+</button>' +
+                    '<button onclick="changeQty(' + item.id + ', 1)" style="width:24px; height:24px; border:1px solid #ddd; background:#fff; border-radius:4px;">+</button>' +
                     '<span style="font-weight:700; width:45px; text-align:right;">₹' + (item.price * item.qty) + '</span>' +
                   '</div>' +
                 '</div>';
@@ -1291,33 +1215,27 @@
 
       var totals = calculateTotals();
       document.getElementById('subTotalVal').innerText = totals.subtotal;
-      document.getElementById('feeVal').innerText = totals.deliveryFee === 0 ? "FREE" : "₹" + totals.deliveryFee;
+      document.getElementById('feeVal').innerText = totals.fee === 0 ? "FREE" : "₹" + totals.fee;
       document.getElementById('finalTotalVal').innerText = totals.total;
-
       updatePayView();
     }
 
     function updatePayView() {
       var payType = document.querySelector('input[name="payType"]:checked').value;
-      var qrBox = document.getElementById('qrBox');
       var totals = calculateTotals();
-
       if (payType === 'UPI') {
-        qrBox.style.display = 'block';
+        document.getElementById('qrBox').style.display = 'block';
         document.getElementById('qrTotal').innerText = totals.total;
         var upiUri = "upi://pay?pa=" + UPI_ID + "&pn=Fresh%20Veggie&am=" + totals.total + "&cu=INR";
-        document.getElementById('qrImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=" + encodeURIComponent(upiUri);
+        document.getElementById('qrImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=" + encodeURIComponent(upiUri);
       } else {
-        qrBox.style.display = 'none';
+        document.getElementById('qrBox').style.display = 'none';
       }
     }
 
     function placeOnlineOrder() {
       var totals = calculateTotals();
-      if (totals.subtotal < 100) {
-        alert("Minimum order value is ₹100 for Gossaigaon area!");
-        return;
-      }
+      if (totals.subtotal < 100) { alert("Minimum order is ₹100."); return; }
 
       var name = document.getElementById('cName').value.trim();
       var phone = document.getElementById('cPhone').value.trim();
@@ -1326,25 +1244,20 @@
       var payType = document.querySelector('input[name="payType"]:checked').value;
 
       if (!name || phone.length !== 10 || !village || !address) {
-        alert("Please enter Name, valid 10-digit Phone, Village, and Landmark Address.");
+        alert("Please complete all delivery fields.");
         return;
       }
 
       if (payType === 'WALLET') {
         var wBal = parseFloat(localStorage.getItem('fv_wallet') || 0);
-        if (wBal < totals.total) {
-          alert("Insufficient wallet balance (₹" + wBal + ")! Please choose UPI QR / COD or add money to your wallet.");
-          return;
-        }
+        if (wBal < totals.total) { alert("Insufficient wallet balance."); return; }
         localStorage.setItem('fv_wallet', wBal - totals.total);
         document.getElementById('walletBal').innerText = wBal - totals.total;
-        document.getElementById('chkWalletBal').innerText = wBal - totals.total;
       }
 
       var orderId = "FV-" + Math.floor(10000 + Math.random() * 90000);
-
       var orders = JSON.parse(localStorage.getItem('fv_orders') || '[]');
-      var newOrder = {
+      orders.push({
         orderId: orderId,
         customer: name,
         phone: phone,
@@ -1355,55 +1268,28 @@
         payment: payType,
         status: "Placed",
         date: new Date().toISOString()
-      };
-      orders.push(newOrder);
+      });
       localStorage.setItem('fv_orders', JSON.stringify(orders));
 
+      // Referrals trigger
       var u = localStorage.getItem('fv_user');
-      var userType = localStorage.getItem('fv_user_type');
-
-      if (userType === 'phone' && u) {
+      if (u) {
         var accounts = JSON.parse(localStorage.getItem('fv_accounts') || '{}');
         if (accounts[u]) {
           accounts[u].orderCount = (accounts[u].orderCount || 0) + 1;
           var refCodeUsed = accounts[u].referredBy;
-
           if (refCodeUsed) {
             var codeMap = JSON.parse(localStorage.getItem('fv_ref_codes') || '{}');
             var referrerPhone = codeMap[refCodeUsed];
-
             if (referrerPhone && referrerPhone !== u) {
               var commHistory = JSON.parse(localStorage.getItem('fv_referral_history') || '[]');
-              var bonusEarned = 0;
-
-              if (accounts[u].orderCount === 1) {
-                bonusEarned += 5;
-                commHistory.push({
-                  referrer: referrerPhone,
-                  referredUser: u,
-                  bonus: 5,
-                  reason: "1st Order Reward",
-                  date: new Date().toISOString()
-                });
-              }
-
-              var milestoneBonus = Math.floor(totals.total / 1000) * 5;
-              if (milestoneBonus > 0) {
-                bonusEarned += milestoneBonus;
-                commHistory.push({
-                  referrer: referrerPhone,
-                  referredUser: u,
-                  bonus: milestoneBonus,
-                  reason: "₹" + totals.total + " Value Milestone Bonus",
-                  date: new Date().toISOString()
-                });
-              }
-
+              var bonusEarned = (accounts[u].orderCount === 1 ? 5 : 0) + (Math.floor(totals.total / 1000) * 5);
               if (bonusEarned > 0) {
+                commHistory.push({ referrer: referrerPhone, referredUser: u, bonus: bonusEarned, reason: "Order Bonus", date: new Date().toISOString() });
                 localStorage.setItem('fv_referral_history', JSON.stringify(commHistory));
-                var currentWallet = parseInt(localStorage.getItem('fv_wallet') || 0);
-                localStorage.setItem('fv_wallet', currentWallet + bonusEarned);
-                document.getElementById('walletBal').innerText = currentWallet + bonusEarned;
+                var curW = parseInt(localStorage.getItem('fv_wallet') || 0);
+                localStorage.setItem('fv_wallet', curW + bonusEarned);
+                document.getElementById('walletBal').innerText = curW + bonusEarned;
               }
             }
           }
@@ -1414,8 +1300,8 @@
       document.getElementById('displayOrderId').innerText = orderId;
       document.getElementById('displayOrderCustomer').innerText = name + " (" + phone + ")";
       document.getElementById('displayOrderArea').innerText = village + ", " + address;
-      document.getElementById('displayOrderPay').innerText = payType === "COD" ? "Cash on Delivery" : (payType === "WALLET" ? "Paid via Wallet" : "UPI QR (Paid/Scan)");
       document.getElementById('displayOrderAmount').innerText = totals.total;
+      document.getElementById('displayOrderPay').innerText = payType;
 
       document.getElementById('checkoutFormWrapper').style.display = "none";
       document.getElementById('orderSuccessSection').style.display = "block";
@@ -1427,17 +1313,92 @@
       hidePopup('cartPopup');
     }
 
-    function copyCode() {
-      var code = document.getElementById('myRefCode');
-      if (code.value === "Phone Login Required") {
-        alert("Please register/login using a mobile number and password to get a referral code.");
-        return;
+    function setTopupAmount(amt) {
+      document.getElementById('topupAmt').value = amt;
+      genTopupQr();
+    }
+
+    function genTopupQr() {
+      var amt = parseFloat(document.getElementById('topupAmt').value);
+      if (amt && amt >= 10) {
+        document.getElementById('topupQrArea').style.display = "block";
+        var upiUri = "upi://pay?pa=" + UPI_ID + "&pn=Fresh%20Veggie%20Wallet&am=" + amt + "&cu=INR";
+        document.getElementById('topupQrImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=" + encodeURIComponent(upiUri);
+      } else {
+        document.getElementById('topupQrArea').style.display = "none";
       }
-      code.select();
-      code.setSelectionRange(0, 99999);
-      navigator.clipboard.writeText(code.value);
-      alert("Referral code copied: " + code.value);
+    }
+
+    function confirmTopup() {
+      var amt = parseFloat(document.getElementById('topupAmt').value);
+      if (!amt || amt < 10) { alert("Enter valid amount (min ₹10)."); return; }
+      var cur = parseFloat(localStorage.getItem('fv_wallet') || 0);
+      localStorage.setItem('fv_wallet', cur + amt);
+      document.getElementById('walletBal').innerText = cur + amt;
+      alert("✓ ₹" + amt + " credited to wallet.");
+      hidePopup('walletPopup');
+    }
+
+    function toggleAuthView(view) {
+      document.getElementById('registerBox').style.display = (view === 'login') ? 'none' : 'block';
+      document.getElementById('loginFormBox').style.display = (view === 'login') ? 'block' : 'none';
+    }
+
+    function handleRegister() {
+      var p = document.getElementById('regPhone').value.trim();
+      var pass = document.getElementById('regPass').value.trim();
+      var ref = document.getElementById('refInput').value.trim();
+
+      if (p.length !== 10) { alert("10-digit number required."); return; }
+      if (pass.length < 6) { alert("Password min 6 chars."); return; }
+
+      var accs = JSON.parse(localStorage.getItem('fv_accounts') || '{}');
+      if (accs[p]) { alert("Account already exists."); return; }
+
+      accs[p] = { pass: pass, referredBy: ref || null, orderCount: 0 };
+      localStorage.setItem('fv_accounts', JSON.stringify(accs));
+      localStorage.setItem('fv_user', p);
+      localStorage.setItem('fv_user_type', 'phone');
+      window.location.reload();
+    }
+
+    function handleLogin() {
+      var p = document.getElementById('logPhone').value.trim();
+      var pass = document.getElementById('logPass').value.trim();
+      var accs = JSON.parse(localStorage.getItem('fv_accounts') || '{}');
+
+      if (accs[p] && accs[p].pass === pass) {
+        localStorage.setItem('fv_user', p);
+        localStorage.setItem('fv_user_type', 'phone');
+        window.location.reload();
+      } else {
+        alert("Invalid phone or password.");
+      }
+    }
+
+    function continueWithGmail() {
+      var email = prompt("Enter your Gmail address:");
+      if (!email || !email.includes("@")) return;
+      localStorage.setItem('fv_user', email);
+      localStorage.setItem('fv_user_type', 'gmail');
+      window.location.reload();
+    }
+
+    function continueAsGuest() {
+      var gid = "Guest_" + Math.floor(100 + Math.random() * 900);
+      localStorage.setItem('fv_user', gid);
+      localStorage.setItem('fv_user_type', 'guest');
+      window.location.reload();
+    }
+
+    function copyCode() {
+      var el = document.getElementById('myRefCode');
+      el.select();
+      navigator.clipboard.writeText(el.value);
+      alert("Code copied!");
     }
   </script>
 </body>
 </html>
+                                                                                                             </div>
+                                                                                                             
